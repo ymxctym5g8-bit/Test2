@@ -332,7 +332,10 @@ backtest <- function(P, spec) {
                                             actual = actual, expected = expected, AvE = ave,
                                             CDR = cdr, dR = cdr - ave)
   }
-  res <- list(spec = spec, records = do.call(rbind, recs), final = proj[[as.character(P$K)]])
+  ults <- do.call(cbind, lapply(proj, `[[`, "ultimate"))   # Endschaeden je Anfallperiode x Stichtag
+  colnames(ults) <- as.character(cals)
+  res <- list(spec = spec, records = do.call(rbind, recs), final = proj[[as.character(P$K)]],
+              ults = ults)
   P$bt_cache[[key]] <- res
   res
 }
@@ -674,4 +677,172 @@ holdout_metric_selection <- function(P, specs, alphas = c(0, 0.25, 0.5, 0.75, 1)
                holdout_bias = sum(w * errs) / sum(w), stringsAsFactors = FALSE)
   })
   do.call(rbind, out)
+}
+
+
+# =============================================================================
+# 7. Benchmark gegen eine manuelle Reservierung
+# =============================================================================
+#
+# Fairer Vergleich: Die App darf ihr Modell zu jedem Stichtag k nur mit den Backtest-
+# Ergebnissen waehlen, die zu k bekannt waren (rollierende Modellwahl). Die manuelle
+# Reservierung wird mit denselben Kennzahlen (AvE, CDR, CDR-alpha, Gl. 2) bewertet.
+
+#' Score und Bias je Kalenderperiode (Gl. 2) fuer einen Satz Backtest-Datensaetze
+period_scores <- function(rec, alpha = 1) {
+  if (is.null(rec) || !nrow(rec)) return(data.frame(calendar = integer(0), score = numeric(0),
+                                                     bias = numeric(0), runoff = numeric(0)))
+  e <- rec$AvE + alpha * rec$dR
+  w <- abs(rec$actual)
+  g <- rec$calendar
+  sw <- rowsum(w, g)[, 1]
+  se2 <- rowsum(w * e^2, g)[, 1]
+  sb <- rowsum(w * e, g)[, 1]
+  ro <- rowsum(rec$CDR, g)[, 1]                    # Summe CDR = Abwicklungsergebnis der Periode
+  data.frame(calendar = as.integer(names(sw)),
+             score = ifelse(sw > 0, sqrt(se2 / sw), NA_real_),
+             bias = ifelse(sw > 0, sb / sw, NA_real_), runoff = unname(ro))
+}
+
+#' Rollierende Modellwahl ("wie es damals gewesen waere")
+#'
+#' Zu jedem Stichtag k (ab k_train + min_periods) wird das Modell gewaehlt, das auf den bis k
+#' bekannten Backtest-Perioden den kleinsten Score hat. Dessen Prognose fuer k+1 wird bewertet.
+#' Der CDR vergleicht die tatsaechlich "gebuchten" Endschaeden: Modell M_k zum Stichtag k gegen
+#' Modell M_{k+1} zum Stichtag k+1 (Modellwechsel wirken also wie in der Praxis auf den CDR).
+rolling_selection <- function(P, specs, alpha = 1, bias_penalty = 0, min_periods = 3) {
+  bts <- lapply(specs, function(s) backtest(P, s))
+  cals <- (P$k_train + 1):P$K                       # bewertete Diagonalen
+  S <- B <- matrix(NA_real_, length(specs), length(cals))
+  for (m in seq_along(bts)) {
+    ps <- period_scores(bts[[m]]$records, alpha)
+    idx <- match(ps$calendar, cals)
+    S[m, idx] <- ps$score; B[m, idx] <- ps$bias
+  }
+  first_k <- P$k_train + min_periods
+  if (first_k > P$K - 1) stop("Zu wenige Backtest-Perioden fuer die rollierende Auswahl.")
+  sel <- integer(0)
+  for (k in first_k:P$K) {
+    use <- cals <= k
+    crit <- rowMeans(S[, use, drop = FALSE], na.rm = TRUE)
+    if (bias_penalty != 0) crit <- crit + bias_penalty * abs(rowMeans(B[, use, drop = FALSE], na.rm = TRUE))
+    sel[as.character(k)] <- which.min(crit)
+  }
+  recs <- list()
+  for (k in first_k:(P$K - 1)) {
+    m0 <- sel[[as.character(k)]]; m1 <- sel[[as.character(k + 1)]]
+    r <- bts[[m0]]$records
+    r <- r[r$calendar == k + 1, ]
+    i <- r$origin + 1
+    u0 <- bts[[m0]]$ults[i, as.character(k)]
+    u1 <- bts[[m1]]$ults[i, as.character(k + 1)]
+    r$CDR <- u1 - u0
+    r$dR <- r$CDR - r$AvE
+    r$model <- spec_label(specs[[m0]])
+    recs[[length(recs) + 1]] <- r
+  }
+  choices <- data.frame(stichtag = as.integer(names(sel)), index = unname(sel),
+                        model = vapply(sel, function(m) spec_label(specs[[m]]), ""),
+                        method = vapply(sel, function(m) specs[[m]]$method, ""), stringsAsFactors = FALSE)
+  final <- bts[[sel[[as.character(P$K)]]]]$final
+  list(records = do.call(rbind, recs), choices = choices, final = final, first_k = first_k)
+}
+
+#' Manuelle Reservierungshistorie einlesen (Langformat)
+#'
+#' Spalten: Stichtag, Anfalljahr (bzw. Anfallperiode), Endschaden, optional Erwartet
+#' (erwarteter Zuwachs der Folgeperiode, wie damals prognostiziert).
+#' Stichtag = Kalenderperiode mit derselben Bezeichnung wie die Anfallperioden (z. B. "1990" =
+#' Jahresende 1990) ODER eine Spalte "Diagonale" mit dem 0-basierten Kalenderindex.
+#' Rueckgabe: data.frame(k, i, ult, expected) mit k = Kalenderindex, i = Zeilenindex (1-basiert)
+normalize_manual <- function(df, origins) {
+  nm <- tolower(gsub("[^a-z]", "", tolower(iconv(names(df), to = "ASCII//TRANSLIT"))))
+  col <- function(pats) { h <- which(nm %in% pats); if (length(h)) h[1] else NA }
+  c_st <- col(c("stichtag", "bewertungsstichtag", "valuation", "kalenderperiode", "jahresende"))
+  c_dg <- col(c("diagonale", "kalenderindex"))
+  c_ay <- col(c("anfalljahr", "anfallperiode", "anfallquartal", "origin", "aj"))
+  c_ul <- col(c("endschaden", "ultimate", "endschadenmanuell", "ultimatemanuell"))
+  c_ex <- col(c("erwartet", "erwarteterzuwachs", "expected", "erwartung"))
+  if (is.na(c_ay) || is.na(c_ul) || (is.na(c_st) && is.na(c_dg)))
+    stop("Benoetigte Spalten: Stichtag (oder Diagonale), Anfalljahr, Endschaden [, Erwartet].")
+  i <- match(trimws(as.character(df[[c_ay]])), origins)
+  k <- if (!is.na(c_dg)) as.integer(df[[c_dg]]) else match(trimws(as.character(df[[c_st]])), origins) - 1L
+  out <- data.frame(k = k, i = i, ult = as.numeric(df[[c_ul]]),
+                    expected = if (!is.na(c_ex)) as.numeric(df[[c_ex]]) else NA_real_)
+  bad <- is.na(out$k) | is.na(out$i) | is.na(out$ult)
+  attr_out <- out[!bad, ]
+  attr(attr_out, "n_dropped") <- sum(bad)
+  attr_out
+}
+
+#' Backtest-Datensaetze der manuellen Reservierung (gleiches Format wie backtest()$records)
+#'
+#' AvE: Ist-Zuwachs minus erwarteter Zuwachs. Fehlt "Erwartet", wird die Erwartung aus dem
+#' Abwicklungsmuster zum Stichtag abgeleitet: offene Reserve x Anteil der naechsten Periode
+#' (Chain-Ladder-Muster ueber alle Faktoren) -- d. h. die manuelle Reserve wird entlang des
+#' Standardmusters "abgebaut".
+manual_records <- function(P, man) {
+  n_orig <- nrow(P$full); n_dev <- ncol(P$full)
+  ks <- sort(unique(man$k))
+  recs <- list()
+  for (k in ks) {
+    if (!((k + 1) %in% ks) || k + 1 > P$K) next
+    beta <- pattern_from_ldfs(estimate_ldfs(tri_at(P, k)))
+    m0 <- man[man$k == k, ]; m1 <- man[man$k == k + 1, ]
+    for (r in seq_len(nrow(m0))) {
+      i <- m0$i[r]; j0 <- k + 1 - (i - 1)          # 0-basierte Entwicklung der neuen Zelle
+      if (i - 1 > k || j0 < 1 || j0 >= n_dev) next
+      u1 <- m1$ult[m1$i == i]
+      if (!length(u1)) next
+      prev <- P$full[i, j0]                        # Stand zum Stichtag k
+      actual <- P$full[i, j0 + 1] - prev
+      if (is.na(actual) || is.na(prev)) next
+      exp_inc <- m0$expected[r]
+      if (is.na(exp_inc)) {
+        b0 <- beta[j0]; b1 <- beta[j0 + 1]
+        exp_inc <- if (abs(1 - b0) > 1e-12) (m0$ult[r] - prev) * (b1 - b0) / (1 - b0) else 0
+      }
+      ave <- actual - exp_inc
+      cdr <- u1[1] - m0$ult[r]
+      recs[[length(recs) + 1]] <- data.frame(calendar = k + 1, origin = i - 1, dev = j0,
+                                             actual = actual, expected = exp_inc, AvE = ave,
+                                             CDR = cdr, dR = cdr - ave)
+    }
+  }
+  if (!length(recs)) stop("Keine auswertbaren Perioden: Es werden mindestens zwei aufeinanderfolgende Stichtage benoetigt.")
+  do.call(rbind, recs)
+}
+
+#' Simulierte manuelle Reservierung (nur zur Demonstration!)
+#' Regel: Chain Ladder mit den juengsten `n_cl` Faktoren; fuer die `n_bf` juengsten Anfalljahre
+#' Bornhuetter-Ferguson mit einer vorsichtigen Plan-Schadenquote `plan_lr`.
+simulate_manual <- function(P, stichtage, n_cl = 5, n_bf = 3, plan_lr = 0.63) {
+  out <- list()
+  for (k in stichtage) {
+    tri <- tri_at(P, k)
+    f <- estimate_ldfs(tri, n_periods = n_cl)
+    beta <- pattern_from_ldfs(f)
+    ld <- latest_diagonal(tri)
+    for (i in which(ld$j > 0)) {
+      b0 <- beta[ld$j[i]]; b1 <- if (ld$j[i] < length(beta)) beta[ld$j[i] + 1] else 1
+      young <- (k - (i - 1)) < n_bf && !is.null(P$premium)
+      U <- if (young) plan_lr * P$premium[i] else ld$value[i] / b0
+      ult <- ld$value[i] + (1 - b0) * U
+      out[[length(out) + 1]] <- data.frame(Stichtag = P$origins[k + 1], Anfalljahr = P$origins[i],
+        Endschaden = round(ult, 1), Erwartet = round((b1 - b0) * U, 1))
+    }
+  }
+  do.call(rbind, out)
+}
+
+#' Vergleichsstatistik Periode fuer Periode (Vorzeichentest und gepaarter t-Test)
+compare_periods <- function(ps_a, ps_b) {
+  m <- merge(ps_a[, c("calendar", "score")], ps_b[, c("calendar", "score")], by = "calendar",
+             suffixes = c("_a", "_b"))
+  d <- m$score_b - m$score_a                       # > 0: a (Tool) besser
+  wins <- sum(d > 0); n <- sum(d != 0)
+  list(periods = nrow(m), wins_a = wins, wins_b = n - wins,
+       p_sign = if (n > 0) binom.test(wins, n)$p.value else NA,
+       p_t = if (nrow(m) > 2 && sd(d) > 0) t.test(d)$p.value else NA,
+       mean_diff = mean(d), table = m)
 }
