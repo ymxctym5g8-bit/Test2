@@ -56,4 +56,10 @@ tq <- prepare_triangle(make_triangle(m, qs, 1:8), "auto", to_years = TRUE)$tri
 check("Quartale -> Jahre", tq$period == "year" &&
         identical(unname(tq$cum), matrix(c(10, 10, 26, NA), 2)))
 
+# --- Beispieldatei Quartale (beispiel_quartale.csv) --------------------------
+dq <- demo_quarterly(); dy <- demo_quarterly(to_years = TRUE)
+check("Demo Quartale 16x16, verdichtet 4x4",
+      dq$tri$I == 16 && dq$tri$J == 16 && dy$tri$I == 4 && dy$tri$J == 4)
+check("Quartalspraemien zu Jahren summiert", abs(sum(dq$premiums) - sum(dy$premiums)) < 1e-6)
+
 cat(sprintf("\nAlle %d Tests bestanden.\n", n_ok))
