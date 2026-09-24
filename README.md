@@ -1,71 +1,82 @@
-# Shiny-App: IBNR-Modellwahl per Backtest
+# Loss Reserving – R-Version
 
-Interaktive Oberfläche für den Ansatz von Balona & Richman (2020) inklusive aller Erweiterungen. Die Rechenlogik ist dieselbe wie in `R/ibnr_ml.R`; der Ordner enthält eine Kopie davon und ist damit eigenständig lauffähig bzw. deploybar (shinyapps.io, Posit Connect, Shiny Server).
-
-## Start
-
-```r
-install.packages(c("shiny", "bslib", "DT"))   # einmalig
-shiny::runApp("R/shiny_app")                  # oder app.R in RStudio öffnen -> "Run App"
-```
-
-Voraussetzungen: R ≥ 4.2 (UTF-8), shiny ≥ 1.7, bslib ≥ 0.6, DT. Beim Start wird automatisch das Swiss-Dreieck mit dem Suchraum des Papers gerechnet (1.720 Modelle, ca. 20 Sekunden).
-
-## Bedienung
-
-**Seitenleiste**
-- **Daten:** Beispieldreiecke aus dem Paper oder eigene CSV-Datei. Mit dem Schieberegler legen Sie die erste Fit-Diagonale und den Bewertungsstichtag fest.
-- **Suchraum:** Verfahren (CL / BF / GCC), Bereich für `n_periods`, Ausschluss höchster/niedrigster Faktoren, Bandbreite und Schrittweite der A-priori-Quoten und des Decays, erweiterte LDF-Optionen. Unten steht die Anzahl der Modelle und die geschätzte Laufzeit.
-- **Bewertung:** Score (AvE, CDR oder CDR-α), Bias-Strafterm λ, Erwartungskonvention und Vergleichs-Basismodell. Diese Einstellungen wirken **sofort** ohne neue Suche, weil alle Backtests zwischengespeichert sind.
-- **Suche starten:** rechnet alle Backtests neu (nötig nach Änderungen an Daten, Suchraum oder Erwartungskonvention).
-
-**Tabs**
-
-| Tab | Inhalt |
+| Datei | Inhalt |
 |---|---|
-| Übersicht | Gewähltes Modell, IBNR, Out-of-Sample-RMSE und Rang, Mack-CoV; Vergleich Basismodell / min. AvE / min. CDR / gewählt; IBNR und Prognosefehler je Anfallperiode (CSV-Download) |
-| Modelldetails | Einstellungen des gewählten bzw. inspizierten Modells im Klartext (Verfahren, Zeitfenster, Ausschlüsse mit Anzahl, Mittelung, Gewichtung, A-priori-Quote/Decay) und seine Bewertung. Dazu das Dreieck der individuellen Abwicklungsfaktoren: verwendet, außerhalb des Zeitfensters, als Höchst- oder Tiefstwert ausgeschlossen. Blass markiert sind Ausschlüsse, die ohnehin außerhalb des Fensters lagen. Darunter stehen die resultierenden LDFs im Vergleich zum Standard-Chain-Ladder |
-| Dreieck | Dreieck farblich nach Ausgangsdreieck / Trainingsdiagonalen / Zukunft (wie Abb. 1 im Paper), Abwicklungsmuster und Schadenquoten des Modells |
-| Modellraum | Alle Modelle mit Scores (sortier- und durchsuchbar, CSV-Download). **Klick auf eine Zeile** inspiziert das Modell in allen anderen Tabs. Grafiken: bester Score je `n_periods`; Trainings-Score gegen Out-of-Sample-RMSE samt Rangkorrelation |
-| Backtest | Score je Kalenderperiode, Summe AvE/CDR je Periode (systematische Verzerrung) und alle Backtest-Datensätze des gewählten bzw. inspizierten Modells |
-| Erweiterungen | B1 CDR-α-Sweep, B6 Mack-CoV-Faustregel, B7 Holdout-Wahl von α (mit „übernehmen“), B5 Zwei-Stufen-Suche, B8 Bayes'sche Optimierung (TPE) mit optional anfalljahresabhängigen Schadenquoten |
-| Benchmark | Vergleich mit der manuellen Reservierung: Die Historie der gebuchten Endschäden (CSV: Stichtag; Anfalljahr; Endschaden; optional Erwartet) wird mit denselben Kennzahlen bewertet wie die App. Die App wählt dabei **rollierend**, nur mit dem Wissen des jeweiligen Stichtags. Gezeigt werden Scores, gewonnene Perioden mit Vorzeichen- und t-Test, Abwicklungsergebnis, Bias und bei bekannter Zukunft der RMSE. Zum Ausprobieren gibt es eine Vorlage und simulierte Demo-Daten |
-| Methode | Kurzbeschreibung des Verfahrens |
+| `loss_reserving.R` | Rechenlogik (Chain Ladder, Mack, ELR, Bornhuetter-Ferguson, Cape Cod, Additiv, ODP-Bootstrap) – auch als Kommandozeilen-Skript nutzbar |
+| `app.R` | R-Shiny-App |
+| `install_packages.R` | installiert die benötigten Pakete |
+| `beispiel_jahre.xlsx` | Beispiel und Vorlage: RAA-Dreieck, fiktive Beiträge, fiktive manuelle Reserve |
+| `beispiel_quartale.xlsx` | fiktives Quartalsdreieck 2021Q1–2024Q4 mit Quartalsbeiträgen |
+| `Loss_Reserving_Benutzerhandbuch_R.docx` | ausführliches Handbuch |
 
-## CSV-Format für eigene Daten
+## Installation (einmalig, in R)
 
-```
-AJ;12;24;36;...;Praemie
-1979;3670;5817;6462;...;17684
-1980;4827;7600;8274;...;18762
-...
-```
+    source("install_packages.R")
 
-- Erste Spalte: Anfallperiode (beliebige Bezeichnung). Weitere Spalten: Entwicklungsperioden, **kumuliert** (oder inkrementell mit der Checkbox „Werte sind inkrementell“). Leere Zellen = noch nicht beobachtet.
-- Optional eine Spalte `Praemie` / `Prämie` / `Premium` / `EP`. Ohne Prämie ist nur Chain Ladder verfügbar.
-- Trennzeichen (`;`, `,`, Tab) und Dezimalzeichen (`,` oder `.`) sind wählbar; Tausenderpunkte werden bei Dezimalkomma entfernt.
-- **Normalfall Dreieck:** Die Modelle werden bewertet und ausgewählt, und die App liefert das IBNR.
-- **Vollständiges Rechteck** (auch die Zukunft ist bekannt, z. B. historische Daten): Zusätzlich misst die App den Out-of-Sample-RMSE der Endschäden gegenüber der letzten Spalte, wie in den Fallstudien des Papers. Die letzte Spalte gilt dabei als endabgewickelt.
-- Über den Link „Beispieldatei“ in der Seitenleiste bekommen Sie das Swiss-Dreieck im passenden Format.
+Benötigt R ≥ 4.1 und die Pakete shiny, bslib, plotly, readxl, openxlsx.
 
-## Hinweise
+## Starten
 
-- Die Voreinstellungen reproduzieren die Ergebnisse des Papers; beim Swiss-Dreieck wählt die App zum Beispiel BF(n=11, drop_high, 59 %) mit RMSE 527,9 und IBNR 31.647.
-- Die Laufzeit wächst linear mit der Modellzahl (etwa 10 ms pro Modell und 13 Bewertungsperioden). Bei sehr großen Suchräumen ist die Zwei-Stufen-Suche oder die Bayes'sche Optimierung sinnvoller als das volle Grid.
+**Shiny-App** – in RStudio `app.R` öffnen und auf „Run App“ klicken, oder in R:
 
-## Benchmark-Datei (manuelle Reservierung)
+    shiny::runApp("pfad/zum/ordner")
 
-```
-Stichtag;Anfalljahr;Endschaden;Erwartet
-1984;1979;7002;0
-1984;1980;9362,5;303,5
-...
-1997;1997;32036,6;8963,2
-```
+**Kommandozeile:**
 
-- **Stichtag:** die Kalenderperiode der Reservierung, mit derselben Bezeichnung wie die Anfallperioden (1990 = Jahresende 1990). Alternativ eine Spalte `Diagonale` mit dem Kalenderindex.
-- **Endschaden:** der damals geschätzte Endschaden je Anfalljahr.
-- **Erwartet** (optional): der damals erwartete Zuwachs der Folgeperiode. Fehlt die Spalte, leitet die App die Erwartung aus dem Chain-Ladder-Muster zum Stichtag ab.
-- Nötig sind mindestens zwei aufeinanderfolgende Stichtage, sinnvoll ab etwa acht.
-- Die Beispielwerte stammen aus der Datei `vorlage_manuelle_reservierung_DEMO.csv` (simuliert, keine echte Reservierung).
-- Funktionen im Rechenkern: `normalize_manual()`, `manual_records()`, `rolling_selection()`, `compare_periods()`, `simulate_manual()` (nur Demo).
+    Rscript loss_reserving.R                                   # Demo mit RAA-Dreieck
+    Rscript loss_reserving.R --excel daten.xlsx --elr 0.65
+    Rscript loss_reserving.R --excel quartale.xlsx --to-years
+
+**Als Bibliothek in eigenen Skripten:**
+
+    source("loss_reserving.R")
+    d <- read_excel_input("daten.xlsx")
+    r <- compute_all(d$tri, premiums = d$premiums, elr = 0.65, benchmark = d$benchmark)
+    r$comp        # Vergleich aller Verfahren
+    r$res_df      # Reserven je Anfallperiode
+    r$bench       # Einordnung der manuellen Reserve (falls vorhanden)
+    write_excel(r, "ergebnisse.xlsx")
+
+## Daten: eine Excel-Datei mit drei Blättern
+
+| Blatt | Inhalt | Pflicht |
+|---|---|---|
+| 1 – Schäden | Dreieck: erste Spalte Anfallperiode, weitere Spalten Abwicklungsperioden (1, 2, 3, …), zukünftige Zellen leer | ja |
+| 2 – Beiträge | Anfallperiode, Prämie | nein (sonst keine prämienbasierten Verfahren) |
+| 3 – Manuelle Reserve | Anfallperiode, eigene Reserve | nein (sonst kein Benchmark) |
+
+- Maßgeblich ist die **Reihenfolge** der Blätter, nicht ihr Name. Erste Zeile jedes Blatts = Überschriften.
+- Blatt 2 und 3 werden über die Beschriftung der Anfallperiode zugeordnet, sonst über die Reihenfolge.
+- In der App: Quelle **„Excel-Datei hochladen“**; darunter der Link **„Vorlage herunterladen“** (= `beispiel_jahre.xlsx`).
+- Die Seite **„Daten“** zeigt Dreieck, Beiträge und manuelle Reserve nur zur Kontrolle – geändert wird in der Excel-Datei.
+- Kumuliert oder inkrementell wählbar (Seitenleiste „Werte im Dreieck“, Kommandozeile `--incremental`).
+
+## Jahres- und Quartalsdaten
+
+- **Erkennung:** Anfallperioden wie `2024Q1`, `2024-Q1`, `Q1 2024`, `2024/1` oder `1. Quartal 2024` werden
+  automatisch als Quartale erkannt (Seitenleiste **Periodizität**; lässt sich auch fest auf Jahre oder Quartale stellen).
+  Die Spalten sind dann Abwicklungsquartale (1 = Anfallquartal selbst, 2 = folgendes Quartal usw.).
+- **Direkt als Quartale:** Alle Verfahren laufen auf dem Quartalsdreieck; Beiträge und manuelle Reserve stehen je Quartal auf Blatt 2 und 3.
+- **Zu Jahren verdichten:** Häkchen **„Quartale zu Jahren verdichten“** (Kommandozeile `--to-years`). Der Wert eines
+  Anfalljahres im Abwicklungsjahr k ist die Summe seiner vier Anfallquartale, jeweils zum Stand 31.12. (Anfalljahr + k − 1).
+  Endet der Datenstand unterjährig, verwendet das Tool den Stand zum letzten Jahresende und weist darauf hin.
+  Beiträge und manuelle Reserve je Quartal werden automatisch zu Jahren aufsummiert.
+- **Beispiel:** `beispiel_quartale.xlsx`; in der App als Quelle **„Demo Quartale (fiktiv)“**.
+
+## Eigene (manuelle) Reserve als Benchmark
+
+Steht auf Blatt 3 eine Reserve je Anfallperiode (0 ist erlaubt), zeigt die App zusätzlich:
+- eine Kachel **„Manuelle Reserve“** mit Abweichung zu Chain Ladder und Sicherheitsniveau,
+- die Zeile **„Manuelle Reserve“** in allen Tabellen und Diagrammen sowie die Spalte **„Abw. zu Benchmark“**,
+- eine gepunktete Linie in den Balkendiagrammen und im Bootstrap-Histogramm,
+- die Karte **„Einordnung der manuellen Reserve“** (Übersicht) mit Kurzaussagen und einer Tabelle je Anfallperiode,
+- im Excel-Export das Blatt **„Benchmark“**.
+
+**Sicherheitsniveau:** Anteil der Szenarien, den die manuelle Reserve abdeckt – nach Mack über eine
+Lognormal-Näherung, nach Bootstrap aus der simulierten Verteilung. 50 % entspricht dem Median; höhere
+Werte bedeuten eine vorsichtigere Reservierung.
+
+## Hinweis
+
+Der ODP-Bootstrap rechnet fest mit 5.000 Simulationen und ist zufallsbasiert. Mit gleichem Zufallsstartwert
+sind die Ergebnisse reproduzierbar. Ausführliche Anleitung: `Loss_Reserving_Benutzerhandbuch_R.docx`.
