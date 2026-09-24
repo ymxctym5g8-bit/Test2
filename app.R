@@ -19,7 +19,7 @@ source("loss_reserving.R", encoding = "UTF-8", local = TRUE)
 # Feste Farbe je Verfahren (Farbe folgt dem Verfahren, nicht der Reihenfolge)
 METHOD_COLORS <- c(
   "Chain Ladder" = "#2a78d6", "Bornhuetter-Ferguson" = "#eb6834", "Cape Cod" = "#1baf7a",
-  "ELR" = "#e87ba4", "Additiv" = "#008300",
+  "Additiv" = "#008300",
   "ODP-Bootstrap (Mittel)" = "#4a3aa7", "Manuelle Reserve" = "#3d3c38")
 BENCH_COLOR <- "#3d3c38"
 ACCENT <- "#2a78d6"; INK_2 <- "#52514e"; MUTED <- "#898781"; GRID <- "#e1e0d9"
@@ -36,14 +36,13 @@ color_for <- function(nm) vapply(nm, function(n) {
 METHODS_INFO <- list(
   c("Chain Ladder", "Volumengewichtete Abwicklungsfaktoren, Hochrechnung der aktuellen Diagonale", "nein"),
   c("Mack", "Verteilungsfreies Modell hinter Chain Ladder; liefert den Standardfehler", "nein"),
-  c("Expected Loss Ratio", "Endschaden = Pr\u00e4mie \u00d7 A-priori-Schadenquote; ignoriert die bisherige Abwicklung", "ja"),
   c("Bornhuetter-Ferguson", "Reserve = A-priori-Endschaden \u00d7 noch ausstehender Anteil (1 \u2212 1/CDF)", "ja"),
   c("Cape Cod", "Wie BF, aber die Schadenquote wird aus den Daten gesch\u00e4tzt (Diagonale / verbrauchte Pr\u00e4mie)", "ja"),
   c("Additiv", "Inkrementelle Schadenquoten je Abwicklungsjahr, auf die Pr\u00e4mie angewendet", "ja"),
   c("ODP-Bootstrap", "Resampling der Pearson-Residuen (England & Verrall) plus Prozessvarianz", "nein"))
 METHOD_NOTES <- c(
   "Chain Ladder reagiert stark auf junge Anfalljahre mit kleinen Diagonalwerten; BF und Cape Cod stabilisieren dort \u00fcber die Pr\u00e4mie.",
-  "Wird die Cape-Cod-Quote als A-priori-Quote verwendet, sind die Gesamtreserven von ELR, BF und Cape Cod rechnerisch identisch.",
+  "Wird die Cape-Cod-Quote als A-priori-Quote verwendet, sind die Gesamtreserven von BF und Cape Cod rechnerisch identisch.",
   "Mit Tail-Faktor wird der Mack-Standardfehler nur proportional hochgerechnet (N\u00e4herung).",
   "Der Bootstrap setzt ein ODP-Modell voraus; viele negative Inkremente machen ihn unzuverl\u00e4ssig.",
   "Der Bootstrap ist zufallsbasiert; er rechnet immer 5.000 Simulationen; mit gleichem Zufallsstartwert sind die Ergebnisse reproduzierbar.",

@@ -5,11 +5,10 @@
 # Verfahren
 #   1. Chain Ladder (volumengewichtet)
 #   2. Mack-Modell (Standardfehler, Quantile ueber Lognormal-Naeherung)
-#   3. Expected Loss Ratio (ELR)
-#   4. Bornhuetter-Ferguson (BF)
-#   5. Cape Cod (Stanard-Buehlmann)
-#   6. Additives Verfahren
-#   7. ODP-Bootstrap (England & Verrall)
+#   3. Bornhuetter-Ferguson (BF)
+#   4. Cape Cod (Stanard-Buehlmann)
+#   5. Additives Verfahren
+#   6. ODP-Bootstrap (England & Verrall)
 #
 # Nutzung als Skript (Rscript):
 #   Rscript loss_reserving.R                                   # Demo mit RAA-Dreieck
@@ -359,11 +358,6 @@ cape_cod <- function(tri, cdf_d, premiums) {
   list(elr = elr_cc, ultimate = ult, reserve = ult - tri$latest)
 }
 
-expected_loss_ratio <- function(tri, premiums, elr) {
-  ult <- premiums * elr
-  list(ultimate = ult, reserve = ult - tri$latest)
-}
-
 # Bornhuetter-Ferguson: Reserve = A-priori-Endschaden x noch ausstehender Anteil (1 - 1/CDF)
 bornhuetter_ferguson <- function(tri, cdf_d, prior_ult) {
   u <- tri$latest + (1 - 1 / cdf_d) * prior_ult
@@ -464,17 +458,16 @@ compute_all <- function(tri, premiums = NULL, elr = NULL, tail = 1,
     elr_used <- if (is.null(elr)) cc_elr else elr
     if (is.null(elr)) notes <- c(notes, sprintf(paste0(
       "A-priori-Schadenquote nicht angegeben -> Cape-Cod-Quote %.2f%% verwendet. Dann sind die ",
-      "Gesamtreserven von ELR, BF und Cape Cod identisch (mathematische Identit\u00e4t); f\u00fcr einen ",
+      "Gesamtreserven von BF und Cape Cod identisch (mathematische Identit\u00e4t); f\u00fcr einen ",
       "aussagekr\u00e4ftigen Vergleich eine eigene Quote setzen."), 100 * cc_elr))
     prior <- premiums * elr_used
     meth <- list(
-      ELR = expected_loss_ratio(tri, premiums, elr_used),
       `Bornhuetter-Ferguson` = bornhuetter_ferguson(tri, cdf_d, prior),
       `Cape Cod` = cc,
       Additiv = additive(tri, premiums, tail))
     for (nm in names(meth)) { reserves[[nm]] <- meth[[nm]]$reserve; ultimates[[nm]] <- meth[[nm]]$ultimate }
   } else {
-    notes <- c(notes, "Keine Pr\u00e4mien angegeben -> ELR, BF, Cape Cod und Additiv \u00fcbersprungen.")
+    notes <- c(notes, "Keine Pr\u00e4mien angegeben -> BF, Cape Cod und Additiv \u00fcbersprungen.")
   }
 
   bs <- bootstrap

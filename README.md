@@ -1,13 +1,16 @@
-# Loss Reserving – R-Version
+# Loss Reserving – R-Basisversion
+
+Schlanke Version ohne Plausibilitätsprüfungen, Faktorauswahl, Residuen-Diagnose, Sensitivität und
+Actual vs Expected. Verfahren: Chain Ladder, Mack, Bornhuetter-Ferguson, Cape Cod, Additiv, ODP-Bootstrap.
 
 | Datei | Inhalt |
 |---|---|
-| `loss_reserving.R` | Rechenlogik (Chain Ladder, Mack, ELR, Bornhuetter-Ferguson, Cape Cod, Additiv, ODP-Bootstrap) – auch als Kommandozeilen-Skript nutzbar |
+| `loss_reserving.R` | Rechenlogik (Chain Ladder, Mack, Bornhuetter-Ferguson, Cape Cod, Additiv, ODP-Bootstrap) – auch als Kommandozeilen-Skript nutzbar |
 | `app.R` | R-Shiny-App |
 | `install_packages.R` | installiert die benötigten Pakete |
 | `beispiel_jahre.xlsx` | Beispiel und Vorlage: RAA-Dreieck, fiktive Beiträge, fiktive manuelle Reserve |
 | `beispiel_quartale.xlsx` | fiktives Quartalsdreieck 2021Q1–2024Q4 mit Quartalsbeiträgen |
-| `Loss_Reserving_Benutzerhandbuch_R.docx` | ausführliches Handbuch |
+| `Loss_Reserving_Benutzerhandbuch_R_Basis.docx` | ausführliches Handbuch |
 
 ## Installation (einmalig, in R)
 
@@ -79,4 +82,4 @@ Werte bedeuten eine vorsichtigere Reservierung.
 ## Hinweis
 
 Der ODP-Bootstrap rechnet fest mit 5.000 Simulationen und ist zufallsbasiert. Mit gleichem Zufallsstartwert
-sind die Ergebnisse reproduzierbar. Ausführliche Anleitung: `Loss_Reserving_Benutzerhandbuch_R.docx`.
+sind die Ergebnisse reproduzierbar. Ausführliche Anleitung: `Loss_Reserving_Benutzerhandbuch_R_Basis.docx`.
