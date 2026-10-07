@@ -51,6 +51,13 @@ CLOUD = {"day": ((255, 255, 255), (196, 199, 230), (238, 190, 200)),
 DECOR_HOOKS = {}      # Typ → fn(cam, p, top, s, dd, i, gl, T) -> item
 BACKDROP_HOOK = None  # fn(img, cam) – ferne Kulisse hinter dem Level
 PARTICLE_HOOK = None  # fn(draw) – Teilchen im Vordergrund
+SUN_HOOK = None       # fn(img) – ersetzt Sonne/Mond
+SHADE_HOOK = None     # fn(base, normal) -> Farbe – ersetzt die Flächenschattierung
+DABS = 1.0            # Anteil der Pinseltupfer (0 = flache Flächen)
+EDGES = True          # feine Kantenlinien
+LANTERN_BOOST = None  # Leuchtkraft der Laternen (None = nach Thema)
+CLOUD_LAYOUT = True   # Himmelswolken und Wolkenmeer zeichnen
+FG_CLOUDS = True      # halbtransparente Wolken im Vordergrund
 LAV = (150, 128, 190)
 VERM = rgb(.86, .33, .27)
 BRASS = rgb(.95, .78, .42)
@@ -161,14 +168,14 @@ def box_item(cam, center, half, T, mat, seed, moss=False, yaw=0.0, colors=None):
             if dot(n, BACK) <= 0.02: continue
             is_top = n[1] > 0.7
             base = top_c if is_top else side_c
-            col = shade(base, n)
+            col = SHADE_HOOK(base, n) if SHADE_HOOK else shade(base, n)
             scr = [cam.p(q) for q in pts]
             if is_top and moss:
                 big = [cam.p(add(fc, scl(sub(q, fc), 1.07))) for q in pts]
                 d.polygon(big, fill=mul(col, .82))
             d.polygon(scr, fill=col)
             # Pinseltupfer
-            for _ in range(4 if is_top else 3):
+            for _ in range(int(round((4 if is_top else 3) * DABS))):
                 s, t = rnd.uniform(.15, .85), rnd.uniform(.15, .85)
                 a = add(scl(pts[0], (1 - s) * (1 - t)), add(scl(pts[1], s * (1 - t)), add(scl(pts[2], s * t), scl(pts[3], (1 - s) * t))))
                 x, y = cam.p(a)
@@ -176,7 +183,7 @@ def box_item(cam, center, half, T, mat, seed, moss=False, yaw=0.0, colors=None):
                 light = rnd.random() > .5
                 d.ellipse((x - r, y - r * .6, x + r, y + r * .6),
                           fill=(255, 255, 255, 22) if light else (60, 30, 80, 16))
-            d.line(scr + [scr[0]], fill=mul(col, .9) + (110,), width=max(1, int(cam.ppu * .012)))
+            if EDGES: d.line(scr + [scr[0]], fill=mul(col, .9) + (110,), width=max(1, int(cam.ppu * .012)))
             if moss and not is_top and abs(n[1]) < 0.2:
                 # Moosrand, der über die Kante hängt
                 hi = sorted(pts, key=lambda q: -q[1])[:2]
@@ -583,16 +590,17 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
     img = sky()
     gl = Image.new("RGBA", (CW, CH), (0, 0, 0, 0))
     # Sonne und Himmelswolken
-    if THEME == "night":
+    if SUN_HOOK: SUN_HOOK(img)
+    elif THEME == "night":
         glow(img, (CW * .72, CH * .14), CW * .3, (200, 215, 255), .55)
         circle(ImageDraw.Draw(img), (CW * .72, CH * .14), CW * .045, (252, 248, 230))
     elif THEME == "evening":
         glow(img, (CW * .7, CH * .5), CW * .55, (255, 190, 120), .7)
     else:
         glow(img, (CW * .72, CH * .16), CW * .45, (255, 246, 214), .85)
-    for (x, y, w, s, wm) in [(.18, .1, .62, 1, False), (.86, .23, .55, 2, True), (.3, .3, .4, 3, True), (.95, .05, .5, 4, False)]:
+    for (x, y, w, s, wm) in ([(.18, .1, .62, 1, False), (.86, .23, .55, 2, True), (.3, .3, .4, 3, True), (.95, .05, .5, 4, False)] if CLOUD_LAYOUT else []):
         paste_cloud(img, CW * x, CH * y, CW * w, s, wm)
-    for (x, y, w, s, wm) in [(.2, .9, .9, 11, True), (.75, .92, 1.0, 12, False), (.5, .98, 1.2, 13, False), (.05, 1.0, .8, 14, True), (.95, 1.0, .9, 15, True)]:
+    for (x, y, w, s, wm) in ([(.2, .9, .9, 11, True), (.75, .92, 1.0, 12, False), (.5, .98, 1.2, 13, False), (.05, 1.0, .8, 14, True), (.95, 1.0, .9, 15, True)] if CLOUD_LAYOUT else []):
         paste_cloud(img, CW * x, CH * y, CW * w, s, wm)
     if BACKDROP_HOOK: BACKDROP_HOOK(img, cam)
 
@@ -631,7 +639,7 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
         elif t == "grass": items.append(grass_item(cam, top, s, i))
         elif t == "mushroom": items.append(mushroom_item(cam, top))
         elif t == "rock": items.append(rock_item(cam, top, s))
-        elif t == "lantern": items.append(lantern_item(cam, top, s, gl, 2.2 if THEME == "night" else 1))
+        elif t == "lantern": items.append(lantern_item(cam, top, s, gl, LANTERN_BOOST or (2.2 if THEME == "night" else 1)))
         elif t == "vine": items.append(vine_item(cam, top, i))
         elif t == "torii": items.append(torii_item(cam, top, s))
         elif t == "pond": items.append(pond_item(cam, top))
@@ -697,8 +705,9 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
 
     # Vordergrundwolken über dem Inselfels
     fg = Image.new("RGBA", (CW, CH), (0, 0, 0, 0))
-    paste_cloud(fg, CW * .08, CH * .84, CW * .5, 21, False)
-    paste_cloud(fg, CW * .95, CH * .87, CW * .55, 22, True)
+    if FG_CLOUDS:
+        paste_cloud(fg, CW * .08, CH * .84, CW * .5, 21, False)
+        paste_cloud(fg, CW * .95, CH * .87, CW * .55, 22, True)
     fg.putalpha(fg.getchannel("A").point(lambda a: int(a * .85)))
     img.alpha_composite(fg)
 

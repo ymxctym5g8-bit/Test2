@@ -85,7 +85,7 @@ Wolkenpfad/
 Tools/                           Python-Werkzeuge zum Bauen und Prüfen von Levels
 ```
 
-`Tools/generate_level1–3.py` erzeugen die Leveldaten. `Tools/verify_level.py` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Es prüft, ob das Level lösbar ist und ob Blöcke kollidieren, und listet jede unmögliche Verbindung auf. So entstehen keine unbeabsichtigten Abkürzungen. Außerdem prüft es die Hinweisregeln. `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_mockups.py` erzeugt die Mockups in `Mockups/`, `Tools/render_neko_mockups.py` die der Neko-Kapitel (`10_…`–`14_…`, Übersicht `00_neko_no_machi.png`). Der Prüfer kontrolliert zusätzlich, dass jedes Sushi auf einem festen, erreichbaren Feld liegt.
+`Tools/generate_level1–3.py` erzeugen die Leveldaten. `Tools/verify_level.py` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Es prüft, ob das Level lösbar ist und ob Blöcke kollidieren, und listet jede unmögliche Verbindung auf. So entstehen keine unbeabsichtigten Abkürzungen. Außerdem prüft es die Hinweisregeln. `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_mockups.py` erzeugt die Mockups in `Mockups/`, `Tools/render_neko_mockups.py` die der Neko-Kapitel (`10_…`–`14_…`, Übersicht `00_neko_no_machi.png`). `Tools/render_style_variants.py` zeigt Kapitel III in sechs Stilrichtungen (`20_…`–`25_…`, Übersicht `00_stilvorschlaege_kapitel3.png`). Der Prüfer kontrolliert zusätzlich, dass jedes Sushi auf einem festen, erreichbaren Feld liegt.
 
 ## Hinweis
 
