@@ -8,7 +8,7 @@ Ein meditatives Perspektiv-Rätselspiel für das iPhone. Es kombiniert die unmö
 2. Einen iPhone-Simulator wählen und ▶︎ drücken.
 3. Für ein echtes Gerät unter *Signing & Capabilities* das eigene Team eintragen.
 
-Voraussetzungen: iOS 16 oder neuer, iPhone, Hochformat. Das Spiel nutzt SwiftUI, SceneKit und AVAudioEngine und braucht keine externen Abhängigkeiten. Grafik und Musik entstehen prozedural. Die einzige Bilddatei ist das App-Icon.
+Voraussetzungen: iOS 17 oder neuer, iPhone, Hochformat. Das Spiel nutzt SwiftUI, SceneKit und AVAudioEngine und braucht keine externen Abhängigkeiten. Grafik und Musik entstehen prozedural. Die einzige Bilddatei ist das App-Icon.
 
 ## Das erste Level
 

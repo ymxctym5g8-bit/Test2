@@ -39,7 +39,7 @@ struct GameScreen: View {
                 SceneContainer(coordinator: game)
                     .ignoresSafeArea()
                     .onAppear { game.layout(size: geo.size) }
-                    .onChange(of: geo.size) { game.layout(size: $0) }
+                    .onChange(of: geo.size) { _, newSize in game.layout(size: newSize) }
 
                 StoryText(text: game.story, night: game.isNight)
                     .padding(.top, geo.safeAreaInsets.top + 54)
@@ -89,7 +89,7 @@ struct GameScreen: View {
                 }
             }
             .animation(.easeInOut(duration: 0.8), value: game.phase)
-            .onChange(of: game.phase) { phase in
+            .onChange(of: game.phase) { _, phase in
                 if phase == .finished { onCompleted(game.levelIndex) }
             }
             .animation(.easeInOut(duration: 0.3), value: game.menuOpen)
