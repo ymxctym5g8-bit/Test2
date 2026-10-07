@@ -59,10 +59,16 @@ final class GameCoordinator: NSObject, ObservableObject {
     @Published var soundOn = true {
         didSet { audio.enabled = soundOn }
     }
+    /// Eingesammeltes Sushi (nur Neko-Kapitel).
+    @Published private(set) var sushiCount = 0
+    let sushiTotal: Int
 
     let view: SCNView
     let levelIndex: Int
     let chapterTitle: String
+    /// "wolkenpfad" oder "neko" – bestimmt Figuren, Texte und Typografie.
+    let worldName: String
+    var isNeko: Bool { worldName == "neko" }
     private let theme: Theme
     /// Nachtkapitel brauchen helle Schrift.
     var isNight: Bool { theme.stars }
@@ -112,14 +118,16 @@ final class GameCoordinator: NSObject, ObservableObject {
         self.levelIndex = levelIndex
         let def = LevelDef.load("level\(levelIndex)")
         chapterTitle = def.name
+        worldName = def.world ?? "wolkenpfad"
+        sushiTotal = def.sushi?.count ?? 0
         theme = Theme.named(def.theme)
         logic = LevelLogic(def: def)
         world = WorldBuilder.build(logic, theme: theme)
         basis = ViewBasis(target: .zero)
-        let (h, body) = Characters.hana()
+        let (h, body) = def.hero == "cat" ? Characters.cat() : Characters.hana()
         hana = h
         hanaBody = body
-        kiko = Characters.kiko()
+        kiko = def.companion == "sparrow" ? Characters.sparrow(scale: 1.3) : Characters.kiko()
         currentTile = logic.startBlock
         view = SCNView(frame: .zero, options: nil)
         haptic = UIImpactFeedbackGenerator(style: .soft)
@@ -164,7 +172,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         cameraNode.look(at: v3(center), up: SCNVector3(0, 1, 0), localFront: SCNVector3(0, 0, -1))
         scene.rootNode.addChildNode(cameraNode)
 
-        let atmos = Atmosphere.setup(scene: scene, basis: basis, scale: extent, theme: theme)
+        let atmos = Atmosphere.setup(scene: scene, basis: basis, scale: extent, theme: theme, backdrop: logic.def.backdrop)
         sun = atmos.sun
         if let goal = logic.tiles[logic.goalBlock] {
             scene.rootNode.addChildNode(Atmosphere.fireflies(at: goal.center + SIMD3(0, 0.6, 0.5), rate: CGFloat(theme.fireflies)))
@@ -408,6 +416,7 @@ final class GameCoordinator: NSObject, ObservableObject {
     private func arrived(at t: Int) {
         currentTile = t
         checkStory(at: t)
+        collectSushi(at: t)
         if t == logic.goalBlock {
             queuedPath = []
             pendingTarget = nil
@@ -423,6 +432,21 @@ final class GameCoordinator: NSObject, ObservableObject {
             return
         }
         stepNext()
+    }
+
+    // MARK: - Sushi
+
+    private func collectSushi(at t: Int) {
+        guard logic.def.blocks[t].g == nil else { return }
+        let cell = logic.def.blocks[t].p
+        guard let node = world.sushi.removeValue(forKey: cell) else { return }
+        sushiCount += 1
+        audio.chime(sushiCount == sushiTotal ? [12, 16, 19, 24] : [12, 19], spacing: 0.07, amp: 0.07)
+        haptic.impactOccurred(intensity: 0.5)
+        scene.rootNode.addChildNode(Atmosphere.burst(at: node.simdWorldPosition, color: UIColor(red: 1, green: 0.85, blue: 0.6, alpha: 1), count: 70))
+        node.removeAllActions()
+        let pop = SCNAction.group([.moveBy(x: 0, y: 0.5, z: 0, duration: 0.35), .scale(to: 1.5, duration: 0.2), .fadeOut(duration: 0.35)])
+        node.runAction(.sequence([pop, .removeFromParentNode()]))
     }
 
     // MARK: - Druckplatten
@@ -722,7 +746,8 @@ final class GameCoordinator: NSObject, ObservableObject {
                                       .wait(duration: 0.6), .rotateBy(x: -0.35, y: 0, z: 0, duration: 0.5)])
         hanaBody.runAction(bow)
         let ending = logic.def.ending
-        say(ending?.text ?? "Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.", duration: 7)
+        say(ending?.text ?? (isNeko ? "Das Glöckchen klingt – und die Stadt wird still und warm."
+                                    : "Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück."), duration: 7)
 
         guard let goal = logic.tiles[logic.goalBlock] else { return }
         let treeSpot = ending.map { $0.tree.float3 + SIMD3(0, 0.5, 0) } ?? goal.center + SIMD3(0, 0, 2)
@@ -765,7 +790,8 @@ final class GameCoordinator: NSObject, ObservableObject {
         if let old = world.shrineTree {
             old.runAction(.sequence([.scale(to: 0.01, duration: 0.4), .removeFromParentNode()]))
         }
-        let tree = Props.tree(scale: 2.4, variant: theme.name == "evening" ? 3 : 2, seed: 4242)
+        let variants = ["evening": 3, "satoyama": 6, "fuji": 3]
+        let tree = Props.tree(scale: 2.4, variant: variants[theme.name] ?? 2, seed: 4242)
         tree.simdPosition = p
         tree.scale = SCNVector3(0.01, 0.01, 0.01)
         tree.enumerateHierarchy { n, _ in n.categoryBitMask = Props.decorCategory }
@@ -776,7 +802,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         scene.rootNode.addChildNode(Atmosphere.petalBurst(at: p + SIMD3(0, 2.2, 0)))
         // Dauerhafter Blütenregen vom großen Baum
         let rain = SCNParticleSystem()
-        rain.particleImage = Art.petal()
+        rain.particleImage = theme.particle == .leaves ? Art.leaf() : Art.petal()
         rain.birthRate = 8
         rain.particleLifeSpan = 6
         rain.particleSize = 0.1
@@ -807,13 +833,27 @@ final class GameCoordinator: NSObject, ObservableObject {
     private func awakenSpirits() {
         let spots: [SIMD3<Float>] = (logic.def.ending?.spirits ?? []).map { $0.float3 + SIMD3(0, 0.5, 0) }
         for (i, p) in spots.enumerated() {
-            let k = Characters.kiko(scale: 0.7)
-            k.simdPosition = p + SIMD3(Float(i % 2) * 0.25 - 0.12, 0.12, 0.2)
+            // In der Katzenstadt kommen die Nachbarskatzen heraus, sonst die Waldgeister
+            let k: SCNNode
+            let size: CGFloat
+            if isNeko {
+                let colors = Characters.CatColors.all[(i + 1) % Characters.CatColors.all.count]
+                k = Characters.cat(colors, scale: 0.8).root
+                k.name = "neighbour"
+                k.simdPosition = p + SIMD3(Float(i % 2) * 0.2 - 0.1, 0, 0.1)
+                k.eulerAngles.y = .pi / 4
+                size = 0.84
+            } else {
+                k = Characters.kiko(scale: 0.7)
+                k.simdPosition = p + SIMD3(Float(i % 2) * 0.25 - 0.12, 0.12, 0.2)
+                size = 0.7
+            }
             k.scale = SCNVector3(0.01, 0.01, 0.01)
             scene.rootNode.addChildNode(k)
-            let pop = SCNAction.scale(to: 0.7, duration: 0.35)
+            let pop = SCNAction.scale(to: size, duration: 0.35)
             pop.timingMode = .easeOut
-            let bob = SCNAction.sequence([.moveBy(x: 0, y: 0.08, z: 0, duration: 0.9), .moveBy(x: 0, y: -0.08, z: 0, duration: 0.9)])
+            let lift: CGFloat = isNeko ? 0.03 : 0.08
+            let bob = SCNAction.sequence([.moveBy(x: 0, y: lift, z: 0, duration: 0.9), .moveBy(x: 0, y: -lift, z: 0, duration: 0.9)])
             bob.timingMode = .easeInEaseOut
             k.runAction(.sequence([.wait(duration: Double(i) * 0.25), pop, .repeatForever(bob)]))
             if i % 3 == 0 {

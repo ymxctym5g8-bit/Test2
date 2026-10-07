@@ -31,6 +31,8 @@ final class WorldNodes {
     var shrineTree: SCNNode?
     var grassTiles: [SIMD3<Float>] = []
     var plates: [String: (node: SCNNode, rune: SCNMaterial)] = [:]
+    /// Sammel-Sushi nach Feld.
+    var sushi: [IVec3: SCNNode] = [:]
 }
 
 enum WorldBuilder {
@@ -99,7 +101,9 @@ enum WorldBuilder {
             node.simdPosition = local
             parent.addChildNode(node)
             w.blockNodes[i] = node
-            if b.walk && b.m == "grass" && b.g == nil { w.grassTiles.append(b.p.float3 + SIMD3(0, 0.5, 0)) }
+            if b.walk && ["grass", "satograss", "autumn"].contains(b.m) && b.g == nil {
+                w.grassTiles.append(b.p.float3 + SIMD3(0, 0.5, 0))
+            }
         }
 
         // Dekoration
@@ -131,6 +135,31 @@ enum WorldBuilder {
                 let (a, seedNode) = Props.altar(scale: s)
                 n = a
                 w.seed = seedNode
+                if def.goalItem == "bell" {
+                    // Statt des Samens schwebt ein goldenes Glöckchen über dem Altar.
+                    seedNode.childNodes.forEach { $0.removeFromParentNode() }
+                    seedNode.addChildNode(Props.bell())
+                    seedNode.addChildNode(Props.billboardGlow(size: 0.6, color: UIColor(red: 1, green: 0.9, blue: 0.55, alpha: 0.8)))
+                }
+            // Neko-no-Machi-Kulisse
+            case "house": n = Props.house(variant: d.variant ?? 0, scale: s)
+            case "pole": n = Props.powerPole(scale: s)
+            case "laundry":
+                n = Props.laundry(seed: seed)
+                offset = SIMD3(0, 0.5, 0.5)
+            case "vending": n = Props.vending()
+            case "postbox": n = Props.postbox()
+            case "bench": n = Props.bench()
+            case "planter": n = Props.planter(seed: seed)
+            case "chochin": n = Props.chochin(scale: s)
+            case "minka": n = Props.minka(scale: s)
+            case "jizo": n = Props.jizo()
+            case "kakashi": n = Props.kakashi()
+            case "haystack": n = Props.haystack()
+            case "pagoda": n = Props.pagoda(scale: s)
+            case "lookout": n = Props.lookout()
+            case "dango": n = Props.dangoStall()
+            case "pinerock": n = Props.pineRock()
             case "pond": n = Props.pondDetails()
             case "waterfall":
                 n = Props.waterfall()
@@ -162,6 +191,24 @@ enum WorldBuilder {
             holder.eulerAngles.y = Float(d.r)
             holder.categoryBitMask = Props.decorCategory
             parent.addChildNode(holder)
+        }
+
+        // Stromleitungen zwischen Masten (nur feste Masten), mit Spatzen darauf
+        for d in def.decor where d.t == "pole" && d.g == nil {
+            guard let to = d.to else { continue }
+            let top = SIMD3<Float>(0, 0.5 + 1.55 * Float(d.s), 0)
+            let wire = Props.wire(from: d.p.float3 + top, to: to.float3 + top, sparrows: d.variant ?? 0)
+            wire.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
+            w.root.addChildNode(wire)
+        }
+
+        // Sushi zum Einsammeln
+        for (k, p) in (def.sushi ?? []).enumerated() {
+            let n = Props.sushi(kind: k)
+            n.simdPosition = p.float3 + SIMD3(0, 0.78, 0)
+            n.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
+            w.root.addChildNode(n)
+            w.sushi[p] = n
         }
 
         // Druckplatten
@@ -199,8 +246,27 @@ enum WorldBuilder {
 // MARK: - Himmel, Wolken, Licht
 
 enum Atmosphere {
-    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float, theme: Theme) -> (sun: SCNNode, clouds: [SCNNode]) {
+    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float, theme: Theme,
+                      backdrop: String? = nil) -> (sun: SCNNode, clouds: [SCNNode]) {
         scene.background.contents = Art.skyGradient(theme)
+
+        // Ferne Kulisse (Neko-Kapitel): zwischen Himmelswolken und Wolkenmeer
+        if let name = backdrop {
+            let w = scale * 2.3
+            let plane = SCNPlane(width: CGFloat(w), height: CGFloat(w / 2))
+            let m = SCNMaterial()
+            m.diffuse.contents = Art.backdrop(name)
+            m.lightingModel = .constant
+            m.writesToDepthBuffer = false
+            plane.materials = [m]
+            let n = SCNNode(geometry: plane)
+            n.simdPosition = basis.world(u: 0, v: -2.2 * scale / 11, depth: -24)
+            n.constraints = [SCNBillboardConstraint()]
+            n.renderingOrder = -55
+            n.castsShadow = false
+            n.categoryBitMask = Props.decorCategory
+            scene.rootNode.addChildNode(n)
+        }
 
         // Licht: warme Abendsonne + bläuliches Himmelslicht
         let sun = SCNNode()
@@ -300,6 +366,8 @@ enum Atmosphere {
         case .motes:
             ps.particleImage = Art.glow(color: UIColor(red: 0.75, green: 1, blue: 0.85, alpha: 1))
             ps.blendMode = .additive
+        case .dragonflies:
+            ps.particleImage = Art.dragonfly()
         }
         ps.birthRate = theme.particle == .motes ? 4 : 2.2
         ps.particleLifeSpan = 12
@@ -311,13 +379,24 @@ enum Atmosphere {
         ps.emittingDirection = SCNVector3(-0.3, -1, 0.2)
         ps.spreadingAngle = 30
         ps.acceleration = SCNVector3(-0.05, -0.08, 0.03)
-        ps.particleAngularVelocity = 90
-        ps.particleAngularVelocityVariation = 120
+        ps.particleAngularVelocity = theme.particle == .dragonflies ? 0 : 90
+        ps.particleAngularVelocityVariation = theme.particle == .dragonflies ? 20 : 120
+        if theme.particle == .dragonflies {
+            // Libellen schweben eher waagerecht als zu fallen
+            ps.birthRate = 0.8
+            ps.particleSize = 0.14
+            ps.emittingDirection = SCNVector3(1, 0, -0.3)
+            ps.acceleration = SCNVector3(0, 0.01, 0)
+            ps.particleVelocity = 0.6
+        }
         ps.isLightingEnabled = false
         ps.warmupDuration = 10
         ps.propertyControllers = [.opacity: SCNParticlePropertyController(animation: Props.fadeOutAnimation())]
         petals.addParticleSystem(ps)
-        petals.simdPosition = basis.target + SIMD3(0, 9, 0)
+        petals.simdPosition = basis.target + SIMD3(0, theme.particle == .dragonflies ? 3 : 9, 0)
+        if theme.particle == .dragonflies {
+            ps.emitterShape = SCNBox(width: CGFloat(scale * 1.4), height: CGFloat(scale * 0.5), length: CGFloat(scale * 1.4), chamferRadius: 0)
+        }
         scene.rootNode.addChildNode(petals)
 
         return (sun, clouds)

@@ -9,7 +9,7 @@ import AVFoundation
 final class SoundEngine {
     static let shared = SoundEngine()
 
-    enum Timbre { case sine, bell, piano, ocarina, musicBox, bass, pad, noise }
+    enum Timbre { case sine, bell, piano, ocarina, musicBox, bass, pad, noise, koto, flute, taiko }
 
     private struct Voice {
         var freq: Double
@@ -34,6 +34,15 @@ final class SoundEngine {
         let melodyTimbre: Timbre
         let bassEveryHalf: Bool
         let padLevel: Double
+        /// Achtel pro Takt (6 = Walzer im 3/4-Takt).
+        var stepsPerBar = 8
+        /// Bass pro Achtel: Halbtöne über dem Grundton oder −1 für Pause (nil = Standardmuster).
+        var bassPattern: [Int]? = nil
+        /// Achtel, auf denen die Taiko schlägt, und in jedem wievielten Takt.
+        var taiko: [Int] = []
+        var taikoEvery = 1
+        /// Ab welchem Takt des 16-Takte-Bogens die Melodie einsetzt.
+        var melodyFrom = 8
     }
 
     private let engine = AVAudioEngine()
@@ -105,7 +114,7 @@ final class SoundEngine {
 
     // MARK: - Musik
 
-    /// Startet das Stück zur Stimmung eines Kapitels ("day", "evening", "night").
+    /// Startet das Stück zur Stimmung eines Kapitels ("day", "evening", "night", "town", "satoyama", "fuji").
     func playMusic(theme: String) {
         let s = SoundEngine.song(for: theme)
         lock.lock()
@@ -137,6 +146,39 @@ final class SoundEngine {
                 melody: [[(81, 4), (79, 2), (77, 2)], [(74, 6), (0, 2)], [(77, 3), (79, 1), (81, 2), (84, 2)], [(81, 8)],
                          [(82, 3), (81, 1), (79, 2), (77, 2)], [(76, 4), (77, 2), (79, 2)], [(81, 3), (77, 1), (76, 2), (74, 2)], [(73, 6), (0, 2)]],
                 melodyTimbre: .ocarina, bassEveryHalf: false, padLevel: 0.9)
+        case "town":
+            // Ziegeldächer im Wind – D-Dur-Walzer, Klavier mit Streicherfläche
+            return Song(
+                bpm: 96,
+                chords: [[50, 54, 57, 62], [47, 50, 54, 59], [43, 50, 55, 59], [45, 52, 57, 61],
+                         [42, 49, 54, 57], [47, 50, 54, 59], [40, 47, 52, 55], [45, 49, 52, 57]],
+                arpeggio: [-1, 2, 3, -1, 2, 3], arpTimbre: .piano, arpOctave: 0,
+                melody: [[(74, 2), (78, 2), (76, 1), (74, 1)], [(71, 4), (74, 2)], [(79, 3), (78, 1), (76, 2)], [(76, 4), (0, 2)],
+                         [(78, 2), (81, 2), (78, 2)], [(74, 4), (71, 2)], [(76, 2), (79, 2), (78, 1), (76, 1)], [(73, 4), (0, 2)]],
+                melodyTimbre: .piano, bassEveryHalf: false, padLevel: 0.8,
+                stepsPerBar: 6, bassPattern: [0, -1, -1, -1, -1, -1], melodyFrom: 0)
+        case "satoyama":
+            // Reisfelder am Morgen – D-Pentatonik, Flöte über Koto, ab und zu eine Taiko
+            return Song(
+                bpm: 72,
+                chords: [[50, 57, 62, 64], [45, 52, 57, 59], [40, 52, 55, 59], [50, 57, 62, 64],
+                         [45, 52, 57, 59], [43, 50, 55, 59], [40, 52, 55, 59], [50, 57, 62, 64]],
+                arpeggio: [0, -1, 2, 1, 3, -1, 4, 2], arpTimbre: .koto, arpOctave: 12,
+                melody: [[(74, 4), (76, 2), (79, 2)], [(81, 6), (79, 2)], [(76, 4), (74, 2), (71, 2)], [(74, 8)],
+                         [(81, 3), (83, 1), (81, 2), (79, 2)], [(79, 4), (76, 4)], [(76, 3), (74, 1), (71, 2), (69, 2)], [(74, 8)]],
+                melodyTimbre: .flute, bassEveryHalf: false, padLevel: 0.8,
+                bassPattern: [0, -1, -1, -1, 7, -1, -1, -1], taiko: [0], taikoEvery: 2, melodyFrom: 0)
+        case "fuji":
+            // Der weiße Gipfel – E-Pentatonik, aufsteigende Koto, Taiko und Flöte
+            return Song(
+                bpm: 80,
+                chords: [[40, 47, 52, 59], [45, 52, 57, 61], [47, 54, 59, 64], [42, 49, 54, 57],
+                         [40, 47, 52, 59], [47, 54, 59, 64], [37, 49, 52, 59], [42, 49, 54, 57]],
+                arpeggio: [0, 1, 2, 3, 4, 5, 6, 7], arpTimbre: .koto, arpOctave: 12,
+                melody: [[(76, 2), (78, 2), (81, 4)], [(81, 2), (83, 2), (85, 4)], [(83, 6), (81, 2)], [(78, 8)],
+                         [(88, 4), (85, 2), (83, 2)], [(83, 4), (81, 2), (78, 2)], [(85, 3), (83, 1), (81, 2), (78, 2)], [(78, 4), (76, 4)]],
+                melodyTimbre: .flute, bassEveryHalf: false, padLevel: 1,
+                bassPattern: [0, -1, -1, -1, 0, -1, 7, -1], taiko: [0, 4, 6], melodyFrom: 0)
         case "night":
             // Laternenlied – a-Moll-Wiegenlied auf der Spieluhr
             return Song(
@@ -165,32 +207,48 @@ final class SoundEngine {
     /// Wird auf dem Audio-Thread zu jedem Achtel aufgerufen (unter `lock`).
     private func sequencerTick(_ s: Song) {
         let eighth = 60 / s.bpm / 2
-        let bar = (eighthCounter / 8) % 16
-        let step = eighthCounter % 8
+        let steps = max(1, s.stepsPerBar)
+        let bar = (eighthCounter / steps) % 16
+        let step = eighthCounter % steps
         let chord = s.chords[bar % s.chords.count]
         let tones = chord + chord.map { $0 + 12 }
 
-        // Arpeggio
+        // Arpeggio (−1 = Pause)
         let idx = s.arpeggio[step % s.arpeggio.count]
-        let note = tones[min(idx, tones.count - 1)] + s.arpOctave
-        let arpAmp = s.arpTimbre == .musicBox ? 0.045 : 0.05
-        voices.append(Voice(freq: SoundEngine.freq(note), amp: arpAmp * (step == 0 ? 1.25 : 1), attack: 0.004, hold: 0,
-                            decay: s.arpTimbre == .musicBox ? 0.9 : 1.1, timbre: s.arpTimbre, music: true))
+        if idx >= 0 {
+            let note = tones[min(idx, tones.count - 1)] + s.arpOctave
+            let arpAmp = s.arpTimbre == .musicBox ? 0.045 : (s.arpTimbre == .koto ? 0.04 : 0.05)
+            let decay = s.arpTimbre == .musicBox ? 0.9 : (s.arpTimbre == .koto ? 0.7 : 1.1)
+            voices.append(Voice(freq: SoundEngine.freq(note), amp: arpAmp * (step == 0 ? 1.25 : 1), attack: 0.004, hold: 0,
+                                decay: decay, timbre: s.arpTimbre, music: true))
+        }
 
         // Bass und Klangfläche
-        if step == 0 || (s.bassEveryHalf && step == 4) {
+        if let pattern = s.bassPattern {
+            let off = pattern[step % pattern.count]
+            if off >= 0 {
+                voices.append(Voice(freq: SoundEngine.freq(chord[0] - 12 + off), amp: 0.07, attack: 0.01, hold: 0, decay: 1.4,
+                                    timbre: .bass, music: true))
+            }
+        } else if step == 0 || (s.bassEveryHalf && step == 4) {
             voices.append(Voice(freq: SoundEngine.freq(chord[0] - 12), amp: 0.07, attack: 0.01, hold: 0, decay: 1.6,
                                 timbre: .bass, music: true))
         }
         if step == 0 {
             for n in chord.prefix(3) {
-                voices.append(Voice(freq: SoundEngine.freq(n), amp: 0.012 * s.padLevel, attack: 1.2, hold: eighth * 7,
+                voices.append(Voice(freq: SoundEngine.freq(n), amp: 0.012 * s.padLevel, attack: 1.2, hold: eighth * Double(steps - 1),
                                     decay: 1.4, timbre: .pad, music: true))
             }
         }
 
-        // Melodie in der zweiten Hälfte des 16-Takte-Bogens
-        if bar >= 8 {
+        // Taiko
+        if s.taiko.contains(step) && bar % max(1, s.taikoEvery) == 0 {
+            voices.append(Voice(freq: 72, amp: step == 0 ? 0.16 : 0.1, attack: 0.002, hold: 0, decay: 0.32,
+                                timbre: .taiko, music: true))
+        }
+
+        // Melodie (Standard: zweite Hälfte des 16-Takte-Bogens)
+        if bar >= s.melodyFrom {
             var pos = 0
             for (n, len) in s.melody[(bar - 8) % s.melody.count] {
                 if pos == step && n > 0 {
@@ -202,6 +260,9 @@ final class SoundEngine {
                     case .musicBox:
                         voices.append(Voice(freq: SoundEngine.freq(n), amp: 0.06, attack: 0.003, hold: 0, decay: 1.4,
                                             timbre: .musicBox, music: true))
+                    case .flute:
+                        voices.append(Voice(freq: SoundEngine.freq(n), amp: 0.05, attack: 0.07, hold: dur * 0.85, decay: 0.3,
+                                            timbre: .flute, music: true))
                     default:
                         voices.append(Voice(freq: SoundEngine.freq(n), amp: 0.065, attack: 0.004, hold: 0, decay: max(0.8, dur * 1.2),
                                             timbre: .piano, music: true))
@@ -327,7 +388,13 @@ final class SoundEngine {
                 let a = min(1, voice.age / voice.attack)
                 let env = voice.age < voice.hold ? a : a * exp(-(voice.age - voice.hold) / voice.decay)
                 var inc = voice.freq * dt
-                if voice.timbre == .ocarina { inc *= 1 + 0.006 * sin(2 * .pi * 5.2 * voice.age) * min(1, voice.age * 3) }
+                switch voice.timbre {
+                case .ocarina: inc *= 1 + 0.006 * sin(2 * .pi * 5.2 * voice.age) * min(1, voice.age * 3)
+                case .flute: inc *= 1 + 0.005 * sin(2 * .pi * 5 * voice.age) * min(1, max(0, voice.age - 0.2) * 3)
+                case .koto: inc *= 1 + 0.012 * exp(-voice.age * 25)
+                case .taiko: inc *= 1 + 1.2 * exp(-voice.age * 28)
+                default: break
+                }
                 voice.phase += 2 * .pi * inc
                 if voice.phase > 2000 * .pi { voice.phase -= 2000 * .pi }
                 let ph = voice.phase
@@ -344,6 +411,11 @@ final class SoundEngine {
                 case .bass: x = sin(ph) + 0.25 * sin(2 * ph)
                 case .pad: x = sin(ph) * 0.7 + 0.3 * sin(ph * 1.003 + sin(voice.age * 0.7))
                 case .sine: x = sin(ph)
+                case .koto:
+                    x = sin(ph) + 0.5 * exp(-voice.age * 6) * sin(2 * ph) + 0.28 * exp(-voice.age * 10) * sin(3 * ph)
+                        + 0.12 * exp(-voice.age * 16) * sin(5 * ph)
+                case .flute: x = sin(ph) + 0.12 * sin(2 * ph) + nextNoise() * 0.04
+                case .taiko: x = sin(ph) * 1.2 + nextNoise() * 0.9 * exp(-voice.age * 40)
                 }
                 if voice.music { music += x * env * voice.amp } else { sfx += x * env * voice.amp }
                 voices[v] = voice

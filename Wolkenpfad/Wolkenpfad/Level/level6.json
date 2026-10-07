@@ -1,0 +1,2222 @@
+{
+ "name": "Kapitel III · Berg Fuji",
+ "theme": "fuji",
+ "start": [
+  6,
+  -2,
+  4
+ ],
+ "goal": [
+  1,
+  3,
+  -2
+ ],
+ "groups": [
+  {
+   "id": "stone",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "handle": [
+    -3,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "tower",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    0,
+    -2
+   ],
+   "step": 0,
+   "handle": [
+    0,
+    0,
+    -2
+   ]
+  },
+  {
+   "id": "rb",
+   "kind": "rotate",
+   "pivot": [
+    -5,
+    3,
+    -1
+   ],
+   "step": 0,
+   "handle": [
+    -5,
+    1,
+    -1
+   ]
+  },
+  {
+   "id": "gate",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  },
+  {
+   "id": "lift",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 4,
+   "handle": [
+    4,
+    3,
+    -1
+   ]
+  }
+ ],
+ "plates": [
+  {
+   "id": "pA",
+   "at": [
+    -7,
+    3,
+    -1
+   ]
+  },
+  {
+   "id": "pB",
+   "at": [
+    3,
+    3,
+    -1
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "plates": [
+    "pA",
+    "pB"
+   ],
+   "group": "gate",
+   "value": 2
+  }
+ ],
+ "hints": [
+  {
+   "reach": [
+    1,
+    3,
+    -2
+   ],
+   "target": "goal"
+  },
+  {
+   "reach": [
+    6,
+    7,
+    2
+   ],
+   "target": "tower"
+  },
+  {
+   "reach": [
+    3,
+    3,
+    -1
+   ],
+   "pressed": [
+    "pA",
+    "pB"
+   ],
+   "target": "lift"
+  },
+  {
+   "reach": [
+    -3,
+    3,
+    -1
+   ],
+   "unpressed": [
+    "pA"
+   ],
+   "target": "rb"
+  },
+  {
+   "reach": [
+    0,
+    0,
+    0
+   ],
+   "target": "tower"
+  },
+  {
+   "target": "stone"
+  }
+ ],
+ "ending": {
+  "text": "Das letzte Glöckchen klingt. Über dem See leuchtet der Fuji – Mochi ist angekommen.",
+  "tree": [
+   5,
+   7,
+   -2
+  ],
+  "spirits": [
+   [
+    0,
+    0,
+    4
+   ],
+   [
+    1,
+    0,
+    3
+   ],
+   [
+    -2,
+    3,
+    -1
+   ],
+   [
+    -7,
+    3,
+    0
+   ],
+   [
+    3,
+    3,
+    -1
+   ],
+   [
+    5,
+    7,
+    -1
+   ]
+  ]
+ },
+ "blocks": [
+  {
+   "p": [
+    -1,
+    0,
+    2
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    2
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    1
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "stone"
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -2
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -2
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    0,
+    -2
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    1,
+    -2
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    0,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    1,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "stair": "+x",
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    0,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    1,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    0,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -1
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    2,
+    -2
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "stair": "-z",
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    1,
+    -2
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    0,
+    -2
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -2
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    2,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    0,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    2,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    0,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "stair": "-x",
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    0,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -3
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    3,
+    -2
+   ],
+   "m": "autumn",
+   "walk": true,
+   "ill": true,
+   "g": "tower"
+  },
+  {
+   "p": [
+    1,
+    2,
+    -2
+   ],
+   "m": "pagoda",
+   "walk": false,
+   "g": "tower"
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -1
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "rb"
+  },
+  {
+   "p": [
+    -5,
+    3,
+    0
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "rb"
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -2
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "rb"
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "rb"
+  },
+  {
+   "p": [
+    -5,
+    1,
+    -1
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "rb"
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -1
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    0
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    2,
+    0
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    0
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    2,
+    0
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    1,
+    0
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    3,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    3,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    3,
+    0
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    0,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    1,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    2,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    3,
+    -1
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    4,
+    -1
+   ],
+   "m": "gate",
+   "walk": false,
+   "g": "gate"
+  },
+  {
+   "p": [
+    5,
+    -3,
+    -1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    -1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    2,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    3,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -3,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -3,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -3,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    5
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -3,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    2
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -3,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    3
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -3,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    4
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -3,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    5
+   ],
+   "m": "autumn",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -3,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -3,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -3,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    5
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -3,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -4,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -4,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -4,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -4,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -5,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "stonegrey",
+   "walk": true,
+   "stair": "-x"
+  },
+  {
+   "p": [
+    4,
+    -2,
+    3
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -3,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "stonegrey",
+   "walk": true,
+   "stair": "+z"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    4
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    5
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    5
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    5
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    7,
+    -2
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    7,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    7,
+    -1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    7,
+    0
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    7,
+    1
+   ],
+   "m": "stonegrey",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    7,
+    2
+   ],
+   "m": "stonegrey",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    5,
+    6,
+    -1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    6,
+    -1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    6,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    5,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    7,
+    -2
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    7,
+    0
+   ],
+   "m": "stonegrey",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    6,
+    -2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    7,
+    1
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    6,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    7,
+    2
+   ],
+   "m": "autumn",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    6,
+    2
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    4,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    6,
+    1
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    6,
+    0
+   ],
+   "m": "stonegreydark",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "tree",
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "s": 1.1,
+   "r": 0.0,
+   "variant": 3
+  },
+  {
+   "t": "pagoda",
+   "p": [
+    2,
+    0,
+    2
+   ],
+   "s": 0.6,
+   "r": 0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    -1,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "mushroom",
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -3,
+    0,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "stone",
+   "axis": "x"
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    -2,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "tower",
+   "face": "+x"
+  },
+  {
+   "t": "altar",
+   "p": [
+    1,
+    3,
+    -2
+   ],
+   "s": 1.0,
+   "r": 1.5708,
+   "g": "tower"
+  },
+  {
+   "t": "lantern",
+   "p": [
+    2,
+    2,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "tower"
+  },
+  {
+   "t": "vine",
+   "p": [
+    1,
+    3,
+    -2
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "g": "tower"
+  },
+  {
+   "t": "lantern",
+   "p": [
+    -3,
+    3,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    -5,
+    1,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "rb",
+   "face": "+x"
+  },
+  {
+   "t": "tree",
+   "p": [
+    -8,
+    3,
+    0
+   ],
+   "s": 0.85,
+   "r": 0.0,
+   "variant": 5
+  },
+  {
+   "t": "dango",
+   "p": [
+    3,
+    3,
+    0
+   ],
+   "s": 1.0,
+   "r": 1.5708
+  },
+  {
+   "t": "handle",
+   "p": [
+    4,
+    3,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lift",
+   "axis": "y"
+  },
+  {
+   "t": "lantern",
+   "p": [
+    5,
+    3,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pinerock",
+   "p": [
+    7,
+    -2,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    5,
+    -2,
+    5
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 3
+  },
+  {
+   "t": "pond",
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "waterfall",
+   "p": [
+    7,
+    -2,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    6,
+    -2,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    6,
+    -2,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    3,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    5,
+    7,
+    -2
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 3
+  },
+  {
+   "t": "lantern",
+   "p": [
+    7,
+    7,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "vine",
+   "p": [
+    6,
+    7,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    7,
+    7,
+    1
+   ],
+   "s": 0.85,
+   "r": 0.0,
+   "variant": 5
+  },
+  {
+   "t": "lookout",
+   "p": [
+    7,
+    7,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    6,
+    -2,
+    4
+   ],
+   "text": "Rote Ahornblätter treiben über den See. Dahinter wartet der Fuji."
+  },
+  {
+   "at": [
+    0,
+    0,
+    3
+   ],
+   "text": "Der Hof der Pagode ist still. Nur ein Trittstein fehlt."
+  },
+  {
+   "at": [
+    0,
+    0,
+    0
+   ],
+   "text": "Eine Pagode, die sich dreht, hat viele Türen."
+  },
+  {
+   "at": [
+    -7,
+    3,
+    -1
+   ],
+   "text": "Eine Pfote auf der Platte. Eine zweite fehlt noch."
+  },
+  {
+   "at": [
+    3,
+    3,
+    -1
+   ],
+   "text": "Zwei Platten öffnen jedes Tor."
+  },
+  {
+   "at": [
+    6,
+    7,
+    2
+   ],
+   "text": "Vom Aussichtspunkt sieht die Pagode ganz anders aus."
+  }
+ ],
+ "world": "neko",
+ "hero": "cat",
+ "companion": "sparrow",
+ "backdrop": "fuji",
+ "goalItem": "bell",
+ "sushi": [
+  [
+   6,
+   -2,
+   3
+  ],
+  [
+   3,
+   -1,
+   3
+  ],
+  [
+   1,
+   0,
+   3
+  ],
+  [
+   -2,
+   3,
+   -1
+  ],
+  [
+   -7,
+   3,
+   0
+  ],
+  [
+   2,
+   3,
+   -1
+  ],
+  [
+   6,
+   7,
+   0
+  ]
+ ]
+}

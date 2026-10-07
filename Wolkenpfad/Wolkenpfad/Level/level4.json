@@ -1,0 +1,1467 @@
+{
+ "name": "Kapitel I · Die Kleinstadt",
+ "theme": "town",
+ "hints": [
+  {
+   "reach": [
+    5,
+    6,
+    -1
+   ],
+   "target": "goal"
+  },
+  {
+   "reach": [
+    -4,
+    4,
+    -2
+   ],
+   "target": "arm"
+  },
+  {
+   "reach": [
+    -4,
+    1,
+    0
+   ],
+   "target": "lift"
+  },
+  {
+   "target": "bridge"
+  }
+ ],
+ "ending": {
+  "text": "Das Glöckchen klingt über den Ziegeldächern – und alle Katzen der Stadt kommen heraus.",
+  "tree": [
+   5,
+   6,
+   1
+  ],
+  "spirits": [
+   [
+    -1,
+    0,
+    3
+   ],
+   [
+    1,
+    0,
+    5
+   ],
+   [
+    2,
+    1,
+    0
+   ],
+   [
+    -4,
+    1,
+    0
+   ],
+   [
+    -2,
+    4,
+    -2
+   ]
+  ]
+ },
+ "start": [
+  0,
+  0,
+  4
+ ],
+ "goal": [
+  5,
+  6,
+  -1
+ ],
+ "groups": [
+  {
+   "id": "bridge",
+   "kind": "rotate",
+   "pivot": [
+    -2,
+    1,
+    0
+   ],
+   "step": 0,
+   "handle": [
+    -2,
+    -1,
+    0
+   ]
+  },
+  {
+   "id": "lift",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "handle": [
+    -4,
+    1,
+    -1
+   ]
+  },
+  {
+   "id": "arm",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    4,
+    -2
+   ],
+   "step": 0,
+   "minStep": 0,
+   "maxStep": 2,
+   "handle": [
+    0,
+    2,
+    -2
+   ]
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    0,
+    4
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "m": "garden",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    4
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "garden",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    5
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    5
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    5
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    3
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    4
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -4,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    1,
+    2
+   ],
+   "m": "roof",
+   "walk": true,
+   "stair": "-z"
+  },
+  {
+   "p": [
+    2,
+    1,
+    1
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    1
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    1,
+    0
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    0
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    1
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    1
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    -1
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -2,
+    1,
+    0
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -2,
+    1,
+    1
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -2,
+    0,
+    0
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    0
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    0
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "bridge"
+  },
+  {
+   "p": [
+    -4,
+    1,
+    0
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    -3,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -2,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    0,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    1,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    0,
+    0
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    -1,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -3,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    -2,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    0,
+    -1
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    1,
+    -1
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -2
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -2
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    4,
+    -2
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    4,
+    -2
+   ],
+   "m": "roof",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    -2,
+    -2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    -2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    0,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    1,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -2
+   ],
+   "m": "roof",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -2
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    -2
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "arm"
+  },
+  {
+   "p": [
+    0,
+    4,
+    -1
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "ill": true,
+   "g": "arm"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -2
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "arm"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "arm"
+  },
+  {
+   "p": [
+    4,
+    6,
+    0
+   ],
+   "m": "pavement",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    4,
+    5,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    6,
+    -1
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    5,
+    -1
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    6,
+    -1
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    5,
+    -1
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    6,
+    0
+   ],
+   "m": "pavement",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    5,
+    0
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    4,
+    -1
+   ],
+   "m": "foundation",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    4,
+    -1
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    3,
+    -1
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    6,
+    1
+   ],
+   "m": "garden",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    5,
+    1
+   ],
+   "m": "foundation",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "tree",
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "s": 1.2,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "house",
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "s": 0.95,
+   "r": 0,
+   "variant": 0
+  },
+  {
+   "t": "pond",
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "waterfall",
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "planter",
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "postbox",
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -1,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "bench",
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "chochin",
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "vending",
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 1.5708
+  },
+  {
+   "t": "pole",
+   "p": [
+    1,
+    1,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "variant": 3,
+   "to": [
+    -5,
+    1,
+    0
+   ]
+  },
+  {
+   "t": "chochin",
+   "p": [
+    2,
+    1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "laundry",
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    -2,
+    -1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "bridge",
+   "face": "+x"
+  },
+  {
+   "t": "pole",
+   "p": [
+    -5,
+    1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -4,
+    1,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lift"
+  },
+  {
+   "t": "chochin",
+   "p": [
+    -3,
+    4,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "laundry",
+   "p": [
+    -2,
+    4,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "arm",
+   "face": "+z"
+  },
+  {
+   "t": "torii",
+   "p": [
+    4,
+    6,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0
+  },
+  {
+   "t": "altar",
+   "p": [
+    5,
+    6,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    5,
+    6,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    4,
+    6,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    0,
+    0,
+    4
+   ],
+   "text": "Mochi blinzelt in die Sonne. Irgendwo oben in der Stadt klingt ein Glöckchen."
+  },
+  {
+   "at": [
+    0,
+    1,
+    0
+   ],
+   "text": "Nicht jede Gasse liegt offen. Manche wollen bewegt werden."
+  },
+  {
+   "at": [
+    -4,
+    4,
+    -2
+   ],
+   "text": "Katzen wissen: Wer die Stadt anders ansieht, findet neue Wege."
+  },
+  {
+   "at": [
+    4,
+    6,
+    0
+   ],
+   "text": "Der kleine Schrein über den Dächern. Das Glöckchen wartet."
+  }
+ ],
+ "world": "neko",
+ "hero": "cat",
+ "companion": "sparrow",
+ "backdrop": "town",
+ "goalItem": "bell",
+ "sushi": [
+  [
+   1,
+   0,
+   4
+  ],
+  [
+   1,
+   1,
+   0
+  ],
+  [
+   -4,
+   1,
+   0
+  ],
+  [
+   -1,
+   4,
+   -2
+  ],
+  [
+   5,
+   6,
+   0
+  ],
+  [
+   2,
+   0,
+   3
+  ]
+ ]
+}

@@ -37,6 +37,20 @@ Jedes Kapitel wird ein Stück schwieriger, umfangreicher und abwechslungsreicher
 
 Der Fortschritt wird gespeichert. Im Titelbild wählst du freigeschaltete Kapitel, am Ende eines Kapitels geht es mit „Weiter zu Kapitel …“ zum nächsten.
 
+## Zweite Welt: Neko no Machi 猫の町
+
+Die zweite Welt greift Thema und Stil der ersten drei Kapitel von *Neko no Machi* auf. Die Wolkenpfad-Kapitel bleiben unverändert. Im Titelbild wählst du die Welt, und das erste Kapitel jeder Welt ist sofort offen.
+
+Gespielt wird die orange Tigerkatze Mochi. Ein Spatz zeigt ihr den Weg. Unterwegs gibt es Sushi zu sammeln (Zähler oben links), und am Ziel wartet ein goldenes Glöckchen statt des Samens. Im Finale kommen die Nachbarskatzen heraus. Die Optik ist flach, mit tiefblauem Himmel und weißen Kumuluswolken. Hinter jedem Level liegt eine eigene Kulisse.
+
+| | Kapitel I · Die Kleinstadt | Kapitel II · Landschaft | Kapitel III · Berg Fuji |
+|---|---|---|---|
+| Welt | Ziegeldächer, Pflaster, Holzhäuser, Strommasten mit Spatzen, Wäscheleinen, Getränkeautomat, Postkasten, Lampions, Kirschbäume | Reisterrassen, Bauernhaus mit Strohdach, Kakibäume, Jizō-Statuen, Vogelscheuche, Heuhaufen, Bambus, Wasserrad, Libellen | Herbstsee mit gespiegeltem Fuji, rote Ahorne, Ginkgos, fünfstöckige Pagode (der Drehturm), Dango-Stand, Aussichtsturm, Kiefer auf Fels |
+| Musik | „Ziegeldächer im Wind“: D-Dur-Walzer im 3/4-Takt, Klavier | „Reisfelder am Morgen“: D-Pentatonik, Flöte über Koto, Taiko | „Der weiße Gipfel“: E-Pentatonik, aufsteigende Koto, Taiko |
+| Sushi | 6 | 7 | 7 |
+
+Die Rätsel nutzen die geprüften Geometrien von Kapitel I–III. Wege, Mechanismen und unmögliche Verbindungen sind also gleich und bleiben lösbar. Neu sind Materialien, Dekoration, Texte und das Sammelziel. `Tools/generate_neko_levels.py` erzeugt `level4–6.json` aus `level1–3.json`.
+
 ## Musik
 
 `Audio/SoundEngine.swift` enthält einen generativen Sequenzer. Jedes Kapitel hat ein eigenes Stück mit Akkordfolge, Arpeggio-Figur, Bass, Klangfläche und einer auskomponierten Melodie. Die Melodie spielt nur in jedem zweiten 8-Takte-Bogen, damit die Musik ruhig im Hintergrund bleibt. Zu den Klangfarben gehören Klavier, Okarina mit Vibrato, Spieluhr, Bass und Streicherfläche. Beim Finale wird die Musik leiser, und die Abschlussmelodie erklingt.
@@ -58,11 +72,12 @@ Die Kamera ist orthografisch und schaut genau entlang der Raumdiagonale (1, 1, 1
 Wolkenpfad/
 ├── App/WolkenpfadApp.swift      App-Einstieg, Neustart über neue Session
 ├── Level/
-│   ├── level1–3.json            Leveldaten: Blöcke, Mechanismen, Platten, Hinweise, Finale, Texte
+│   ├── level1–6.json            Leveldaten (4–6 = Neko no Machi): Blöcke, Mechanismen, Platten, Hinweise, Finale, Texte
 │   └── LevelModel.swift         Gitterlogik, Ports, Illusionen, Wegsuche
 ├── Scene/
 │   ├── Art.swift                Palette, handgemalte Texturen, Himmel, Wolken
 │   ├── Props.swift              Bäume, Laternen, Torii, Kurbeln, Hana und Kiko
+│   ├── NekoProps.swift          Häuser, Masten, Pagode, Minka … Katze Mochi, Spatz, Sushi, Glöckchen
 │   ├── WorldBuilder.swift       Szene aus Leveldaten, Licht, Wolkenmeer, Partikel
 │   └── GameCoordinator.swift    Eingabe, Laufen, Mechanismen, Hinweise, Finale
 ├── Audio/SoundEngine.swift      Prozeduraler Synthesizer (Klangfläche, Wind, Glocken)
@@ -70,7 +85,7 @@ Wolkenpfad/
 Tools/                           Python-Werkzeuge zum Bauen und Prüfen von Levels
 ```
 
-`Tools/generate_level1–3.py` erzeugen die Leveldaten. `Tools/verify_level.py` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Es prüft, ob das Level lösbar ist und ob Blöcke kollidieren, und listet jede unmögliche Verbindung auf. So entstehen keine unbeabsichtigten Abkürzungen. Außerdem prüft es die Hinweisregeln. `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_mockups.py` erzeugt die Mockups in `Mockups/`.
+`Tools/generate_level1–3.py` erzeugen die Leveldaten. `Tools/verify_level.py` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Es prüft, ob das Level lösbar ist und ob Blöcke kollidieren, und listet jede unmögliche Verbindung auf. So entstehen keine unbeabsichtigten Abkürzungen. Außerdem prüft es die Hinweisregeln. `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_mockups.py` erzeugt die Mockups in `Mockups/`, `Tools/render_neko_mockups.py` die der Neko-Kapitel (`10_…`–`14_…`, Übersicht `00_neko_no_machi.png`). Der Prüfer kontrolliert zusätzlich, dass jedes Sushi auf einem festen, erreichbaren Feld liegt.
 
 ## Hinweis
 

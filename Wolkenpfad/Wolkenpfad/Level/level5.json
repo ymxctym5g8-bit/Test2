@@ -1,0 +1,1930 @@
+{
+ "name": "Kapitel II · Landschaft",
+ "theme": "satoyama",
+ "start": [
+  0,
+  0,
+  4
+ ],
+ "goal": [
+  -4,
+  6,
+  2
+ ],
+ "groups": [
+  {
+   "id": "raft",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "handle": [
+    3,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "wheel",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    1,
+    0
+   ],
+   "step": 1,
+   "handle": [
+    3,
+    -1,
+    0
+   ]
+  },
+  {
+   "id": "steps",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "slab",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3,
+   "handle": [
+    -1,
+    3,
+    -4
+   ]
+  }
+ ],
+ "plates": [
+  {
+   "id": "p1",
+   "at": [
+    1,
+    1,
+    0
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "plates": [
+    "p1"
+   ],
+   "group": "steps",
+   "value": 3
+  }
+ ],
+ "hints": [
+  {
+   "reach": [
+    -4,
+    6,
+    2
+   ],
+   "target": "goal"
+  },
+  {
+   "reach": [
+    0,
+    3,
+    -4
+   ],
+   "target": "slab"
+  },
+  {
+   "reach": [
+    1,
+    1,
+    0
+   ],
+   "unpressed": [
+    "p1"
+   ],
+   "target": "p1"
+  },
+  {
+   "reach": [
+    5,
+    1,
+    0
+   ],
+   "target": "wheel"
+  },
+  {
+   "target": "raft"
+  }
+ ],
+ "ending": {
+  "text": "Die Reisfelder glänzen. Am Horizont erhebt sich ein weißer Gipfel.",
+  "tree": [
+   -3,
+   6,
+   3
+  ],
+  "spirits": [
+   [
+    1,
+    0,
+    3
+   ],
+   [
+    7,
+    0,
+    2
+   ],
+   [
+    5,
+    1,
+    1
+   ],
+   [
+    1,
+    1,
+    0
+   ],
+   [
+    3,
+    1,
+    -2
+   ],
+   [
+    0,
+    3,
+    -4
+   ]
+  ]
+ },
+ "blocks": [
+  {
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    0,
+    4
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    4
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    5
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    5
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    5
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    4
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "raft",
+   "walk": true,
+   "g": "raft"
+  },
+  {
+   "p": [
+    7,
+    0,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    1
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    1
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -1,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    1,
+    1
+   ],
+   "m": "earth",
+   "walk": true,
+   "stair": "-x"
+  },
+  {
+   "p": [
+    6,
+    0,
+    1
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    1
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    0
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    1,
+    0
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    0
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    0
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    2,
+    1,
+    0
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    4,
+    1,
+    0
+   ],
+   "m": "woodplank",
+   "walk": true,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    3,
+    0,
+    0
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "m": "mech",
+   "walk": false,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    0
+   ],
+   "m": "mechdark",
+   "walk": false,
+   "g": "wheel"
+  },
+  {
+   "p": [
+    1,
+    1,
+    0
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -2,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    0
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    -1
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    -2
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -3,
+    -2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -2
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    1,
+    -2
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    -2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -3
+   ],
+   "m": "earth",
+   "walk": true,
+   "stair": "-z",
+   "g": "steps"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -3
+   ],
+   "m": "earth",
+   "walk": false,
+   "g": "steps"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    -3
+   ],
+   "m": "earthdark",
+   "walk": false,
+   "g": "steps"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -4
+   ],
+   "m": "earth",
+   "walk": true,
+   "g": "steps"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -4
+   ],
+   "m": "earth",
+   "walk": false,
+   "g": "steps"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false,
+   "g": "steps"
+  },
+  {
+   "p": [
+    2,
+    3,
+    -4
+   ],
+   "m": "earth",
+   "walk": true,
+   "stair": "-x"
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    1,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    2,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    3,
+    -4
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    2,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -4
+   ],
+   "m": "earth",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -4
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -2
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -1
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -4
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -3
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -4
+   ],
+   "m": "mechtop",
+   "walk": true,
+   "ill": true,
+   "g": "slab"
+  },
+  {
+   "p": [
+    0,
+    5,
+    1
+   ],
+   "m": "satograss",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    0,
+    4,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    5,
+    1
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    4,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    5,
+    2
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    1
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    6,
+    1
+   ],
+   "m": "earth",
+   "walk": true,
+   "stair": "-x"
+  },
+  {
+   "p": [
+    -2,
+    5,
+    1
+   ],
+   "m": "earth",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    4,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    1
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    5,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    5,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    2
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    2
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    1
+   ],
+   "m": "satograss",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    1
+   ],
+   "m": "earthdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    1
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    2
+   ],
+   "m": "foundationdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    3
+   ],
+   "m": "paddy",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    5,
+    3
+   ],
+   "m": "earthdark",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "tree",
+   "p": [
+    -1,
+    0,
+    5
+   ],
+   "s": 1.15,
+   "r": 0.0,
+   "variant": 6
+  },
+  {
+   "t": "bamboo",
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "millwheel",
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    1,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "jizo",
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "haystack",
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "waterfall",
+   "p": [
+    6,
+    -1,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "raft",
+   "axis": "x"
+  },
+  {
+   "t": "minka",
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "s": 0.9,
+   "r": 0
+  },
+  {
+   "t": "jizo",
+   "p": [
+    5,
+    1,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "kakashi",
+   "p": [
+    6,
+    1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "wheel",
+   "face": "+x"
+  },
+  {
+   "t": "tree",
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "s": 0.85,
+   "r": 0.0,
+   "variant": 6
+  },
+  {
+   "t": "haystack",
+   "p": [
+    1,
+    1,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    4,
+    1,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "vine",
+   "p": [
+    1,
+    3,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    0,
+    3,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -1,
+    3,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "slab",
+   "axis": "z"
+  },
+  {
+   "t": "bamboo",
+   "p": [
+    0,
+    5,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "torii",
+   "p": [
+    -3,
+    6,
+    1
+   ],
+   "s": 1.0,
+   "r": 1.5708
+  },
+  {
+   "t": "altar",
+   "p": [
+    -4,
+    6,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    -3,
+    6,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "variant": 6
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    0,
+    0,
+    4
+   ],
+   "text": "Hinter der Stadt beginnen die Reisfelder. Der Wind riecht nach Wasser."
+  },
+  {
+   "at": [
+    7,
+    0,
+    2
+   ],
+   "text": "Was treibt, kann tragen – sogar eine Katze."
+  },
+  {
+   "at": [
+    1,
+    1,
+    0
+   ],
+   "text": "Ein leises Klacken. Tief unten bewegt sich etwas."
+  },
+  {
+   "at": [
+    0,
+    3,
+    -4
+   ],
+   "text": "Manchmal muss man ein Stück zurückgehen, um weiterzukommen."
+  },
+  {
+   "at": [
+    -3,
+    6,
+    1
+   ],
+   "text": "Am Bergschrein schläft das zweite Glöckchen."
+  }
+ ],
+ "world": "neko",
+ "hero": "cat",
+ "companion": "sparrow",
+ "backdrop": "satoyama",
+ "goalItem": "bell",
+ "sushi": [
+  [
+   2,
+   0,
+   3
+  ],
+  [
+   7,
+   0,
+   1
+  ],
+  [
+   5,
+   1,
+   0
+  ],
+  [
+   3,
+   1,
+   -2
+  ],
+  [
+   1,
+   3,
+   -4
+  ],
+  [
+   -1,
+   5,
+   1
+  ],
+  [
+   -4,
+   6,
+   1
+  ]
+ ]
+}

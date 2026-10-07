@@ -47,6 +47,10 @@ LIGHT = {"day": (1.0, 0.0), "evening": (0.92, 0.10), "night": (0.62, 0.0)}   # H
 CLOUD = {"day": ((255, 255, 255), (196, 199, 230), (238, 190, 200)),
          "evening": ((255, 230, 210), (184, 143, 191), (242, 153, 140)),
          "night": ((158, 168, 219), (77, 77, 133), (107, 82, 140))}
+# Erweiterungspunkte (z. B. für die Neko-Kapitel in render_neko_mockups.py)
+DECOR_HOOKS = {}      # Typ → fn(cam, p, top, s, dd, i, gl, T) -> item
+BACKDROP_HOOK = None  # fn(img, cam) – ferne Kulisse hinter dem Level
+PARTICLE_HOOK = None  # fn(draw) – Teilchen im Vordergrund
 LAV = (150, 128, 190)
 VERM = rgb(.86, .33, .27)
 BRASS = rgb(.95, .78, .42)
@@ -210,7 +214,10 @@ def glow(layer, c, r, col, a=1.0):
 
 def tree_item(cam, anchor, s, variant, seed, glow_layer=None):  # noqa
     cols = {2: BLOSSOM, 1: LEAF_LIGHT, 3: [rgb(.93, .5, .24), rgb(.86, .32, .22), rgb(.98, .72, .3)],
-            4: [rgb(.2, .36, .4), rgb(.26, .44, .44), rgb(.18, .3, .38)]}.get(variant, LEAF)
+            4: [rgb(.2, .36, .4), rgb(.26, .44, .44), rgb(.18, .3, .38)],
+            5: [rgb(.98, .82, .3), rgb(.95, .74, .22), rgb(1, .9, .45)],
+            6: [rgb(.42, .62, .32), rgb(.5, .7, .36), rgb(.36, .55, .3)],
+            7: [rgb(.2, .4, .3), rgb(.16, .34, .27), rgb(.25, .46, .33)]}.get(variant, LEAF)
     def draw(d):
         rnd = random.Random(seed)
         base = cam.p(anchor)
@@ -224,6 +231,11 @@ def tree_item(cam, anchor, s, variant, seed, glow_layer=None):  # noqa
         for i, (x, y, z, r) in enumerate(puffs):
             c = cam.p(add(anchor, (x * s, .62 * s + y * s, z * s)))
             ball(d, c, r * s * cam.ppu * 0.95, cols[(i + rnd.randint(0, 2)) % 3])
+        if variant == 6:
+            for k in range(7):
+                a = k * .95
+                circle(d, cam.p(add(anchor, (math.cos(a) * .3 * s, (.64 + (k % 3) * .13) * s, math.sin(a) * .3 * s))),
+                       cam.ppu * .05 * s, rgb(.96, .52, .16))
         if variant == 4 and glow_layer is not None:
             for k in range(5):
                 a = k * 1.3
@@ -582,6 +594,7 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
         paste_cloud(img, CW * x, CH * y, CW * w, s, wm)
     for (x, y, w, s, wm) in [(.2, .9, .9, 11, True), (.75, .92, 1.0, 12, False), (.5, .98, 1.2, 13, False), (.05, 1.0, .8, 14, True), (.95, 1.0, .9, 15, True)]:
         paste_cloud(img, CW * x, CH * y, CW * w, s, wm)
+    if BACKDROP_HOOK: BACKDROP_HOOK(img, cam)
 
     items = []
     occupied = {tuple(b["p"]) for b in LEVEL["blocks"]}
@@ -635,6 +648,9 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
                                     highlight=(crank_hl == dd.get("g")), gl=gl))
         elif t == "handle":
             items.append(handle_item(cam, p, T, dd.get("axis", "y")))
+        elif t in DECOR_HOOKS:
+            it = DECOR_HOOKS[t](cam, p, top, s, dd, i, gl, T)
+            if it: items.append(it)
 
     for pl in LEVEL.get("plates", []):
         items.append(plate_item(cam, tuple(pl["at"]), pl["id"] in pressed, gl))
@@ -687,7 +703,8 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
     img.alpha_composite(fg)
 
     canvas = img.convert("RGB")
-    if THEME == "evening": leaves(ImageDraw.Draw(canvas, "RGBA"), 22, 5)
+    if PARTICLE_HOOK: PARTICLE_HOOK(ImageDraw.Draw(canvas, "RGBA"), big_tree)
+    elif THEME == "evening": leaves(ImageDraw.Draw(canvas, "RGBA"), 22, 5)
     elif THEME == "day" or big_tree: petals(ImageDraw.Draw(canvas, "RGBA"), 60 if big_tree else 16, 5)
     img = canvas.convert("RGBA")
 

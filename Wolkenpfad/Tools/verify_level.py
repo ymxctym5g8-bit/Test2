@@ -103,6 +103,12 @@ for h in L.get("hints", []):
         problems.append(f"Hinweis-Feld existiert nicht: {h['reach']}")
 if "ending" in L and not any(tuple(b["p"]) == tuple(L["ending"]["tree"]) for b in L["blocks"]):
     problems.append("Finale-Baum steht auf keinem Block")
+for c in L.get("sushi", []):
+    if not any(tuple(b["p"]) == tuple(c) and b["walk"] and not b.get("g") and not b.get("stair") for b in L["blocks"]):
+        problems.append(f"Sushi liegt auf keinem festen, begehbaren Feld: {c}")
+for d in L.get("decor", []):
+    if d.get("to") and not any(tuple(b["p"]) == tuple(d["to"]) for b in L["blocks"]):
+        problems.append(f"Leitung endet auf keinem Block: {d['to']}")
 for t in L.get("texts", []):
     if not any(tuple(b["p"]) == tuple(t["at"]) and not b.get("g") for b in L["blocks"]):
         problems.append(f"Erzähltext auf unbekanntem Feld {t['at']}")
@@ -113,7 +119,9 @@ for key in itertools.product(*[gstates(groups[g]) for g in gids]):
 q = deque([(init, frozenset(), start)]); prev = {(init, frozenset(), start): None}; found = None
 while q:
     k, pr, t = q.popleft()
-    if t == goal: found = (k, pr, t); break
+    if t == goal:
+        if found is None: found = (k, pr, t)
+        continue
     r = build(k)
     nxt = []
     for b, _ in r[0][t]:
@@ -135,6 +143,9 @@ while q:
     for n, act in nxt:
         if n not in prev: prev[n] = ((k, pr, t), act); q.append(n)
 
+reached = {tuple(L["blocks"][t]["p"]) for (_, _, t) in prev}
+for c in L.get("sushi", []):
+    if tuple(c) not in reached: problems.append(f"Sushi unerreichbar: {c}")
 seen_ill = set()
 for (k, pr, t) in prev:
     adj, tiles = build(k)

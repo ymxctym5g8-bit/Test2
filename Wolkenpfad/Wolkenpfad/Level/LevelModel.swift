@@ -64,6 +64,8 @@ struct DecorDef: Codable {
     let variant: Int?
     let face: String?
     let axis: String?
+    /// Zweiter Endpunkt, z. B. für Stromleitungen zwischen zwei Masten.
+    let to: IVec3?
 }
 
 struct GroupDef: Codable {
@@ -132,6 +134,18 @@ struct LevelDef: Codable {
     let triggers: [TriggerDef]?
     let hints: [HintDef]?
     let ending: EndingDef?
+    /// Welt: "wolkenpfad" (Standard) oder "neko" (Katzenstadt-Kapitel).
+    let world: String?
+    /// Spielfigur: "hana" (Standard) oder "cat".
+    let hero: String?
+    /// Begleiter: "kiko" (Standard) oder "sparrow".
+    let companion: String?
+    /// Kulisse hinter dem Level: "town", "satoyama", "fuji".
+    let backdrop: String?
+    /// Sammel-Sushi auf festen Feldern.
+    let sushi: [IVec3]?
+    /// Gegenstand auf dem Zielaltar: "seed" (Standard) oder "bell".
+    let goalItem: String?
 
     static func load(_ resource: String) -> LevelDef {
         guard let url = Bundle.main.url(forResource: resource, withExtension: "json"),

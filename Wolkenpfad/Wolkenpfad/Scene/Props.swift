@@ -37,6 +37,15 @@ enum Props {
         root.addChildNode(canopy)
         let colors: [UIColor]
         switch variant {
+        case 7:   // Kiefer: dunkle, flache Nadelpolster
+            colors = [UIColor(red: 0.2, green: 0.4, blue: 0.3, alpha: 1), UIColor(red: 0.16, green: 0.34, blue: 0.27, alpha: 1),
+                      UIColor(red: 0.25, green: 0.46, blue: 0.33, alpha: 1)]
+        case 6:   // Kakibaum mit orangen Früchten
+            colors = [UIColor(red: 0.42, green: 0.62, blue: 0.32, alpha: 1), UIColor(red: 0.5, green: 0.7, blue: 0.36, alpha: 1),
+                      UIColor(red: 0.36, green: 0.55, blue: 0.3, alpha: 1)]
+        case 5:   // Ginkgo, goldgelb
+            colors = [UIColor(red: 0.98, green: 0.82, blue: 0.3, alpha: 1), UIColor(red: 0.95, green: 0.74, blue: 0.22, alpha: 1),
+                      UIColor(red: 1, green: 0.9, blue: 0.45, alpha: 1)]
         case 4:   // nächtlicher Baum mit leuchtenden Früchten
             colors = [UIColor(red: 0.2, green: 0.36, blue: 0.4, alpha: 1), UIColor(red: 0.26, green: 0.44, blue: 0.44, alpha: 1),
                       UIColor(red: 0.18, green: 0.3, blue: 0.38, alpha: 1)]
@@ -54,7 +63,16 @@ enum Props {
         ]
         for (i, p) in puffs.enumerated() {
             let c = colors[(i + Int(rng.next() * 3)) % colors.count]
-            canopy.addChildNode(sphere(p.w * s, c, SIMD3(p.x, p.y, p.z) * s))
+            let puff = sphere(p.w * s, c, SIMD3(p.x, p.y, p.z) * s)
+            if variant == 7 { puff.simdScale = SIMD3(1.35, 0.45, 1.35) }
+            canopy.addChildNode(puff)
+        }
+        if variant == 6 {
+            for k in 0..<7 {
+                let a = Float(k) * 0.95
+                canopy.addChildNode(sphere(0.05 * s, UIColor(red: 0.96, green: 0.52, blue: 0.16, alpha: 1),
+                                           SIMD3(cos(a) * 0.3, 0.02 + Float(k % 3) * 0.13, sin(a) * 0.3) * s, segments: 8))
+            }
         }
         if variant == 4 {
             for k in 0..<5 {
