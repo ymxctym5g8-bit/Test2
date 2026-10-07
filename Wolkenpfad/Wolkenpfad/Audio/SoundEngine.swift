@@ -62,18 +62,32 @@ final class SoundEngine {
         }
     }
 
+    /// Eigene Queue: Audio-Session aktivieren und Engine starten blockiert und
+    /// darf deshalb nicht auf dem Haupt-Thread laufen.
+    private let setupQueue = DispatchQueue(label: "wolkenpfad.audio.setup", qos: .userInitiated)
+
     func start() {
         guard !started else { return }
         started = true
+        setupQueue.async { [self] in
+            setUpEngine()
+        }
+    }
+
+    private func setUpEngine() {
+        let session = AVAudioSession.sharedInstance()
         do {
-            try AVAudioSession.sharedInstance().setCategory(.ambient, options: [.mixWithOthers])
-            try AVAudioSession.sharedInstance().setActive(true)
+            try session.setCategory(.ambient, options: [.mixWithOthers])
+            try session.setActive(true)
         } catch {
             print("Audio-Session: \(error)")
         }
         let output = engine.outputNode.inputFormat(forBus: 0)
-        sampleRate = output.sampleRate > 0 ? output.sampleRate : 44_100
-        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2) else { return }
+        let rate = output.sampleRate > 0 ? output.sampleRate : 44_100
+        lock.lock()
+        sampleRate = rate
+        lock.unlock()
+        guard let format = AVAudioFormat(standardFormatWithSampleRate: rate, channels: 2) else { return }
         let node = AVAudioSourceNode { [unowned self] _, _, frameCount, bufferList -> OSStatus in
             self.render(frames: Int(frameCount), bufferList: bufferList)
             return noErr
