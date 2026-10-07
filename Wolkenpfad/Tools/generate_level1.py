@@ -1,8 +1,10 @@
 # Erzeugt Wolkenpfad/Level/level1.json. Aufruf: python3 Tools/generate_level1.py Wolkenpfad/Level/level1.json
 import json, sys
 B=[]; D=[]
+ILL={(0,4,-1),(4,6,0)}   # erlaubte unmögliche Verbindung: Bogenarm <-> Schrein
 def blk(p,m,walk=False,stair=None,g=None):
     b={"p":list(p),"m":m,"walk":walk}
+    if tuple(p) in ILL: b["ill"]=True
     if stair: b["stair"]=stair
     if g: b["g"]=g
     B.append(b)
@@ -92,6 +94,15 @@ dec("flowers",(4,6,0),0.8)
 
 level={
  "name":"Kapitel I · Der Samen des Waldes",
+ "theme":"day",
+ "hints":[
+  {"reach":[5,6,-1],"target":"goal"},
+  {"reach":[-4,4,-2],"target":"arm"},
+  {"reach":[-4,1,0],"target":"lift"},
+  {"target":"bridge"}
+ ],
+ "ending":{"text":"Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.","tree":[5,6,1],
+           "spirits":[[-1,0,3],[1,0,5],[2,1,0],[-4,1,0],[-2,4,-2],[4,6,0],[5,6,0],[3,0,3]]},
  "start":[0,0,4],"goal":[5,6,-1],
  "groups":[
   {"id":"bridge","kind":"rotate","pivot":[-2,1,0],"step":0,"handle":[-2,-1,0]},

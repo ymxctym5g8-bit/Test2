@@ -3,14 +3,21 @@
 import json, math, random, sys, os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-LEVEL = json.load(open(sys.argv[1]))
-OUT = sys.argv[2]
+LEVEL = None
+GROUPS = {}
+OUT = "."
+THEME = "day"
+
+def load(path):
+    global LEVEL, GROUPS, THEME
+    LEVEL = json.load(open(path))
+    GROUPS = {g["id"]: g for g in LEVEL["groups"]}
+    THEME = LEVEL.get("theme", "day")
 W, H, SS = 1179, 2556, 2
 CW, CH = W * SS, H * SS
 SQ2, SQ3, SQ6 = math.sqrt(2), math.sqrt(3), math.sqrt(6)
 BACK = (1 / SQ3, 1 / SQ3, 1 / SQ3)
 SUN = (14, 30, 6); _l = math.sqrt(sum(c * c for c in SUN)); SUN = tuple(c / _l for c in SUN)
-GROUPS = {g["id"]: g for g in LEVEL["groups"]}
 FONT_DIR = "/usr/share/fonts/truetype/"
 def font(name, size): return ImageFont.truetype(FONT_DIR + name, int(size * SS))
 
@@ -28,7 +35,18 @@ MAT = {
     "tealdark": (rgb(.30, .56, .62), rgb(.30, .56, .62)),
     "tealtop": (rgb(.70, .90, .86), rgb(.42, .74, .75)),
     "altar": (rgb(.92, .88, .84), rgb(.88, .84, .80)),
+    "raft": (rgb(.72, .50, .34), rgb(.60, .40, .28)),
+    "gate": (rgb(.86, .33, .27), rgb(.80, .30, .25)),
 }
+SKIES = {
+    "day": [(0, rgb(.52, .73, .93)), (.3, rgb(.74, .86, .95)), (.6, rgb(.99, .93, .84)), (.82, rgb(.99, .82, .74)), (1, rgb(.93, .72, .74))],
+    "evening": [(0, rgb(.42, .45, .75)), (.3, rgb(.78, .60, .78)), (.6, rgb(1, .74, .56)), (.82, rgb(.99, .60, .45)), (1, rgb(.85, .45, .48))],
+    "night": [(0, rgb(.07, .09, .24)), (.3, rgb(.14, .18, .40)), (.6, rgb(.27, .28, .52)), (.82, rgb(.42, .36, .58)), (1, rgb(.55, .42, .60))],
+}
+LIGHT = {"day": (1.0, 0.0), "evening": (0.92, 0.10), "night": (0.62, 0.0)}   # Helligkeit, Wärme
+CLOUD = {"day": ((255, 255, 255), (196, 199, 230), (238, 190, 200)),
+         "evening": ((255, 230, 210), (184, 143, 191), (242, 153, 140)),
+         "night": ((158, 168, 219), (77, 77, 133), (107, 82, 140))}
 LAV = (150, 128, 190)
 VERM = rgb(.86, .33, .27)
 BRASS = rgb(.95, .78, .42)
@@ -48,8 +66,11 @@ def norm(a):
 
 def shade(base, n):
     lam = max(0.0, dot(n, SUN))
-    f = 0.66 + 0.42 * lam
+    bright, warmth = LIGHT[THEME]
+    f = (0.66 + 0.42 * lam) * bright
     c = mul(base, f)
+    if warmth: c = mix(c, (255, 150, 90), warmth * lam)
+    if THEME == "night": c = mix(c, (60, 70, 130), 0.28)
     return mix(c, mix(c, LAV, 0.5), (1 - lam) * 0.35)
 
 def roty(p, th):
@@ -93,17 +114,20 @@ def depth(w): return dot(w, BACK)
 
 # ---------------- Weltzustand ----------------
 class State:
-    def __init__(self, bridge=0.0, lift=0.0, arm=0.0):
-        self.ang = {"bridge": bridge, "arm": arm}
-        self.lift = lift
+    """Mechanik-Stellungen: Drehgruppen in Radiant, Schieber in Feldern.
+    Nicht angegebene Gruppen stehen auf ihrem Startwert."""
+    def __init__(self, bridge=0.0, lift=0.0, arm=0.0, **vals):
+        self.vals = {"bridge": bridge, "lift": lift, "arm": arm}
+        self.vals.update(vals)
 
     def T(self, gid):
         if not gid: return lambda p: p
         g = GROUPS[gid]
         if g["kind"] == "rotate":
-            pv = tuple(g["pivot"]); th = self.ang[gid]
+            pv = tuple(g["pivot"])
+            th = self.vals.get(gid, g.get("step", 0) * math.pi / 2)
             return lambda p: add(pv, roty(sub(p, pv), th))
-        ax = g["axis"]; v = self.lift
+        ax = g["axis"]; v = self.vals.get(gid, g.get("value", 0))
         return lambda p: (p[0] + ax[0] * v, p[1] + ax[1] * v, p[2] + ax[2] * v)
 
 # ---------------- Zeichnen: Würfel ----------------
@@ -184,8 +208,9 @@ def glow(layer, c, r, col, a=1.0):
         gd.ellipse((r - r * t, r - r * t, r + r * t, r + r * t), fill=col + (alpha,))
     layer.alpha_composite(g, (int(c[0] - r), int(c[1] - r)))
 
-def tree_item(cam, anchor, s, variant, seed, glow_layer=None):
-    cols = BLOSSOM if variant == 2 else (LEAF_LIGHT if variant == 1 else LEAF)
+def tree_item(cam, anchor, s, variant, seed, glow_layer=None):  # noqa
+    cols = {2: BLOSSOM, 1: LEAF_LIGHT, 3: [rgb(.93, .5, .24), rgb(.86, .32, .22), rgb(.98, .72, .3)],
+            4: [rgb(.2, .36, .4), rgb(.26, .44, .44), rgb(.18, .3, .38)]}.get(variant, LEAF)
     def draw(d):
         rnd = random.Random(seed)
         base = cam.p(anchor)
@@ -199,6 +224,12 @@ def tree_item(cam, anchor, s, variant, seed, glow_layer=None):
         for i, (x, y, z, r) in enumerate(puffs):
             c = cam.p(add(anchor, (x * s, .62 * s + y * s, z * s)))
             ball(d, c, r * s * cam.ppu * 0.95, cols[(i + rnd.randint(0, 2)) % 3])
+        if variant == 4 and glow_layer is not None:
+            for k in range(5):
+                a = k * 1.3
+                q = cam.p(add(anchor, (math.cos(a) * .3 * s, (.67 + (k % 3) * .12) * s, math.sin(a) * .3 * s)))
+                glow(glow_layer, q, cam.ppu * .18, (255, 210, 120), .9)
+                circle(d, q, cam.ppu * .045 * s, (255, 220, 130))
     return (depth(anchor) + .4, draw)
 
 def flowers_item(cam, anchor, s, seed):
@@ -225,7 +256,7 @@ def grass_item(cam, anchor, s, seed):
             d.line([b, t], fill=rnd.choice([rgb(.36, .6, .36), LEAF[1]]), width=max(2, int(cam.ppu * .018)))
     return (depth(anchor) + .05, draw)
 
-def lantern_item(cam, anchor, s, gl):
+def lantern_item(cam, anchor, s, gl, boost=1):
     a = add(anchor, (.32, 0, -.32))
     def draw(d):
         u = cam.ppu * s
@@ -235,7 +266,7 @@ def lantern_item(cam, anchor, s, gl):
         d.rectangle((b[0] - .03 * u, b[1] - .25 * u, b[0] + .03 * u, b[1] - .05 * u), fill=stone)
         d.rectangle((b[0] - .07 * u, b[1] - .36 * u, b[0] + .07 * u, b[1] - .25 * u), fill=(255, 220, 150))
         d.polygon([(b[0] - .13 * u, b[1] - .36 * u), (b[0] + .13 * u, b[1] - .36 * u), (b[0], b[1] - .46 * u)], fill=(128, 115, 140))
-        glow(gl, (b[0], b[1] - .3 * u), .35 * u, (255, 200, 120), .8)
+        glow(gl, (b[0], b[1] - .3 * u), .35 * u * boost, (255, 200, 120), .8 if boost == 1 else .95)
     return (depth(a) + .1, draw)
 
 def torii_item(cam, anchor, s):
@@ -285,15 +316,21 @@ def crank_item(cam, cell, face, T, spin=0.0, highlight=False, gl=None):
         d.line([cam.p(T(add(c, add(scl(e1, .3 * math.cos(spin)), scl(e2, .3 * math.sin(spin)))))), cam.p(kp)], fill=VERM, width=int(u * .09))
     return (depth(T(c)) + .3, draw)
 
-def handle_item(cam, cell, T):
-    c = add(cell, (.53, -.1, 0))
+def handle_item(cam, cell, T, axis="y"):
+    if axis == "x":
+        c = add(cell, (0, 0, .53)); e1, e2, ax, side = (1, 0, 0), (0, 1, 0), (1, 0, 0), (0, 1, 0)
+    elif axis == "z":
+        c = add(cell, (.53, 0, 0)); e1, e2, ax, side = (0, 0, 1), (0, 1, 0), (0, 0, 1), (0, 1, 0)
+    else:
+        c = add(cell, (.53, -.1, 0)); e1, e2, ax, side = (0, 0, 1), (0, 1, 0), (0, 1, 0), (0, 0, 1)
     def draw(d):
         u = cam.ppu
-        ring = ring_on_face(cam, c, (0, 0, 1), (0, 1, 0), .16, T)
+        ring = ring_on_face(cam, c, e1, e2, .16, T)
         d.line(ring, fill=BRASS, width=int(u * .06))
         for sgn in (1, -1):
-            tip = cam.p(T(add(c, (0, .36 * sgn, 0))))
-            b1 = cam.p(T(add(c, (0, .24 * sgn, -.07)))); b2 = cam.p(T(add(c, (0, .24 * sgn, .07))))
+            tip = cam.p(T(add(c, scl(ax, .36 * sgn))))
+            b1 = cam.p(T(add(add(c, scl(ax, .24 * sgn)), scl(side, -.07))))
+            b2 = cam.p(T(add(add(c, scl(ax, .24 * sgn)), scl(side, .07))))
             d.polygon([tip, b1, b2], fill=BRASS)
     return (depth(T(c)) + .3, draw)
 
@@ -363,6 +400,51 @@ def bush_item(cam, anchor, s):
             circle(d, cam.p(add(anchor, (i * .12 - .1, .27 * s, .12))), cam.ppu * .035, (255, 255, 255))
     return (depth(anchor) + .3, draw)
 
+def bamboo_item(cam, anchor, s, seed):
+    def draw(d):
+        rnd = random.Random(seed)
+        for i in range(6):
+            x, z = rnd.uniform(-.3, .3), rnd.uniform(-.3, .3)
+            h = rnd.uniform(1.0, 1.8) * s
+            b = add(anchor, (x, 0, z))
+            col = [rgb(.5, .72, .4), rgb(.42, .64, .36)][i % 2]
+            y = 0
+            while y < h:
+                seg = min(.3, h - y)
+                d.line([cam.p(add(b, (0, y, 0))), cam.p(add(b, (0, y + seg - .02, 0)))], fill=col, width=int(cam.ppu * .06))
+                y += seg
+            for k in range(3):
+                q = cam.p(add(b, (.06, h - k * .12, 0)))
+                d.ellipse((q[0] - cam.ppu * .12, q[1] - cam.ppu * .025, q[0] + cam.ppu * .12, q[1] + cam.ppu * .025), fill=LEAF[k % 3])
+    return (depth(anchor) + .5, draw)
+
+def millwheel_item(cam, cell, face):
+    if face == "+z":
+        c = add(cell, (0, -.2, .62)); e1, e2 = (1, 0, 0), (0, 1, 0)
+    else:
+        c = add(cell, (.62, -.2, 0)); e1, e2 = (0, 0, 1), (0, 1, 0)
+    def draw(d):
+        u = cam.ppu
+        d.line(ring_on_face(cam, c, e1, e2, .45), fill=MAT["wood"][1], width=int(u * .09))
+        for k in range(8):
+            a = k / 8 * math.tau
+            p1 = cam.p(add(c, add(scl(e1, .1 * math.cos(a)), scl(e2, .1 * math.sin(a)))))
+            p2 = cam.p(add(c, add(scl(e1, .5 * math.cos(a)), scl(e2, .5 * math.sin(a)))))
+            d.line([p1, p2], fill=MAT["wood"][0], width=int(u * .05))
+        circle(d, cam.p(c), u * .07, BRASS)
+    return (depth(c) + .3, draw)
+
+def plate_item(cam, cell, pressed, gl):
+    top = add(cell, (0, .5, 0))
+    def draw(d):
+        pts = [cam.p(add(top, (.36 * math.cos(t), .03, .36 * math.sin(t)))) for t in [i / 30 * math.tau for i in range(31)]]
+        d.polygon(pts, fill=(222, 214, 210))
+        ring = [cam.p(add(top, (.22 * math.cos(t), .05, .22 * math.sin(t)))) for t in [i / 30 * math.tau for i in range(31)]]
+        col = (255, 214, 110) if pressed else (90, 150, 150)
+        d.line(ring, fill=col, width=int(cam.ppu * .04))
+        if pressed: glow(gl, cam.p(top), cam.ppu * .6, (255, 220, 120), .8)
+    return (depth(top) + .02, draw)
+
 # ---------------- Figuren ----------------
 def hana_item(cam, feet, facing="front", walking=False):
     def draw(d):
@@ -417,7 +499,7 @@ def kiko_item(cam, pos, gl, s=1.0):
 # ---------------- Himmel & Wolken ----------------
 def sky():
     img = Image.new("RGBA", (CW, CH))
-    stops = [(0, rgb(.52, .73, .93)), (.3, rgb(.74, .86, .95)), (.6, rgb(.99, .93, .84)), (.82, rgb(.99, .82, .74)), (1, rgb(.93, .72, .74))]
+    stops = SKIES[THEME]
     d = ImageDraw.Draw(img)
     for y in range(CH):
         t = y / CH
@@ -426,13 +508,21 @@ def sky():
                 k = (t - stops[i][0]) / (stops[i + 1][0] - stops[i][0])
                 d.line([(0, y), (CW, y)], fill=mix(stops[i][1], stops[i + 1][1], k) + (255,))
                 break
+    if THEME == "night":
+        rnd = random.Random(77)
+        for _ in range(260):
+            x, y = rnd.uniform(0, CW), rnd.uniform(0, CH * .6)
+            r = rnd.uniform(1, 3.2) * SS
+            a = int(255 * rnd.uniform(.35, .95) * (1 - y / (CH * .7)))
+            d.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, max(0, a)))
     return img
 
 def cloud_sprite(w, seed, warm=False, alpha=1.0):
     h = int(w * .5)
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     rnd = random.Random(seed)
-    sh = (238, 190, 200) if warm else (196, 199, 230)
+    light, shadow, warmsh = CLOUD[THEME]
+    sh = warmsh if warm else shadow
     puffs = []
     for i in range(9):
         t = i / 8
@@ -441,7 +531,7 @@ def cloud_sprite(w, seed, warm=False, alpha=1.0):
         x = w * .14 + t * w * .72 + rnd.uniform(-.04, .04) * w
         y = h * .74 - r * .75 - mid * h * .08
         puffs.append((x, y, r))
-    for layer, col, off in (("s", sh, .18), ("l", (255, 255, 255), -.12)):
+    for layer, col, off in (("s", sh, .18), ("l", light, -.12)):
         m = Image.new("L", (w, h), 0); md = ImageDraw.Draw(m)
         for x, y, r in puffs:
             cy = y + r * off
@@ -465,13 +555,29 @@ def petals(d, n, seed, region=(0, 0, CW, CH)):
                 y + math.cos(t) * r * math.sin(a) + math.sin(t) * r * .55 * math.cos(a)) for t in [i / 12 * math.tau for i in range(12)]]
         d.polygon(pts, fill=rnd.choice(BLOSSOM) + (220,))
 
+def leaves(d, n, seed):
+    rnd = random.Random(seed)
+    for _ in range(n):
+        x, y = rnd.uniform(0, CW), rnd.uniform(0, CH)
+        r = rnd.uniform(12, 22) * SS / 2
+        a0 = rnd.uniform(0, math.tau)
+        pts = [(x + math.cos(a0 + k / 10 * math.tau) * (r if k % 2 == 0 else r * .45),
+                y + math.sin(a0 + k / 10 * math.tau) * (r if k % 2 == 0 else r * .45)) for k in range(10)]
+        d.polygon(pts, fill=rnd.choice([(242, 128, 52), (220, 82, 56), (250, 184, 76)]) + (225,))
+
 # ---------------- Szene zusammensetzen ----------------
 def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridge_spin=0.0,
-           bloom=False, big_tree=None, spirits=(), seed_on_altar=True, sparkle=None, warm=0.0):
+           bloom=False, big_tree=None, spirits=(), seed_on_altar=True, sparkle=None, warm=0.0, pressed=(), firefly_area=None):
     img = sky()
     gl = Image.new("RGBA", (CW, CH), (0, 0, 0, 0))
     # Sonne und Himmelswolken
-    glow(img, (CW * .72, CH * .16), CW * .45, (255, 246, 214), .85)
+    if THEME == "night":
+        glow(img, (CW * .72, CH * .14), CW * .3, (200, 215, 255), .55)
+        circle(ImageDraw.Draw(img), (CW * .72, CH * .14), CW * .045, (252, 248, 230))
+    elif THEME == "evening":
+        glow(img, (CW * .7, CH * .5), CW * .55, (255, 190, 120), .7)
+    else:
+        glow(img, (CW * .72, CH * .16), CW * .45, (255, 246, 214), .85)
     for (x, y, w, s, wm) in [(.18, .1, .62, 1, False), (.86, .23, .55, 2, True), (.3, .3, .4, 3, True), (.95, .05, .5, 4, False)]:
         paste_cloud(img, CW * x, CH * y, CW * w, s, wm)
     for (x, y, w, s, wm) in [(.2, .9, .9, 11, True), (.75, .92, 1.0, 12, False), (.5, .98, 1.2, 13, False), (.05, 1.0, .8, 14, True), (.95, 1.0, .9, 15, True)]:
@@ -503,29 +609,35 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
         T = state.T(dd.get("g"))
         p = tuple(dd["p"]); top = T(add(p, (0, .5, 0))); s = dd["s"]; t = dd["t"]
         if t == "tree":
-            if big_tree and tuple(p) == (5, 6, 1): continue
-            items.append(tree_item(cam, top, s, dd.get("variant", 0), i))
+            if big_tree and "ending" in LEVEL and tuple(p) == tuple(LEVEL["ending"]["tree"]): continue
+            items.append(tree_item(cam, top, s, dd.get("variant", 0), i, gl))
+        elif t == "bamboo": items.append(bamboo_item(cam, top, s, i))
+        elif t == "millwheel": items.append(millwheel_item(cam, p, dd.get("face", "+z")))
         elif t == "bush": items.append(bush_item(cam, top, s))
         elif t == "flowers": items.append(flowers_item(cam, top, s, i))
         elif t == "grass": items.append(grass_item(cam, top, s, i))
         elif t == "mushroom": items.append(mushroom_item(cam, top))
         elif t == "rock": items.append(rock_item(cam, top, s))
-        elif t == "lantern": items.append(lantern_item(cam, top, s, gl))
+        elif t == "lantern": items.append(lantern_item(cam, top, s, gl, 2.2 if THEME == "night" else 1))
         elif t == "vine": items.append(vine_item(cam, top, i))
         elif t == "torii": items.append(torii_item(cam, top, s))
         elif t == "pond": items.append(pond_item(cam, top))
         elif t == "waterfall": items.append(waterfall_item(cam, add(p, (.52, .42, 0)), gl))
         elif t == "altar":
-            items.append(box_item(cam, add(p, (0, .59, -.32)), (.25, .09, .12), lambda q: q, "altar", 500 + i, colors=MAT["altar"]))
-            items.append(box_item(cam, add(p, (0, .72, -.32)), (.18, .04, .09), lambda q: q, "altar", 600 + i, colors=MAT["altar"]))
+            yaw = dd.get("r", 0)
+            loc = lambda o, p=p, yaw=yaw: T(add(p, roty(o, yaw)))
+            items.append(box_item(cam, (0, .59, -.32), (.25, .09, .12), lambda q, loc=loc: loc(q), "altar", 500 + i, colors=MAT["altar"]))
+            items.append(box_item(cam, (0, .72, -.32), (.18, .04, .09), lambda q, loc=loc: loc(q), "altar", 600 + i, colors=MAT["altar"]))
             if seed_on_altar:
-                items.append(seed_item(cam, add(p, (0, .92, -.32)), gl))
+                items.append(seed_item(cam, loc((0, .92, -.32)), gl))
         elif t == "crank":
             items.append(crank_item(cam, p, dd.get("face", "+x"), T, spin=bridge_spin if dd.get("g") == "bridge" else 0,
                                     highlight=(crank_hl == dd.get("g")), gl=gl))
         elif t == "handle":
-            items.append(handle_item(cam, p, T))
+            items.append(handle_item(cam, p, T, dd.get("axis", "y")))
 
+    for pl in LEVEL.get("plates", []):
+        items.append(plate_item(cam, tuple(pl["at"]), pl["id"] in pressed, gl))
     if bloom:
         for b in LEVEL["blocks"]:
             if b["m"] == "grass" and b["walk"]:
@@ -544,11 +656,15 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
     for _, fn in items: fn(d)
     img = canvas.convert("RGBA")
 
-    # Glühwürmchen beim Schrein
+    # Glühwürmchen (beim Schrein; nachts überall)
     rnd = random.Random(3)
-    for _ in range(9):
-        q = (rnd.uniform(3.5, 6), rnd.uniform(6.6, 7.8), rnd.uniform(-1.5, 1))
-        glow(gl, cam.p(q), cam.ppu * .12, (255, 240, 150), .9)
+    area = firefly_area or ((3.5, 6), (6.6, 7.8), (-1.5, 1))
+    for _ in range(9 if THEME != "night" else 40):
+        if THEME == "night":
+            q = (rnd.uniform(-9, 8), rnd.uniform(-2, 9), rnd.uniform(-5, 6))
+        else:
+            q = (rnd.uniform(*area[0]), rnd.uniform(*area[1]), rnd.uniform(*area[2]))
+        glow(gl, cam.p(q), cam.ppu * .12, (255, 240, 150) if THEME != "night" else (190, 255, 210), .9)
     if sparkle:
         c = cam.p(sparkle)
         glow(gl, c, cam.ppu * 1.1, (255, 236, 160), 1)
@@ -571,7 +687,8 @@ def render(state, cam, *, hana=None, kiko=None, extra=None, crank_hl=None, bridg
     img.alpha_composite(fg)
 
     canvas = img.convert("RGB")
-    petals(ImageDraw.Draw(canvas, "RGBA"), 60 if big_tree else 16, 5)
+    if THEME == "evening": leaves(ImageDraw.Draw(canvas, "RGBA"), 22, 5)
+    elif THEME == "day" or big_tree: petals(ImageDraw.Draw(canvas, "RGBA"), 60 if big_tree else 16, 5)
     img = canvas.convert("RGBA")
 
     # weicher Bloom + warmes Licht
@@ -617,7 +734,17 @@ def menu_button(img):
     img.alpha_composite(lay)
 
 def story(img, txt):
-    text_c(img, (59 + 54 + 10) * 3 * SS / 3, txt, font("liberation/LiberationSerif-Italic.ttf", 19 * 3), INK, True)
+    night = THEME == "night"
+    y = (59 + 54 + 10) * 3 * SS / 3
+    f = font("liberation/LiberationSerif-Italic.ttf", 19 * 3)
+    if night:
+        sh = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        for k, line in enumerate(txt.split("\n")):
+            bb = ImageDraw.Draw(sh).textbbox((0, 0), line, font=f)
+            ImageDraw.Draw(sh).text(((CW - (bb[2] - bb[0])) / 2, y + k * (bb[3] - bb[1] + 8 * SS)), line, font=f, fill=(20, 20, 50, 230))
+        sh = sh.filter(ImageFilter.GaussianBlur(6 * SS))
+        img.alpha_composite(sh); img.alpha_composite(sh)
+    text_c(img, y, txt, f, (255, 247, 235) if night else INK, not night)
 
 def home_indicator(img):
     lay = Image.new("RGBA", img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
@@ -649,84 +776,147 @@ def finish(img, name):
     out.save(os.path.join(OUT, name))
     return out
 
-# ---------------- Die vier Bildschirme ----------------
-os.makedirs(OUT, exist_ok=True)
-cam = Cam()
-shots = []
+# ---------------- Die vier Bildschirme von Kapitel I ----------------
+def chapter1(level_path):
+    load(level_path)
+    cam = Cam()
+    shots = []
 
-# 1) Titel
-st = State()
-img = render(st, cam, hana=((0, .5, 4), "front"), kiko=(-.42, 1.18, 4.34))
-ov = Image.new("RGBA", img.size, (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
-for y in range(int(CH * .4)):
-    od.line([(0, y), (CW, y)], fill=(255, 247, 235, int(200 * (1 - y / (CH * .4)) ** 1.4)))
-img.alpha_composite(ov)
-text_c(img, 210 * SS, "Wolkenpfad", font("freefont/FreeSerif.ttf", 150), INK)
-d = ImageDraw.Draw(img)
-d.line([(CW / 2 - 70 * SS, 420 * SS), (CW / 2 + 70 * SS, 420 * SS)], fill=(219, 92, 77), width=int(4 * SS))
-text_c(img, 460 * SS, "Kapitel I · Der Samen des Waldes", font("freefont/FreeSerifItalic.ttf", 48), (120, 100, 112), False)
-text_c(img, CH - 270 * SS, "Tippe, um zu beginnen", font("freefont/FreeSerif.ttf", 44), INK)
-home_indicator(img)
-shots.append(finish(img, "01_titel.png"))
+    # 1) Titel
+    st = State()
+    img = render(st, cam, hana=((0, .5, 4), "front"), kiko=(-.42, 1.18, 4.34))
+    ov = Image.new("RGBA", img.size, (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+    for y in range(int(CH * .4)):
+        od.line([(0, y), (CW, y)], fill=(255, 247, 235, int(200 * (1 - y / (CH * .4)) ** 1.4)))
+    img.alpha_composite(ov)
+    text_c(img, 210 * SS, "Wolkenpfad", font("freefont/FreeSerif.ttf", 150), INK)
+    d = ImageDraw.Draw(img)
+    d.line([(CW / 2 - 70 * SS, 420 * SS), (CW / 2 + 70 * SS, 420 * SS)], fill=(219, 92, 77), width=int(4 * SS))
+    text_c(img, 460 * SS, "Kapitel I · Der Samen des Waldes", font("freefont/FreeSerifItalic.ttf", 48), (120, 100, 112), False)
+    text_c(img, CH - 270 * SS, "Tippe, um zu beginnen", font("freefont/FreeSerif.ttf", 44), INK)
+    home_indicator(img)
+    shots.append(finish(img, "01_titel.png"))
 
-# 2) Kurbel drehen – die Brücke schwenkt
-th = math.radians(52)
-st = State(bridge=th)
-img = render(st, cam, hana=((0, 1.5, 0), "front"), kiko=(-0.9, 2.3, 0.9), crank_hl="bridge", bridge_spin=th * 2.5)
-crank_world = add((-2, 1, 0), roty((0.56, -2, 0), th))
-cpt = cam.p(crank_world)
-finger(img, (cpt[0] + 30 * SS, cpt[1] + 40 * SS))
-arc_arrow(img, cam.p((-2, 1.6, 0)), cam.ppu * 1.7, math.radians(200), math.radians(320))
-story(img, "Nicht jeder Weg liegt offen.\nManche wollen bewegt werden.")
-menu_button(img); home_indicator(img)
-shots.append(finish(img, "02_kurbel_drehen.png"))
+    # 2) Kurbel drehen – die Brücke schwenkt
+    th = math.radians(52)
+    st = State(bridge=th)
+    img = render(st, cam, hana=((0, 1.5, 0), "front"), kiko=(-0.9, 2.3, 0.9), crank_hl="bridge", bridge_spin=th * 2.5)
+    crank_world = add((-2, 1, 0), roty((0.56, -2, 0), th))
+    cpt = cam.p(crank_world)
+    finger(img, (cpt[0] + 30 * SS, cpt[1] + 40 * SS))
+    arc_arrow(img, cam.p((-2, 1.6, 0)), cam.ppu * 1.7, math.radians(200), math.radians(320))
+    story(img, "Nicht jeder Weg liegt offen.\nManche wollen bewegt werden.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "02_kurbel_drehen.png"))
 
-# 3) Die unmögliche Verbindung
-st = State(bridge=math.pi / 2, lift=3, arm=math.pi / 2)
-img = render(st, cam, hana=((0, 4.5, -2), "front", True), kiko=(-0.6, 5.3, -1.4), sparkle=(1.5, 4.5, -2))
-story(img, "Manche Wege sieht man erst,\nwenn man die Welt anders betrachtet.")
-menu_button(img); home_indicator(img)
-shots.append(finish(img, "03_unmoegliche_verbindung.png"))
+    # 3) Die unmögliche Verbindung
+    st = State(bridge=math.pi / 2, lift=3, arm=math.pi / 2)
+    img = render(st, cam, hana=((0, 4.5, -2), "front", True), kiko=(-0.6, 5.3, -1.4), sparkle=(1.5, 4.5, -2))
+    story(img, "Manche Wege sieht man erst,\nwenn man die Welt anders betrachtet.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "03_unmoegliche_verbindung.png"))
 
-# 4) Finale
-cam_end = Cam(zoom=1.12)
-st = State(bridge=math.pi / 2, lift=3, arm=math.pi / 2)
-spirits = [(-1, .62, 3), (1, .62, 5), (2, 1.62, 0), (-4, 1.62, 0), (-2, 4.62, -2), (4, 6.62, 0), (3, .62, 3)]
-img = render(st, cam_end, hana=((5, 6.5, -1), "back"), kiko=(4.4, 7.4, -0.3), bloom=True, big_tree=(5, 6.5, 1),
-             spirits=spirits, seed_on_altar=False, warm=.08)
-# Endkarte
-card = Image.new("RGBA", img.size, (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
-top = CH - 640 * SS
-cd.rounded_rectangle((70 * SS, top, CW - 70 * SS, CH - 140 * SS), radius=70 * SS, fill=(255, 247, 235, 228))
-img.alpha_composite(card)
-text_c(img, top + 70 * SS, "Kapitel I abgeschlossen", font("freefont/FreeSerif.ttf", 80), INK, False)
-text_c(img, top + 200 * SS, "Der Wald erwacht. Doch hinter den Wolken\nwarten noch viele stille Türme.", font("freefont/FreeSerifItalic.ttf", 44), (120, 100, 112), False)
-bd = ImageDraw.Draw(img)
-bw = 300 * SS
-bd.rounded_rectangle((CW / 2 - bw, top + 370 * SS, CW / 2 + bw, top + 490 * SS), radius=60 * SS, outline=(150, 130, 140), width=int(3 * SS))
-text_c(img, top + 395 * SS, "↻  Noch einmal", font("freefont/FreeSerif.ttf", 48), INK, False)
-home_indicator(img)
-shots.append(finish(img, "04_finale.png"))
+    # 4) Finale
+    cam_end = Cam(zoom=1.12)
+    st = State(bridge=math.pi / 2, lift=3, arm=math.pi / 2)
+    spirits = [(-1, .62, 3), (1, .62, 5), (2, 1.62, 0), (-4, 1.62, 0), (-2, 4.62, -2), (4, 6.62, 0), (3, .62, 3)]
+    img = render(st, cam_end, hana=((5, 6.5, -1), "back"), kiko=(4.4, 7.4, -0.3), bloom=True, big_tree=(5, 6.5, 1),
+                 spirits=spirits, seed_on_altar=False, warm=.08)
+    # Endkarte
+    card = Image.new("RGBA", img.size, (0, 0, 0, 0)); cd = ImageDraw.Draw(card)
+    top = CH - 640 * SS
+    cd.rounded_rectangle((70 * SS, top, CW - 70 * SS, CH - 140 * SS), radius=70 * SS, fill=(255, 247, 235, 228))
+    img.alpha_composite(card)
+    text_c(img, top + 70 * SS, "Kapitel I abgeschlossen", font("freefont/FreeSerif.ttf", 80), INK, False)
+    text_c(img, top + 200 * SS, "Der Wald erwacht. Doch hinter den Wolken\nwarten noch viele stille Türme.", font("freefont/FreeSerifItalic.ttf", 44), (120, 100, 112), False)
+    bd = ImageDraw.Draw(img)
+    bw = 300 * SS
+    bd.rounded_rectangle((CW / 2 - bw, top + 370 * SS, CW / 2 + bw, top + 490 * SS), radius=60 * SS, outline=(150, 130, 140), width=int(3 * SS))
+    text_c(img, top + 395 * SS, "↻  Noch einmal", font("freefont/FreeSerif.ttf", 48), INK, False)
+    home_indicator(img)
+    shots.append(finish(img, "04_finale.png"))
 
-# Übersicht: vier iPhones nebeneinander
-fw, fh = 560, 1214
-pad = 70
-sheet = Image.new("RGB", (pad + 4 * (fw + pad), fh + 2 * pad + 150), (250, 238, 226))
-sd = ImageDraw.Draw(sheet)
-labels = ["Titel", "Kurbel drehen", "Unmögliche Verbindung", "Finale"]
-lf = ImageFont.truetype(FONT_DIR + "freefont/FreeSerif.ttf", 42)
-for k, shot in enumerate(shots):
-    x = pad + k * (fw + pad); y = pad
-    frame = Image.new("RGBA", (fw + 24, fh + 24), (0, 0, 0, 0))
-    ImageDraw.Draw(frame).rounded_rectangle((0, 0, fw + 23, fh + 23), radius=78, fill=(34, 30, 38))
-    sheet.paste(frame, (x - 12, y - 12), frame)
-    s = shot.resize((fw, fh), Image.LANCZOS)
-    m = Image.new("L", (fw, fh), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, fw - 1, fh - 1), radius=66, fill=255)
-    sheet.paste(s, (x, y), m)
-    di = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
-    ImageDraw.Draw(di).rounded_rectangle((fw / 2 - 62, 18, fw / 2 + 62, 54), radius=18, fill=(10, 10, 12))
-    sheet.paste(di, (x, y), di)
-    bb = sd.textbbox((0, 0), labels[k], font=lf)
-    sd.text((x + (fw - (bb[2] - bb[0])) / 2, y + fh + 50), labels[k], font=lf, fill=INK)
-sheet.save(os.path.join(OUT, "00_uebersicht.png"))
-print("fertig")
+    # Übersicht: vier iPhones nebeneinander
+    fw, fh = 560, 1214
+    pad = 70
+    sheet = Image.new("RGB", (pad + 4 * (fw + pad), fh + 2 * pad + 150), (250, 238, 226))
+    sd = ImageDraw.Draw(sheet)
+    labels = ["Titel", "Kurbel drehen", "Unmögliche Verbindung", "Finale"]
+    lf = ImageFont.truetype(FONT_DIR + "freefont/FreeSerif.ttf", 42)
+    for k, shot in enumerate(shots):
+        x = pad + k * (fw + pad); y = pad
+        frame = Image.new("RGBA", (fw + 24, fh + 24), (0, 0, 0, 0))
+        ImageDraw.Draw(frame).rounded_rectangle((0, 0, fw + 23, fh + 23), radius=78, fill=(34, 30, 38))
+        sheet.paste(frame, (x - 12, y - 12), frame)
+        s = shot.resize((fw, fh), Image.LANCZOS)
+        m = Image.new("L", (fw, fh), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, fw - 1, fh - 1), radius=66, fill=255)
+        sheet.paste(s, (x, y), m)
+        di = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+        ImageDraw.Draw(di).rounded_rectangle((fw / 2 - 62, 18, fw / 2 + 62, 54), radius=18, fill=(10, 10, 12))
+        sheet.paste(di, (x, y), di)
+        bb = sd.textbbox((0, 0), labels[k], font=lf)
+        sd.text((x + (fw - (bb[2] - bb[0])) / 2, y + fh + 50), labels[k], font=lf, fill=INK)
+    sheet.save(os.path.join(OUT, "00_uebersicht.png"))
+    print("fertig")
+
+
+def sheet(shots, labels, name):
+    fw, fh = 560, 1214
+    pad = 70
+    sh = Image.new("RGB", (pad + len(shots) * (fw + pad), fh + 2 * pad + 150), (250, 238, 226))
+    sd = ImageDraw.Draw(sh)
+    lf = ImageFont.truetype(FONT_DIR + "freefont/FreeSerif.ttf", 42)
+    for k, shot in enumerate(shots):
+        x = pad + k * (fw + pad); y = pad
+        frame = Image.new("RGBA", (fw + 24, fh + 24), (0, 0, 0, 0))
+        ImageDraw.Draw(frame).rounded_rectangle((0, 0, fw + 23, fh + 23), radius=78, fill=(34, 30, 38))
+        sh.paste(frame, (x - 12, y - 12), frame)
+        sm = shot.resize((fw, fh), Image.LANCZOS)
+        m = Image.new("L", (fw, fh), 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, fw - 1, fh - 1), radius=66, fill=255)
+        sh.paste(sm, (x, y), m)
+        di = Image.new("RGBA", (fw, fh), (0, 0, 0, 0))
+        ImageDraw.Draw(di).rounded_rectangle((fw / 2 - 62, 18, fw / 2 + 62, 54), radius=18, fill=(10, 10, 12))
+        sh.paste(di, (x, y), di)
+        bb = sd.textbbox((0, 0), labels[k], font=lf)
+        sd.text((x + (fw - (bb[2] - bb[0])) / 2, y + fh + 50), labels[k], font=lf, fill=INK)
+    sh.save(os.path.join(OUT, name))
+
+def chapter_shots(level_dir):
+    shots = []
+    # Kapitel II – Floßfahrt am Abend
+    load(os.path.join(level_dir, "level2.json"))
+    cam = Cam()
+    img = render(State(raft=1.6, wheel=math.pi / 2), cam, hana=((4.6, .5, 2), "front"), kiko=(4.1, 1.3, 2.6))
+    finger(img, cam.p((4.6, .3, 2.6)))
+    story(img, "Was treibt, kann tragen.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "05_kapitel2_floss.png"))
+    # Kapitel II – Illusion zur Schreininsel
+    img = render(State(raft=3, wheel=math.pi / 2, steps=3, slab=3), cam, hana=((-1, 3.5, -1), "front"), kiko=(-.6, 4.3, -.4),
+                 sparkle=(-1.5, 3.5, -1), pressed=("p1",), firefly_area=((-5, -2), (6.6, 7.8), (0, 3)))
+    story(img, "Manchmal muss man ein Stück zurückgehen,\num weiterzukommen.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "06_kapitel2_illusion.png"))
+    # Kapitel III – der drehende Laternenturm
+    load(os.path.join(level_dir, "level3.json"))
+    cam = Cam()
+    img = render(State(stone=3, tower=math.radians(58)), cam, hana=((0, .5, 0), "front"), kiko=(.5, 1.3, .6),
+                 crank_hl="tower", pressed=())
+    story(img, "Ein Turm, der sich dreht, hat viele Türen.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "07_kapitel3_turm.png"))
+    # Kapitel III – Gipfel, Tor offen
+    img = render(State(stone=3, tower=0, rb=math.pi / 2, gate=2, lift=4), cam, hana=((6, 7.5, 2), "front"),
+                 kiko=(6.4, 8.3, 2.6), sparkle=(5.5, 7.5, 2), pressed=("pA", "pB"))
+    story(img, "Von hier oben sieht der Turm\nganz anders aus.")
+    menu_button(img); home_indicator(img)
+    shots.append(finish(img, "08_kapitel3_gipfel.png"))
+    sheet(shots, ["II · Floßfahrt", "II · Die Illusion", "III · Der Turm", "III · Der Gipfel"], "00_kapitel2_3.png")
+
+if __name__ == "__main__":
+    OUT = sys.argv[2]
+    os.makedirs(OUT, exist_ok=True)
+    if len(sys.argv) > 3 and sys.argv[3] == "chapters":
+        chapter_shots(os.path.dirname(sys.argv[1]))
+    else:
+        chapter1(sys.argv[1])

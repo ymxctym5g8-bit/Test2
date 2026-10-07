@@ -30,10 +30,11 @@ final class WorldNodes {
     var seed: SCNNode?
     var shrineTree: SCNNode?
     var grassTiles: [SIMD3<Float>] = []
+    var plates: [String: (node: SCNNode, rune: SCNMaterial)] = [:]
 }
 
 enum WorldBuilder {
-    static func build(_ logic: LevelLogic) -> WorldNodes {
+    static func build(_ logic: LevelLogic, theme: Theme) -> WorldNodes {
         let w = WorldNodes()
         w.root.name = "level"
         let def = logic.def
@@ -111,13 +112,17 @@ enum WorldBuilder {
             switch d.t {
             case "tree":
                 n = Props.tree(scale: s, variant: d.variant ?? 0, seed: seed)
-                if d.p == def.blocks[logic.goalBlock].p + IVec3(0, 0, 2) { w.shrineTree = n }
+                if let endTree = def.ending?.tree, d.p == endTree { w.shrineTree = n }
             case "bush": n = Props.bush(scale: s)
             case "flowers": n = Props.flowers(scale: s, seed: seed)
             case "grass": n = Props.grass(scale: s, seed: seed)
             case "mushroom": n = Props.mushroom(scale: s)
             case "rock": n = Props.rock(scale: s)
-            case "lantern": n = Props.lantern(scale: s)
+            case "lantern": n = Props.lantern(scale: s, boost: theme.lanternBoost)
+            case "bamboo": n = Props.bamboo(scale: s, seed: seed)
+            case "millwheel":
+                n = Props.millwheel(face: d.face ?? "+z")
+                offset = .zero
             case "vine":
                 n = Props.vines(scale: s, seed: seed)
                 offset = SIMD3(0, 0.5, 0.5)
@@ -140,7 +145,7 @@ enum WorldBuilder {
                     w.handles[g] = c
                 }
             case "handle":
-                let h = Props.liftHandle()
+                let h = Props.liftHandle(axis: d.axis ?? "y")
                 h.name = "crank:\(d.g ?? "")"
                 n = h
                 offset = .zero
@@ -157,6 +162,17 @@ enum WorldBuilder {
             holder.eulerAngles.y = Float(d.r)
             holder.categoryBitMask = Props.decorCategory
             parent.addChildNode(holder)
+        }
+
+        // Druckplatten
+        for plate in def.plates ?? [] {
+            let (node, rune) = Props.plate()
+            node.simdPosition = plate.at.float3 + SIMD3(0, 0.5, 0)
+            node.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
+            w.root.addChildNode(node)
+            w.plates[plate.id] = (node, rune)
+            let pulse = SCNAction.sequence([.fadeOpacity(to: 0.75, duration: 1.2), .fadeOpacity(to: 1, duration: 1.2)])
+            node.runAction(.repeatForever(pulse))
         }
         return w
     }
@@ -183,15 +199,15 @@ enum WorldBuilder {
 // MARK: - Himmel, Wolken, Licht
 
 enum Atmosphere {
-    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float) -> (sun: SCNNode, clouds: [SCNNode]) {
-        scene.background.contents = Art.skyGradient()
+    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float, theme: Theme) -> (sun: SCNNode, clouds: [SCNNode]) {
+        scene.background.contents = Art.skyGradient(theme)
 
         // Licht: warme Abendsonne + bläuliches Himmelslicht
         let sun = SCNNode()
         let light = SCNLight()
         light.type = .directional
-        light.color = UIColor(red: 1, green: 0.93, blue: 0.82, alpha: 1)
-        light.intensity = 1050
+        light.color = theme.sun
+        light.intensity = theme.sunIntensity
         light.castsShadow = true
         light.shadowMode = .forward
         light.shadowColor = UIColor(red: 0.3, green: 0.2, blue: 0.4, alpha: 0.38)
@@ -210,8 +226,8 @@ enum Atmosphere {
         let ambient = SCNNode()
         ambient.light = SCNLight()
         ambient.light?.type = .ambient
-        ambient.light?.color = UIColor(red: 0.62, green: 0.66, blue: 0.82, alpha: 1)
-        ambient.light?.intensity = 480
+        ambient.light?.color = theme.ambient
+        ambient.light?.intensity = theme.ambientIntensity
         scene.rootNode.addChildNode(ambient)
 
         // Wolken: hinten am Himmel, unten als Wolkenmeer und ein paar ganz vorne
@@ -228,7 +244,7 @@ enum Atmosphere {
         for (i, c) in sky.enumerated() {
             let plane = SCNPlane(width: CGFloat(c.w * scale / 11), height: CGFloat(c.w * scale / 22))
             let m = SCNMaterial()
-            m.diffuse.contents = Art.cloud(seed: UInt64(100 + i), warm: c.warm)
+            m.diffuse.contents = Art.cloud(seed: UInt64(100 + i), warm: c.warm, theme: theme)
             m.lightingModel = .constant
             m.isDoubleSided = true
             m.writesToDepthBuffer = false
@@ -248,18 +264,44 @@ enum Atmosphere {
             clouds.append(n)
         }
 
-        // Sonnenschein hinter allem
-        let sunGlow = Props.billboardGlow(size: CGFloat(scale * 1.6), color: UIColor(red: 1, green: 0.95, blue: 0.8, alpha: 0.8))
+        // Sonne – oder nachts der Mond – hinter allem
+        let glowColor = theme.stars ? UIColor(red: 0.8, green: 0.86, blue: 1, alpha: 0.7)
+            : (theme.name == "evening" ? UIColor(red: 1, green: 0.75, blue: 0.5, alpha: 0.9) : UIColor(red: 1, green: 0.95, blue: 0.8, alpha: 0.8))
+        let sunGlow = Props.billboardGlow(size: CGFloat(scale * 1.6), color: glowColor)
         sunGlow.simdPosition = basis.world(u: 3.5 * scale / 11, v: 8 * scale / 11, depth: -40)
         sunGlow.renderingOrder = -60
         sunGlow.castsShadow = false
         scene.rootNode.addChildNode(sunGlow)
+        if theme.stars {
+            let moon = SCNNode(geometry: SCNPlane(width: CGFloat(scale * 0.16), height: CGFloat(scale * 0.16)))
+            let mm = SCNMaterial()
+            mm.diffuse.contents = Art.glow(color: UIColor(red: 0.98, green: 0.97, blue: 0.9, alpha: 1))
+            mm.lightingModel = .constant
+            mm.writesToDepthBuffer = false
+            moon.geometry?.materials = [mm]
+            moon.constraints = [SCNBillboardConstraint()]
+            moon.simdPosition = sunGlow.simdPosition + ViewBasis.back * 0.5
+            moon.renderingOrder = -59
+            moon.castsShadow = false
+            let disc = SCNNode(geometry: SCNSphere(radius: CGFloat(scale * 0.035)))
+            disc.geometry?.materials = [Art.mat(UIColor(red: 1, green: 0.98, blue: 0.9, alpha: 1), lighting: .constant)]
+            disc.simdPosition = moon.simdPosition + ViewBasis.back * 0.5
+            disc.castsShadow = false
+            scene.rootNode.addChildNode(moon)
+            scene.rootNode.addChildNode(disc)
+        }
 
         // Treibende Blütenblätter
         let petals = SCNNode()
         let ps = SCNParticleSystem()
-        ps.particleImage = Art.petal()
-        ps.birthRate = 2.2
+        switch theme.particle {
+        case .petals: ps.particleImage = Art.petal()
+        case .leaves: ps.particleImage = Art.leaf()
+        case .motes:
+            ps.particleImage = Art.glow(color: UIColor(red: 0.75, green: 1, blue: 0.85, alpha: 1))
+            ps.blendMode = .additive
+        }
+        ps.birthRate = theme.particle == .motes ? 4 : 2.2
         ps.particleLifeSpan = 12
         ps.particleSize = 0.09
         ps.particleSizeVariation = 0.03
@@ -282,11 +324,11 @@ enum Atmosphere {
     }
 
     /// Glühwürmchen rund um den Schrein.
-    static func fireflies(at p: SIMD3<Float>) -> SCNNode {
+    static func fireflies(at p: SIMD3<Float>, rate: CGFloat = 3) -> SCNNode {
         let n = SCNNode()
         let ps = SCNParticleSystem()
         ps.particleImage = Art.glow(color: UIColor(red: 1, green: 0.95, blue: 0.6, alpha: 1))
-        ps.birthRate = 3
+        ps.birthRate = rate
         ps.particleLifeSpan = 4
         ps.particleSize = 0.07
         ps.emitterShape = SCNBox(width: 2.4, height: 1.2, length: 2.4, chamferRadius: 0)

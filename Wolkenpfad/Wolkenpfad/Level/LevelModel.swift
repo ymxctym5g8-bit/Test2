@@ -51,6 +51,8 @@ struct BlockDef: Codable {
     let walk: Bool
     let stair: String?
     let g: String?
+    /// Darf an einer „unmöglichen“ Verbindung teilnehmen (vom Leveldesign freigegeben).
+    let ill: Bool?
 }
 
 struct DecorDef: Codable {
@@ -61,6 +63,7 @@ struct DecorDef: Codable {
     let g: String?
     let variant: Int?
     let face: String?
+    let axis: String?
 }
 
 struct GroupDef: Codable {
@@ -75,6 +78,8 @@ struct GroupDef: Codable {
     let min: Int?
     let max: Int?
     let handle: IVec3?
+    /// Nur über Druckplatten beweglich, nicht per Finger.
+    let locked: Bool?
 
     var isRotator: Bool { kind == "rotate" }
     var range: ClosedRange<Int> {
@@ -88,14 +93,45 @@ struct TextDef: Codable {
     let text: String
 }
 
+struct PlateDef: Codable {
+    let id: String
+    let at: IVec3
+}
+
+/// Sobald alle genannten Platten gedrückt sind, fährt die Gruppe in die Zielstellung.
+struct TriggerDef: Codable {
+    let plates: [String]
+    let group: String
+    let value: Int
+}
+
+/// Hinweisregel für Kiko: Die erste passende Regel bestimmt das Ziel.
+struct HintDef: Codable {
+    let reach: IVec3?
+    let pressed: [String]?
+    let unpressed: [String]?
+    let target: String
+}
+
+struct EndingDef: Codable {
+    let text: String
+    let tree: IVec3
+    let spirits: [IVec3]
+}
+
 struct LevelDef: Codable {
     let name: String
+    let theme: String?
     let start: IVec3
     let goal: IVec3
     let groups: [GroupDef]
     let blocks: [BlockDef]
     let decor: [DecorDef]
     let texts: [TextDef]
+    let plates: [PlateDef]?
+    let triggers: [TriggerDef]?
+    let hints: [HintDef]?
+    let ending: EndingDef?
 
     static func load(_ resource: String) -> LevelDef {
         guard let url = Bundle.main.url(forResource: resource, withExtension: "json"),
@@ -167,7 +203,8 @@ final class LevelLogic {
         groupsByID = g
         state = st
         startBlock = def.blocks.firstIndex { $0.p == def.start && $0.g == nil } ?? 0
-        goalBlock = def.blocks.firstIndex { $0.p == def.goal && $0.g == nil } ?? 0
+        goalBlock = def.blocks.firstIndex { $0.p == def.goal && $0.g == nil }
+            ?? def.blocks.firstIndex { $0.p == def.goal } ?? 0
         rebuild()
     }
 
@@ -249,7 +286,8 @@ final class LevelLogic {
                 outer: for p in pa {
                     for q in pb where p.dir == -q.dir {
                         let d = q.pos - p.pos
-                        if d.x == d.y && d.y == d.z {
+                        let illusionOK = d.x == 0 || (def.blocks[a].ill == true && def.blocks[b].ill == true)
+                        if d.x == d.y && d.y == d.z && illusionOK {
                             adj[a, default: []].append(b)
                             adj[b, default: []].append(a)
                             newEdges.insert(EdgeKey(a, b))

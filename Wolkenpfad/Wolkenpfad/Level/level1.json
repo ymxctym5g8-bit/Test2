@@ -1,5 +1,85 @@
 {
  "name": "Kapitel I · Der Samen des Waldes",
+ "theme": "day",
+ "hints": [
+  {
+   "reach": [
+    5,
+    6,
+    -1
+   ],
+   "target": "goal"
+  },
+  {
+   "reach": [
+    -4,
+    4,
+    -2
+   ],
+   "target": "arm"
+  },
+  {
+   "reach": [
+    -4,
+    1,
+    0
+   ],
+   "target": "lift"
+  },
+  {
+   "target": "bridge"
+  }
+ ],
+ "ending": {
+  "text": "Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.",
+  "tree": [
+   5,
+   6,
+   1
+  ],
+  "spirits": [
+   [
+    -1,
+    0,
+    3
+   ],
+   [
+    1,
+    0,
+    5
+   ],
+   [
+    2,
+    1,
+    0
+   ],
+   [
+    -4,
+    1,
+    0
+   ],
+   [
+    -2,
+    4,
+    -2
+   ],
+   [
+    4,
+    6,
+    0
+   ],
+   [
+    5,
+    6,
+    0
+   ],
+   [
+    3,
+    0,
+    3
+   ]
+  ]
+ },
  "start": [
   0,
   0,
@@ -920,6 +1000,7 @@
    ],
    "m": "wood",
    "walk": true,
+   "ill": true,
    "g": "arm"
   },
   {
@@ -949,7 +1030,8 @@
     0
    ],
    "m": "grass",
-   "walk": true
+   "walk": true,
+   "ill": true
   },
   {
    "p": [

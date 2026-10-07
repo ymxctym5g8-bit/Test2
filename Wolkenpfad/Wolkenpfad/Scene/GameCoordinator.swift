@@ -7,6 +7,12 @@ final class FrameTicker: NSObject, SCNSceneRendererDelegate {
     weak var hana: SCNNode?
     weak var kiko: SCNNode?
     var hint: SIMD3<Float>?
+    weak var camera: SCNNode?
+    /// Mittelpunkt der Kamera (Offset 0) und erlaubter Bereich entlang der Bildschirm-Senkrechten.
+    var cameraBase = SIMD3<Float>(repeating: 0)
+    var followRange: ClosedRange<Float> = 0...0
+    private var camOffset: Float = 0
+    private var camInitialized = false
     private var lastTime: TimeInterval = 0
     private var kikoPos = SIMD3<Float>(repeating: 0)
     private var initialized = false
@@ -25,6 +31,19 @@ final class FrameTicker: NSObject, SCNSceneRendererDelegate {
         kikoPos += (target - kikoPos) * k
         let bob = sin(Float(time) * 2.3) * 0.06
         kiko.simdPosition = kikoPos + SIMD3<Float>(0, bob, 0)
+
+        // Hohe Level: die Kamera gleitet mit Hana nach oben und unten
+        if let cam = camera {
+            let range = followRange
+            let focus = hint ?? hp
+            let want = min(max(dot3(focus - cameraBase, ViewBasis.up), range.lowerBound), range.upperBound)
+            if !camInitialized {
+                camOffset = want
+                camInitialized = true
+            }
+            camOffset += (want - camOffset) * min(1, dt * 1.4)
+            cam.simdPosition = cameraBase + ViewBasis.up * camOffset + ViewBasis.back * 80
+        }
     }
 }
 
@@ -42,6 +61,12 @@ final class GameCoordinator: NSObject, ObservableObject {
     }
 
     let view: SCNView
+    let levelIndex: Int
+    let chapterTitle: String
+    private let theme: Theme
+    /// Nachtkapitel brauchen helle Schrift.
+    var isNight: Bool { theme.stars }
+    private var pressed = Set<String>()
     private let scene = SCNScene()
     private let logic: LevelLogic
     private let world: WorldNodes
@@ -83,10 +108,13 @@ final class GameCoordinator: NSObject, ObservableObject {
     }
     private var drag: Drag?
 
-    override init() {
-        let def = LevelDef.load("level1")
+    init(levelIndex: Int) {
+        self.levelIndex = levelIndex
+        let def = LevelDef.load("level\(levelIndex)")
+        chapterTitle = def.name
+        theme = Theme.named(def.theme)
         logic = LevelLogic(def: def)
-        world = WorldBuilder.build(logic)
+        world = WorldBuilder.build(logic, theme: theme)
         basis = ViewBasis(target: .zero)
         let (h, body) = Characters.hana()
         hana = h
@@ -100,6 +128,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         setupScene()
         setupView()
         audio.start()
+        audio.playMusic(theme: theme.name)
         hintTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
@@ -135,11 +164,17 @@ final class GameCoordinator: NSObject, ObservableObject {
         cameraNode.look(at: v3(center), up: SCNVector3(0, 1, 0), localFront: SCNVector3(0, 0, -1))
         scene.rootNode.addChildNode(cameraNode)
 
-        let atmos = Atmosphere.setup(scene: scene, basis: basis, scale: extent)
+        let atmos = Atmosphere.setup(scene: scene, basis: basis, scale: extent, theme: theme)
         sun = atmos.sun
         if let goal = logic.tiles[logic.goalBlock] {
-            scene.rootNode.addChildNode(Atmosphere.fireflies(at: goal.center + SIMD3(0, 0.6, 0.5)))
+            scene.rootNode.addChildNode(Atmosphere.fireflies(at: goal.center + SIMD3(0, 0.6, 0.5), rate: CGFloat(theme.fireflies)))
         }
+        if theme.stars {
+            // Nachts schweben überall Glühwürmchen
+            scene.rootNode.addChildNode(Atmosphere.fireflies(at: center, rate: 6))
+        }
+        ticker.camera = cameraNode
+        ticker.cameraBase = center
 
         // Figuren
         if let start = logic.tiles[logic.startBlock] {
@@ -207,7 +242,10 @@ final class GameCoordinator: NSObject, ObservableObject {
         let aspect = Float(size.width / size.height)
         let halfW = max(abs(umin), abs(umax)) + 0.4
         let halfH = max(abs(vmin), abs(vmax)) + 1.6
-        baseScale = max(halfH, halfW / aspect)
+        // Breite passt immer; sehr hohe Level werden nicht verkleinert, sondern befahren
+        baseScale = max(min(halfH, 13.5), halfW / aspect)
+        let lo = vmin - 0.6 + baseScale, hi = vmax + 1.6 - baseScale
+        ticker.followRange = lo < hi ? lo...hi : 0...0
         camera.orthographicScale = Double(phase == .finished || phase == .ending ? baseScale * 1.12 : baseScale)
     }
 
@@ -377,7 +415,61 @@ final class GameCoordinator: NSObject, ObservableObject {
             beginEnding()
             return
         }
+        if let plate = logic.def.plates?.first(where: { logic.block(at: $0.at) == t }), !pressed.contains(plate.id) {
+            queuedPath = []
+            pendingTarget = nil
+            finishWalking()
+            press(plate.id)
+            return
+        }
         stepNext()
+    }
+
+    // MARK: - Druckplatten
+
+    private func press(_ id: String) {
+        pressed.insert(id)
+        audio.plate()
+        rigid.impactOccurred(intensity: 0.9)
+        if let p = world.plates[id] {
+            p.node.removeAllActions()
+            p.node.opacity = 1
+            p.node.runAction(.moveBy(x: 0, y: -0.03, z: 0, duration: 0.2))
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 0.6
+            p.rune.emission.contents = UIColor(red: 1, green: 0.85, blue: 0.45, alpha: 1)
+            SCNTransaction.commit()
+            scene.rootNode.addChildNode(Atmosphere.burst(at: p.node.simdWorldPosition + SIMD3(0, 0.1, 0),
+                                                        color: UIColor(red: 1, green: 0.9, blue: 0.55, alpha: 1), count: 120))
+        }
+        for t in logic.def.triggers ?? [] where t.plates.allSatisfy({ pressed.contains($0) }) {
+            guard logic.value(of: t.group) != t.value, let node = world.groupNodes[t.group],
+                  let g = logic.groupsByID[t.group] else { continue }
+            mechanismBusy = true
+            audio.rumble()
+            let oldEdges = logic.edges
+            let group = t.group, value = t.value
+            SCNTransaction.begin()
+            SCNTransaction.animationDuration = 1.8
+            SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            if g.isRotator {
+                node.eulerAngles.y = Float(value) * .pi / 2
+            } else if let axis = g.axis {
+                node.simdPosition = axis.float3 * Float(value)
+            }
+            SCNTransaction.completionBlock = { [weak self] in
+                Task { @MainActor in
+                    self?.mechanismSettled(group: group, value: value, oldEdges: oldEdges)
+                }
+            }
+            SCNTransaction.commit()
+            // Kiko schaut kurz zum bewegten Teil
+            ticker.hint = node.simdWorldPosition + ViewBasis.back * 1.2 + SIMD3(0, 0.6, 0)
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+                self.ticker.hint = nil
+            }
+        }
     }
 
     private func finishWalking() {
@@ -425,7 +517,7 @@ final class GameCoordinator: NSObject, ObservableObject {
             let t = g.translation(in: view)
             let loc = g.location(in: view)
             let start = CGPoint(x: loc.x - t.x, y: loc.y - t.y)
-            guard let gid = mechanism(atScreen: start), let gdef = logic.groupsByID[gid] else { return }
+            guard let gid = mechanism(atScreen: start), let gdef = logic.groupsByID[gid], gdef.locked != true else { return }
             lastInteraction = Date()
             ticker.hint = nil
             let v = logic.value(of: gid)
@@ -599,11 +691,23 @@ final class GameCoordinator: NSObject, ObservableObject {
     /// Welcher Mechanismus ist gerade der nächste Schritt?
     private func hintPosition() -> SIMD3<Float>? {
         let reach = logic.reachable(from: currentTile)
-        if reach.contains(logic.goalBlock) { return logic.tiles[logic.goalBlock]?.center }
-        func handle(_ g: String) -> SIMD3<Float>? { world.handles[g]?.presentation.simdWorldPosition }
-        if let gallery = logic.block(at: IVec3(-4, 4, -2)), reach.contains(gallery) { return handle("arm") }
-        if let tower = logic.block(at: IVec3(-4, 1, 0)), reach.contains(tower) { return handle("lift") }
-        return handle("bridge")
+        for h in logic.def.hints ?? [] {
+            if let cell = h.reach {
+                let idx = logic.block(at: cell) ?? logic.def.blocks.firstIndex(where: { $0.p == cell })
+                guard let b = idx, reach.contains(b) else { continue }
+            }
+            if let need = h.pressed, !need.allSatisfy({ pressed.contains($0) }) { continue }
+            if let not = h.unpressed, not.contains(where: { pressed.contains($0) }) { continue }
+            return position(ofTarget: h.target)
+        }
+        return reach.contains(logic.goalBlock) ? logic.tiles[logic.goalBlock]?.center : nil
+    }
+
+    private func position(ofTarget t: String) -> SIMD3<Float>? {
+        if t == "goal" { return logic.tiles[logic.goalBlock]?.center }
+        if let plate = world.plates[t] { return plate.node.simdWorldPosition }
+        if let h = world.handles[t] { return h.presentation.simdWorldPosition }
+        return world.groupNodes[t]?.presentation.simdWorldPosition
     }
 
     // MARK: - Finale
@@ -617,10 +721,11 @@ final class GameCoordinator: NSObject, ObservableObject {
         let bow = SCNAction.sequence([.wait(duration: 0.5), .rotateBy(x: 0.35, y: 0, z: 0, duration: 0.5),
                                       .wait(duration: 0.6), .rotateBy(x: -0.35, y: 0, z: 0, duration: 0.5)])
         hanaBody.runAction(bow)
-        say("Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.", duration: 7)
+        let ending = logic.def.ending
+        say(ending?.text ?? "Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.", duration: 7)
 
         guard let goal = logic.tiles[logic.goalBlock] else { return }
-        let treeSpot = goal.center + SIMD3(0, 0, 2)
+        let treeSpot = ending.map { $0.tree.float3 + SIMD3(0, 0.5, 0) } ?? goal.center + SIMD3(0, 0, 2)
 
         if let seed = world.seed {
             let worldPos = seed.simdWorldPosition
@@ -660,7 +765,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         if let old = world.shrineTree {
             old.runAction(.sequence([.scale(to: 0.01, duration: 0.4), .removeFromParentNode()]))
         }
-        let tree = Props.tree(scale: 2.4, variant: 2, seed: 4242)
+        let tree = Props.tree(scale: 2.4, variant: theme.name == "evening" ? 3 : 2, seed: 4242)
         tree.simdPosition = p
         tree.scale = SCNVector3(0.01, 0.01, 0.01)
         tree.enumerateHierarchy { n, _ in n.categoryBitMask = Props.decorCategory }
@@ -700,10 +805,7 @@ final class GameCoordinator: NSObject, ObservableObject {
     }
 
     private func awakenSpirits() {
-        let spots: [SIMD3<Float>] = [
-            SIMD3(-1, 0.5, 3), SIMD3(1, 0.5, 5), SIMD3(2, 1.5, 0), SIMD3(-4, 1.5, 0), SIMD3(-2, 4.5, -2),
-            SIMD3(4, 6.5, 0), SIMD3(5, 6.5, 0), SIMD3(3, 0.5, 3),
-        ]
+        let spots: [SIMD3<Float>] = (logic.def.ending?.spirits ?? []).map { $0.float3 + SIMD3(0, 0.5, 0) }
         for (i, p) in spots.enumerated() {
             let k = Characters.kiko(scale: 0.7)
             k.simdPosition = p + SIMD3(Float(i % 2) * 0.25 - 0.12, 0.12, 0.2)

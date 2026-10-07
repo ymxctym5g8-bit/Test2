@@ -1,106 +1,159 @@
-# Prüft Lösbarkeit und listet alle unmöglichen Verbindungen. Aufruf: python3 Tools/verify_level.py Wolkenpfad/Level/level1.json
+# Prüft ein Wolkenpfad-Level: Lösbarkeit (Zustandsraum-Suche über alle Mechanismen,
+# Druckplatten und Fahrten), Kollisionen, unmögliche Verbindungen und Hinweis-Regeln.
+# Aufruf: python3 Tools/verify_level.py Wolkenpfad/Level/level2.json
 import json, sys, itertools
 from collections import deque
-L=json.load(open(sys.argv[1]))
-groups={g["id"]:g for g in L["groups"]}
-DIRS={"+x":(1,0,0),"-x":(-1,0,0),"+z":(0,0,1),"-z":(0,0,-1)}
-def rot(v,k):  # k*90deg about +y: (x,y,z)->(z,y,-x)
-    x,y,z=v
-    for _ in range(k%4): x,y,z=z,y,-x
-    return (x,y,z)
+
+L = json.load(open(sys.argv[1]))
+groups = {g["id"]: g for g in L["groups"]}
+gids = list(groups)
+DIRS = {"+x": (1, 0, 0), "-x": (-1, 0, 0), "+z": (0, 0, 1), "-z": (0, 0, -1)}
+plates = {p["id"]: tuple(p["at"]) for p in L.get("plates", [])}
+triggers = L.get("triggers", [])
+
+def rot(v, k):
+    x, y, z = v
+    for _ in range(k % 4): x, y, z = z, y, -x
+    return (x, y, z)
+
 def gstates(g):
-    if g["kind"]=="rotate":
-        lo=g.get("minStep",0); hi=g.get("maxStep",3)
-        return list(range(lo,hi+1))
-    return list(range(g["min"],g["max"]+1))
-def world(b,state):
-    p=tuple(b["p"]); gid=b.get("g"); d=DIRS.get(b.get("stair")) if b.get("stair") else None
+    if g["kind"] == "rotate":
+        return list(range(g.get("minStep", 0), g.get("maxStep", 3) + 1))
+    return list(range(g["min"], g["max"] + 1))
+
+def world(b, st):
+    p = tuple(b["p"]); gid = b.get("g"); d = DIRS.get(b.get("stair"))
     if gid:
-        g=groups[gid]; s=state[gid]
-        if g["kind"]=="rotate":
-            pv=tuple(g["pivot"]); o=tuple(p[i]-pv[i] for i in range(3)); o=rot(o,s)
-            p=tuple(pv[i]+o[i] for i in range(3))
-            if d: d=rot(d,s)
+        g = groups[gid]; s = st[gid]
+        if g["kind"] == "rotate":
+            pv = tuple(g["pivot"]); o = rot(tuple(p[i] - pv[i] for i in range(3)), s)
+            p = tuple(pv[i] + o[i] for i in range(3))
+            if d: d = rot(d, s)
         else:
-            ax=g["axis"]; p=tuple(p[i]+ax[i]*s for i in range(3))
-    return p,d
-def build(state):
-    cells={}; tiles=[]
-    for i,b in enumerate(L["blocks"]):
-        p,d=world(b,state)
-        if p in cells: return None  # collision
-        cells[p]=i
-    for i,b in enumerate(L["blocks"]):
+            ax = g["axis"]; p = tuple(p[i] + ax[i] * s for i in range(3))
+    return p, d
+
+cache = {}
+def build(key):
+    if key in cache: return cache[key]
+    st = dict(zip(gids, key))
+    cells = {}
+    for i, b in enumerate(L["blocks"]):
+        p, _ = world(b, st)
+        if p in cells: cache[key] = None; return None
+        cells[p] = i
+    tiles = {}
+    for i, b in enumerate(L["blocks"]):
         if not b["walk"]: continue
-        p,d=world(b,state)
-        above=(p[0],p[1]+1,p[2])
-        if above in cells: continue
-        tiles.append((i,p,d))
-    # ports in doubled coords
-    ports={}
-    for i,p,d in tiles:
-        X,Y,Z=2*p[0],2*p[1],2*p[2]
+        p, d = world(b, st)
+        if (p[0], p[1] + 1, p[2]) in cells: continue
+        tiles[i] = (p, d)
+    ports = {}
+    for i, (p, d) in tiles.items():
+        X, Y, Z = 2 * p[0], 2 * p[1], 2 * p[2]
         if d is None:
-            ps=[((X+dx,Y+1,Z+dz),(dx,0,dz)) for dx,dz in [(1,0),(-1,0),(0,1),(0,-1)]]
+            ports[i] = [((X + dx, Y + 1, Z + dz), (dx, 0, dz)) for dx, dz in [(1, 0), (-1, 0), (0, 1), (0, -1)]]
         else:
-            dx,_,dz=d
-            ps=[((X+dx,Y+1,Z+dz),(dx,0,dz)),((X-dx,Y-1,Z-dz),(-dx,0,-dz))]
-        ports[i]=ps
-    adj={i:[] for i,_,_ in tiles}
-    tl=[t[0] for t in tiles]
-    for a,b in itertools.combinations(tl,2):
-        for pa,da in ports[a]:
-            for pb,db in ports[b]:
-                if da!=tuple(-c for c in db): continue
-                q=tuple(pb[k]-pa[k] for k in range(3))
-                if q[0]==q[1]==q[2]:
-                    adj[a].append((b,q[0]//2)); adj[b].append((a,q[0]//2))
-    pos={i:p for i,p,_ in tiles}
-    return adj,pos
-gids=list(groups)
-allstates=[dict(zip(gids,c)) for c in itertools.product(*[gstates(groups[g]) for g in gids])]
-idx={tuple(b["p"]):i for i,b in enumerate(L["blocks"]) if not b.get("g")}
-start=[i for i,b in enumerate(L["blocks"]) if b["p"]==L["start"]][0]
-goal=[i for i,b in enumerate(L["blocks"]) if b["p"]==L["goal"]][0]
-built={}
-for s in allstates:
-    r=build(s); key=tuple(s[g] for g in gids)
-    if r is None: print("COLLISION in state",s); continue
-    built[key]=r
-# illusions
-seen=set()
-for key,(adj,pos) in built.items():
-    for a,lst in adj.items():
-        for b,t in lst:
-            if t!=0 and (min(a,b),max(a,b),t) not in seen:
-                seen.add((min(a,b),max(a,b),t))
-                print("ILLUSION",L["blocks"][a]["p"],"<->",L["blocks"][b]["p"],"t=",t,"state",dict(zip(gids,key)))
-# state-space BFS: (state, tile). mechanisms can change only if hana not on that group? allow riding: tile stays in group
-def tileok(key,t): return t in built[key][0]
-init=tuple(groups[g].get("step",groups[g].get("value",0)) for g in gids)
-q=deque([(init,start)]); prev={(init,start):None}
+            dx, _, dz = d
+            ports[i] = [((X + dx, Y + 1, Z + dz), (dx, 0, dz)), ((X - dx, Y - 1, Z - dz), (-dx, 0, -dz))]
+    adj = {i: [] for i in tiles}
+    for a, b in itertools.combinations(sorted(tiles), 2):
+        done = False
+        for pa, da in ports[a]:
+            for pb, db in ports[b]:
+                if da != tuple(-c for c in db): continue
+                q = tuple(pb[k] - pa[k] for k in range(3))
+                if q[0] == q[1] == q[2] and (q[0] == 0 or (L["blocks"][a].get("ill") and L["blocks"][b].get("ill"))):
+                    adj[a].append((b, q[0] // 2)); adj[b].append((a, q[0] // 2)); done = True; break
+            if done: break
+    cache[key] = (adj, tiles)
+    return cache[key]
+
+def fixed_index(cell):
+    for i, b in enumerate(L["blocks"]):
+        if tuple(b["p"]) == tuple(cell) and not b.get("g"): return i
+    raise SystemExit(f"kein fester Block bei {cell}")
+
+def any_index(cell):
+    try: return fixed_index(cell)
+    except SystemExit:
+        return next(i for i, b in enumerate(L["blocks"]) if tuple(b["p"]) == tuple(cell))
+start = fixed_index(L["start"]); goal = any_index(L["goal"])
+plate_tiles = {fixed_index(c): pid for pid, c in plates.items()}
+init = tuple(groups[g].get("step", groups[g].get("value", 0)) for g in gids)
+draggable = [g for g in gids if not groups[g].get("locked")]
+
+def apply_plate(key, pressed, tile):
+    if tile in plate_tiles and plate_tiles[tile] not in pressed:
+        pressed = pressed | {plate_tiles[tile]}
+        k = list(key)
+        for t in triggers:
+            if all(p in pressed for p in t["plates"]):
+                k[gids.index(t["group"])] = t["value"]
+        key = tuple(k)
+    return key, pressed
+
+problems = []
+for h in L.get("hints", []):
+    t = h["target"]
+    if t != "goal" and t not in groups and t not in plates: problems.append(f"Hinweisziel unbekannt: {t}")
+    for pid in h.get("pressed", []) + h.get("unpressed", []):
+        if pid not in plates: problems.append(f"Hinweis nennt unbekannte Platte {pid}")
+    if "reach" in h and not any(tuple(b["p"]) == tuple(h["reach"]) for b in L["blocks"]):
+        problems.append(f"Hinweis-Feld existiert nicht: {h['reach']}")
+if "ending" in L and not any(tuple(b["p"]) == tuple(L["ending"]["tree"]) for b in L["blocks"]):
+    problems.append("Finale-Baum steht auf keinem Block")
+for t in L.get("texts", []):
+    if not any(tuple(b["p"]) == tuple(t["at"]) and not b.get("g") for b in L["blocks"]):
+        problems.append(f"Erzähltext auf unbekanntem Feld {t['at']}")
+for key in itertools.product(*[gstates(groups[g]) for g in gids]):
+    if build(key) is None: pass
+
+# Illusionen über alle erreichbaren Zustände sammeln
+q = deque([(init, frozenset(), start)]); prev = {(init, frozenset(), start): None}; found = None
 while q:
-    k,t=q.popleft()
-    if t==goal: 
-        path=[]; cur=(k,t)
-        while cur: path.append(cur); cur=prev[cur]
-        print("SOLVABLE in",len(path),"moves")
-        for k2,t2 in reversed(path): print("  ",dict(zip(gids,k2)),L["blocks"][t2]["p"])
-        break
-    adj,pos=built[k]
-    nxt=[(k,b) for b,_ in adj[t]]
-    for gi,g in enumerate(gids):
+    k, pr, t = q.popleft()
+    if t == goal: found = (k, pr, t); break
+    r = build(k)
+    nxt = []
+    for b, _ in r[0][t]:
+        k2, pr2 = apply_plate(k, pr, b)
+        if build(k2) is None: problems.append(f"Kollision nach Platte in Zustand {k2}"); continue
+        if b not in build(k2)[1]: continue
+        nxt.append(((k2, pr2, b), ("gehe", L["blocks"][b]["p"])))
+    for g in draggable:
+        gi = gids.index(g)
         for s in gstates(groups[g]):
-            k2=list(k); k2[gi]=s; k2=tuple(k2)
-            if k2 in built and t in built[k2][0]: nxt.append((k2,t))
-    for n in nxt:
-        if n not in prev: prev[n]=(k,t); q.append(n)
-else: print("NOT SOLVABLE")
-# reachable tiles in initial state
-adj,pos=built[init]
-seenT={start}; dq=deque([start])
-while dq:
-    a=dq.popleft()
-    for b,_ in adj[a]:
-        if b not in seenT: seenT.add(b); dq.append(b)
-print("reachable initially:",[L["blocks"][i]["p"] for i in seenT])
+            if s == k[gi]: continue
+            k2 = list(k); k2[gi] = s; k2 = tuple(k2)
+            r2 = build(k2)
+            if r2 is None or t not in r2[1]: continue
+            # Bewegung nur, wenn alle Zwischenstellungen kollisionsfrei sind
+            lo, hi = sorted((k[gi], s))
+            ok = all(build(tuple(v if j != gi else m for j, v in enumerate(k))) is not None for m in range(lo, hi + 1))
+            if ok: nxt.append(((k2, pr, t), (g, s)))
+    for n, act in nxt:
+        if n not in prev: prev[n] = ((k, pr, t), act); q.append(n)
+
+seen_ill = set()
+for (k, pr, t) in prev:
+    adj, tiles = build(k)
+    for a, lst in adj.items():
+        for b, tt in lst:
+            if tt and (min(a, b), max(a, b), tt) not in seen_ill:
+                seen_ill.add((min(a, b), max(a, b), tt))
+                print("ILLUSION", L["blocks"][a]["p"], "<->", L["blocks"][b]["p"], "t=", tt, "bei", dict(zip(gids, k)))
+for p in sorted(set(problems)): print("PROBLEM", p)
+if not found:
+    print("NICHT LÖSBAR"); sys.exit(1)
+steps = []; cur = found
+while prev[cur]: cur, act = prev[cur][0], prev[cur][1]; steps.append(act)
+steps.reverse()
+mech = [s for s in steps if s[0] != "gehe"]
+print(f"LÖSBAR: {len(steps)} Aktionen, davon {len(mech)} Mechanik-Bedienungen")
+last = None
+for a in steps:
+    if a[0] == "gehe":
+        print("   gehe", a[1], "⬤ PLATTE" if tuple(a[1]) in plates.values() else "")
+    else:
+        print(f" ⚙ {a[0]} → {a[1]}")

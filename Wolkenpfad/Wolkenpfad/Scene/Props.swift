@@ -37,6 +37,12 @@ enum Props {
         root.addChildNode(canopy)
         let colors: [UIColor]
         switch variant {
+        case 4:   // nächtlicher Baum mit leuchtenden Früchten
+            colors = [UIColor(red: 0.2, green: 0.36, blue: 0.4, alpha: 1), UIColor(red: 0.26, green: 0.44, blue: 0.44, alpha: 1),
+                      UIColor(red: 0.18, green: 0.3, blue: 0.38, alpha: 1)]
+        case 3:   // Herbstahorn
+            colors = [UIColor(red: 0.93, green: 0.5, blue: 0.24, alpha: 1), UIColor(red: 0.86, green: 0.32, blue: 0.22, alpha: 1),
+                      UIColor(red: 0.98, green: 0.72, blue: 0.3, alpha: 1)]
         case 2: colors = Palette.blossom
         case 1: colors = [UIColor(red: 0.62, green: 0.8, blue: 0.45, alpha: 1), Palette.leaf[1], UIColor(red: 0.7, green: 0.84, blue: 0.5, alpha: 1)]
         default: colors = Palette.leaf
@@ -49,6 +55,15 @@ enum Props {
         for (i, p) in puffs.enumerated() {
             let c = colors[(i + Int(rng.next() * 3)) % colors.count]
             canopy.addChildNode(sphere(p.w * s, c, SIMD3(p.x, p.y, p.z) * s))
+        }
+        if variant == 4 {
+            for k in 0..<5 {
+                let a = Float(k) * 1.3
+                let fruit = sphere(0.045 * s, UIColor(red: 1, green: 0.85, blue: 0.45, alpha: 1),
+                                   SIMD3(cos(a) * 0.3, 0.05 + Float(k % 3) * 0.12, sin(a) * 0.3) * s, segments: 8)
+                fruit.geometry?.firstMaterial?.emission.contents = UIColor(red: 1, green: 0.75, blue: 0.3, alpha: 1)
+                canopy.addChildNode(fruit)
+            }
         }
         let sway = SCNAction.sequence([
             .rotateBy(x: 0.03, y: 0, z: 0.04, duration: 2.6),
@@ -117,6 +132,86 @@ enum Props {
         return root
     }
 
+    static func bamboo(scale s: Float, seed: UInt64) -> SCNNode {
+        var rng = Rand(seed)
+        let root = SCNNode()
+        let greens = [UIColor(red: 0.5, green: 0.72, blue: 0.4, alpha: 1), UIColor(red: 0.42, green: 0.64, blue: 0.36, alpha: 1)]
+        for i in 0..<6 {
+            let x = Float(rng.range(-0.3, 0.3)), z = Float(rng.range(-0.3, 0.3))
+            let h = Float(rng.range(1.0, 1.8)) * s
+            let stalk = SCNNode()
+            stalk.simdPosition = SIMD3(x, 0, z)
+            var y: Float = 0
+            while y < h {
+                let seg = min(0.3, h - y)
+                stalk.addChildNode(node(SCNCylinder(radius: 0.028, height: CGFloat(seg - 0.015)), Art.flat(greens[i % 2]), SIMD3(0, y + seg / 2, 0)))
+                y += seg
+            }
+            for k in 0..<3 {
+                let leaf = sphere(0.06, Palette.leaf[k % 3], SIMD3(0.06, h - Float(k) * 0.12, 0), segments: 8)
+                leaf.scale = SCNVector3(1.8, 0.25, 0.6)
+                leaf.eulerAngles.y = Float(k) * 2.1
+                stalk.addChildNode(leaf)
+            }
+            let sway = SCNAction.sequence([.rotateBy(x: 0.04, y: 0, z: 0.05, duration: 2.2), .rotateBy(x: -0.04, y: 0, z: -0.05, duration: 2.2)])
+            sway.timingMode = .easeInEaseOut
+            stalk.runAction(.sequence([.wait(duration: rng.range(0, 1.5)), .repeatForever(sway)]))
+            root.addChildNode(stalk)
+        }
+        return root
+    }
+
+    /// Wasserrad an einer Blockseite, dreht sich langsam.
+    static func millwheel(face: String) -> SCNNode {
+        let root = SCNNode()
+        let wheel = SCNNode()
+        let wood = Art.flat(Palette.wood)
+        let rim = node(SCNTorus(ringRadius: 0.45, pipeRadius: 0.04), wood)
+        wheel.addChildNode(rim)
+        for i in 0..<8 {
+            let paddle = node(SCNBox(width: 0.2, height: 0.04, length: 0.22, chamferRadius: 0.01), wood)
+            let a = Float(i) / 8 * .pi * 2
+            paddle.simdPosition = SIMD3(cos(a) * 0.48, 0, sin(a) * 0.48)
+            paddle.eulerAngles.y = -a
+            wheel.addChildNode(paddle)
+            let spoke = node(SCNCylinder(radius: 0.015, height: 0.9), wood)
+            spoke.eulerAngles.z = .pi / 2
+            spoke.eulerAngles.y = a
+            if i < 4 { wheel.addChildNode(spoke) }
+        }
+        wheel.addChildNode(sphere(0.06, Palette.brass, .zero))
+        wheel.runAction(.repeatForever(.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 9)))
+        root.addChildNode(wheel)
+        if face == "+z" {
+            root.eulerAngles.x = .pi / 2
+            root.simdPosition = SIMD3(0, -0.2, 0.62)
+        } else {
+            root.eulerAngles.z = -.pi / 2
+            root.simdPosition = SIMD3(0.62, -0.2, 0)
+        }
+        return root
+    }
+
+    /// Druckplatte: runde Steinscheibe mit Glyphe, die beim Betreten aufleuchtet.
+    static func plate() -> (SCNNode, SCNMaterial) {
+        let root = SCNNode()
+        let stone = Art.flat(UIColor(red: 0.86, green: 0.82, blue: 0.8, alpha: 1))
+        root.addChildNode(node(SCNCylinder(radius: 0.36, height: 0.05), stone, SIMD3(0, 0.025, 0)))
+        let rune = SCNMaterial()
+        rune.diffuse.contents = Art.ring()
+        rune.emission.contents = UIColor(red: 0.25, green: 0.4, blue: 0.4, alpha: 1)
+        rune.lightingModel = .constant
+        rune.transparent.contents = Art.ring()
+        rune.isDoubleSided = true
+        let glyph = SCNNode(geometry: SCNPlane(width: 0.5, height: 0.5))
+        glyph.geometry?.materials = [rune]
+        glyph.eulerAngles.x = -.pi / 2
+        glyph.simdPosition = SIMD3(0, 0.055, 0)
+        glyph.castsShadow = false
+        root.addChildNode(glyph)
+        return (root, rune)
+    }
+
     static func rock(scale s: Float) -> SCNNode {
         let r = sphere(0.3 * s, Palette.rock, SIMD3(0, 0.08, 0))
         r.scale = SCNVector3(1, 0.55, 0.8)
@@ -144,7 +239,7 @@ enum Props {
     // MARK: Architektur
 
     /// Steinlaterne (Tōrō) mit warm glimmendem Licht.
-    static func lantern(scale s: Float) -> SCNNode {
+    static func lantern(scale s: Float, boost: CGFloat = 1) -> SCNNode {
         let root = SCNNode()
         let stone = Art.flat(UIColor(red: 0.86, green: 0.82, blue: 0.78, alpha: 1))
         root.addChildNode(node(SCNCylinder(radius: 0.07, height: 0.06), stone, SIMD3(0, 0.03, 0)))
@@ -154,9 +249,23 @@ enum Props {
         root.addChildNode(node(box, lightMat, SIMD3(0, 0.31, 0)))
         let roof = SCNPyramid(width: 0.24, height: 0.09, length: 0.24)
         root.addChildNode(node(roof, Art.flat(UIColor(red: 0.5, green: 0.45, blue: 0.55, alpha: 1)), SIMD3(0, 0.365, 0)))
-        let glow = billboardGlow(size: 0.55, color: UIColor(red: 1, green: 0.78, blue: 0.45, alpha: 1))
+        let glow = billboardGlow(size: 0.55 * boost, color: UIColor(red: 1, green: 0.78, blue: 0.45, alpha: 1))
         glow.simdPosition = SIMD3(0, 0.31, 0)
         root.addChildNode(glow)
+        if boost > 2 {
+            // Nachts werfen die Laternen echtes, warmes Licht
+            let lamp = SCNNode()
+            let l = SCNLight()
+            l.type = .omni
+            l.color = UIColor(red: 1, green: 0.72, blue: 0.4, alpha: 1)
+            l.intensity = 420
+            l.attenuationStartDistance = 0.2
+            l.attenuationEndDistance = 2.6
+            l.castsShadow = false
+            lamp.light = l
+            lamp.simdPosition = SIMD3(0, 0.36, 0)
+            root.addChildNode(lamp)
+        }
         glow.runAction(.repeatForever(.sequence([.fadeOpacity(to: 0.55, duration: 1.4), .fadeOpacity(to: 1, duration: 1.2)])))
         root.simdPosition = SIMD3(0.32, 0, -0.32)
         let wrapper = SCNNode()
@@ -248,18 +357,31 @@ enum Props {
     }
 
     /// Griff der Aufzugssäule mit Pfeilen nach oben und unten.
-    static func liftHandle() -> SCNNode {
+    static func liftHandle(axis: String = "y") -> SCNNode {
         let root = SCNNode()
         let brass = Art.flat(Palette.brass, emission: UIColor(red: 0.25, green: 0.16, blue: 0.02, alpha: 1))
         let ring = node(SCNTorus(ringRadius: 0.16, pipeRadius: 0.035), brass)
         ring.eulerAngles.z = .pi / 2
         root.addChildNode(ring)
+        let arrows = SCNNode()
         for dir: Float in [1, -1] {
             let arrow = node(SCNCone(topRadius: 0, bottomRadius: 0.07, height: 0.12), brass, SIMD3(0, 0.3 * dir, 0))
             if dir < 0 { arrow.eulerAngles.x = .pi }
-            root.addChildNode(arrow)
+            arrows.addChildNode(arrow)
         }
-        root.simdPosition = SIMD3(0.53, -0.1, 0)
+        root.addChildNode(arrows)
+        switch axis {
+        case "x":
+            // Pfeile zeigen entlang X; Griff sitzt auf der sichtbaren +Z-Seite
+            arrows.eulerAngles.z = -.pi / 2
+            ring.eulerAngles = SCNVector3(Float.pi / 2, 0, 0)
+            root.simdPosition = SIMD3(0, 0, 0.53)
+        case "z":
+            arrows.eulerAngles.x = .pi / 2
+            root.simdPosition = SIMD3(0.53, 0, 0)
+        default:
+            root.simdPosition = SIMD3(0.53, -0.1, 0)
+        }
         root.enumerateHierarchy { n, _ in n.categoryBitMask = mechanismCategory }
         let pulse = SCNAction.sequence([.scale(to: 1.12, duration: 0.9), .scale(to: 1.0, duration: 0.9)])
         pulse.timingMode = .easeInEaseOut

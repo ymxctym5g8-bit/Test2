@@ -30,6 +30,63 @@ enum Palette {
     ]
 }
 
+/// Stimmung eines Kapitels: Himmel, Licht, Wolken, Partikel und Musik.
+struct Theme {
+    enum Particle { case petals, leaves, motes }
+
+    let name: String
+    let sky: [UIColor]
+    let sun: UIColor
+    let sunIntensity: CGFloat
+    let ambient: UIColor
+    let ambientIntensity: CGFloat
+    let cloudLight: UIColor
+    let cloudShadow: UIColor
+    let cloudWarmShadow: UIColor
+    let particle: Particle
+    let stars: Bool
+    let fireflies: Float
+    let lanternBoost: CGFloat
+
+    static func named(_ n: String?) -> Theme {
+        switch n {
+        case "evening":
+            return Theme(name: "evening",
+                         sky: [UIColor(red: 0.42, green: 0.45, blue: 0.75, alpha: 1), UIColor(red: 0.78, green: 0.6, blue: 0.78, alpha: 1),
+                               UIColor(red: 1.0, green: 0.74, blue: 0.56, alpha: 1), UIColor(red: 0.99, green: 0.6, blue: 0.45, alpha: 1),
+                               UIColor(red: 0.85, green: 0.45, blue: 0.48, alpha: 1)],
+                         sun: UIColor(red: 1, green: 0.78, blue: 0.55, alpha: 1), sunIntensity: 980,
+                         ambient: UIColor(red: 0.62, green: 0.52, blue: 0.72, alpha: 1), ambientIntensity: 470,
+                         cloudLight: UIColor(red: 1, green: 0.9, blue: 0.82, alpha: 1),
+                         cloudShadow: UIColor(red: 0.72, green: 0.56, blue: 0.75, alpha: 1),
+                         cloudWarmShadow: UIColor(red: 0.95, green: 0.6, blue: 0.55, alpha: 1),
+                         particle: .leaves, stars: false, fireflies: 3, lanternBoost: 1.3)
+        case "night":
+            return Theme(name: "night",
+                         sky: [UIColor(red: 0.07, green: 0.09, blue: 0.24, alpha: 1), UIColor(red: 0.14, green: 0.18, blue: 0.4, alpha: 1),
+                               UIColor(red: 0.27, green: 0.28, blue: 0.52, alpha: 1), UIColor(red: 0.42, green: 0.36, blue: 0.58, alpha: 1),
+                               UIColor(red: 0.55, green: 0.42, blue: 0.6, alpha: 1)],
+                         sun: UIColor(red: 0.62, green: 0.7, blue: 1.0, alpha: 1), sunIntensity: 650,
+                         ambient: UIColor(red: 0.36, green: 0.38, blue: 0.62, alpha: 1), ambientIntensity: 420,
+                         cloudLight: UIColor(red: 0.62, green: 0.66, blue: 0.86, alpha: 1),
+                         cloudShadow: UIColor(red: 0.3, green: 0.3, blue: 0.52, alpha: 1),
+                         cloudWarmShadow: UIColor(red: 0.42, green: 0.32, blue: 0.55, alpha: 1),
+                         particle: .motes, stars: true, fireflies: 9, lanternBoost: 2.2)
+        default:
+            return Theme(name: "day",
+                         sky: [UIColor(red: 0.52, green: 0.73, blue: 0.93, alpha: 1), UIColor(red: 0.74, green: 0.86, blue: 0.95, alpha: 1),
+                               UIColor(red: 0.99, green: 0.93, blue: 0.84, alpha: 1), UIColor(red: 0.99, green: 0.82, blue: 0.74, alpha: 1),
+                               UIColor(red: 0.93, green: 0.72, blue: 0.74, alpha: 1)],
+                         sun: UIColor(red: 1, green: 0.93, blue: 0.82, alpha: 1), sunIntensity: 1050,
+                         ambient: UIColor(red: 0.62, green: 0.66, blue: 0.82, alpha: 1), ambientIntensity: 480,
+                         cloudLight: .white,
+                         cloudShadow: UIColor(red: 0.76, green: 0.78, blue: 0.9, alpha: 1),
+                         cloudWarmShadow: UIColor(red: 0.93, green: 0.74, blue: 0.78, alpha: 1),
+                         particle: .petals, stars: false, fireflies: 3, lanternBoost: 1)
+        }
+    }
+}
+
 /// Deterministischer kleiner Zufallsgenerator, damit die Welt bei jedem Start gleich aussieht.
 struct Rand {
     private var s: UInt64
@@ -89,23 +146,46 @@ enum Art {
         }
     }
 
-    static func skyGradient() -> UIImage {
-        let size = CGSize(width: 8, height: 512)
+    static func skyGradient(_ theme: Theme) -> UIImage {
+        let size = CGSize(width: 256, height: 1024)
         return UIGraphicsImageRenderer(size: size).image { ctx in
-            let colors = [
-                UIColor(red: 0.52, green: 0.73, blue: 0.93, alpha: 1).cgColor,
-                UIColor(red: 0.74, green: 0.86, blue: 0.95, alpha: 1).cgColor,
-                UIColor(red: 0.99, green: 0.93, blue: 0.84, alpha: 1).cgColor,
-                UIColor(red: 0.99, green: 0.82, blue: 0.74, alpha: 1).cgColor,
-                UIColor(red: 0.93, green: 0.72, blue: 0.74, alpha: 1).cgColor,
-            ] as CFArray
+            let colors = theme.sky.map { $0.cgColor } as CFArray
             let g = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: colors, locations: [0, 0.3, 0.6, 0.82, 1])!
             ctx.cgContext.drawLinearGradient(g, start: .zero, end: CGPoint(x: 0, y: size.height), options: [])
+            if theme.stars {
+                var rng = Rand(77)
+                for _ in 0..<160 {
+                    let x = CGFloat(rng.range(0, 256)), y = CGFloat(rng.range(0, 620))
+                    let r = CGFloat(rng.range(0.4, 1.4))
+                    UIColor(white: 1, alpha: CGFloat(rng.range(0.35, 0.95)) * (1 - y / 700)).setFill()
+                    ctx.cgContext.fillEllipse(in: CGRect(x: x - r, y: y - r * 0.25, width: r * 2, height: r * 0.5))
+                }
+            }
+        }
+    }
+
+    /// Fallendes Ahornblatt für die Abendstimmung.
+    static func leaf() -> UIImage {
+        let size = CGSize(width: 32, height: 32)
+        return UIGraphicsImageRenderer(size: size).image { ctx in
+            let c = ctx.cgContext
+            UIColor(red: 0.95, green: 0.5, blue: 0.2, alpha: 1).setFill()
+            let path = UIBezierPath()
+            for i in 0..<10 {
+                let a = CGFloat(i) / 10 * .pi * 2 - .pi / 2
+                let r: CGFloat = i % 2 == 0 ? 14 : 6
+                let pt = CGPoint(x: 16 + cos(a) * r, y: 16 + sin(a) * r)
+                if i == 0 { path.move(to: pt) } else { path.addLine(to: pt) }
+            }
+            path.close()
+            path.fill()
+            UIColor(red: 1, green: 0.8, blue: 0.4, alpha: 0.5).setFill()
+            c.fillEllipse(in: CGRect(x: 12, y: 12, width: 8, height: 8))
         }
     }
 
     /// Ghibli-Kumuluswolke: übereinander gestapelte, weich verlaufende Kuppeln mit lavendelfarbener Unterseite.
-    static func cloud(seed: UInt64, warm: Bool = false) -> UIImage {
+    static func cloud(seed: UInt64, warm: Bool = false, theme: Theme = Theme.named(nil)) -> UIImage {
         let size = CGSize(width: 512, height: 256)
         var rng = Rand(seed)
         return UIGraphicsImageRenderer(size: size).image { ctx in
@@ -121,7 +201,8 @@ enum Art {
                 let y = 190 - r * 0.75 - mid * 20
                 puffs.append((CGPoint(x: x, y: y), r))
             }
-            let shadow = warm ? UIColor(red: 0.93, green: 0.74, blue: 0.78, alpha: 1) : UIColor(red: 0.76, green: 0.78, blue: 0.9, alpha: 1)
+            let shadow = warm ? theme.cloudWarmShadow : theme.cloudShadow
+            let light = theme.cloudLight
             // Schattenschicht
             for (p, r) in puffs {
                 let g = CGGradient(colorsSpace: space, colors: [shadow.withAlphaComponent(0.95).cgColor,
@@ -133,9 +214,9 @@ enum Art {
             // Lichtschicht
             for (p, r) in puffs {
                 let center = CGPoint(x: p.x - r * 0.12, y: p.y - r * 0.12)
-                let g = CGGradient(colorsSpace: space, colors: [UIColor.white.cgColor,
-                                                                UIColor(white: 1, alpha: 0.95).cgColor,
-                                                                UIColor(white: 1, alpha: 0).cgColor] as CFArray,
+                let g = CGGradient(colorsSpace: space, colors: [light.cgColor,
+                                                                light.withAlphaComponent(0.95).cgColor,
+                                                                light.withAlphaComponent(0).cgColor] as CFArray,
                                    locations: [0, 0.68, 1])!
                 c.drawRadialGradient(g, startCenter: center, startRadius: 0, endCenter: center, endRadius: r * 0.86, options: [])
             }
@@ -222,6 +303,13 @@ enum Art {
         case "tealdark":
             top = mat(painted(Palette.tealDark, seed: 91))
             side = mat(painted(Palette.tealDark, seed: 92, dots: true))
+        case "raft":
+            top = mat(painted(UIColor(red: 0.72, green: 0.5, blue: 0.34, alpha: 1), seed: 111, strength: 0.14, stripes: true))
+            side = mat(painted(UIColor(red: 0.6, green: 0.4, blue: 0.28, alpha: 1), seed: 112, stripes: true))
+        case "gate":
+            top = mat(painted(Palette.vermilion, seed: 121, dabs: 30, emblem: true))
+            side = mat(painted(Palette.vermilion, seed: 122, dabs: 30, emblem: true))
+            side.emission.contents = UIColor(red: 0.18, green: 0.04, blue: 0.02, alpha: 1)
         case "tealtop":
             top = mat(painted(Palette.tealTop, seed: 101, dabs: 30, emblem: true))
             side = mat(painted(Palette.teal, seed: 102, dots: true))

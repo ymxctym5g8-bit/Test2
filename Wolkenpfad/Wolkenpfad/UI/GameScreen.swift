@@ -16,8 +16,22 @@ enum Ink {
 }
 
 struct GameScreen: View {
-    @StateObject private var game = GameCoordinator()
+    @StateObject private var game: GameCoordinator
+    let unlocked: Int
+    let levelCount: Int
     let onRestart: () -> Void
+    let onSelect: (Int) -> Void
+    let onCompleted: (Int) -> Void
+
+    init(levelIndex: Int, unlocked: Int, levelCount: Int, onRestart: @escaping () -> Void,
+         onSelect: @escaping (Int) -> Void, onCompleted: @escaping (Int) -> Void) {
+        _game = StateObject(wrappedValue: GameCoordinator(levelIndex: levelIndex))
+        self.unlocked = unlocked
+        self.levelCount = levelCount
+        self.onRestart = onRestart
+        self.onSelect = onSelect
+        self.onCompleted = onCompleted
+    }
 
     var body: some View {
         GeometryReader { geo in
@@ -27,7 +41,7 @@ struct GameScreen: View {
                     .onAppear { game.layout(size: geo.size) }
                     .onChange(of: geo.size) { game.layout(size: $0) }
 
-                StoryText(text: game.story)
+                StoryText(text: game.story, night: game.isNight)
                     .padding(.top, geo.safeAreaInsets.top + 54)
                     .frame(maxHeight: .infinity, alignment: .top)
                     .allowsHitTesting(false)
@@ -41,7 +55,7 @@ struct GameScreen: View {
                             } label: {
                                 Image(systemName: "circle.grid.cross")
                                     .font(.system(size: 18, weight: .light))
-                                    .foregroundColor(Ink.text)
+                                    .foregroundColor(game.isNight ? Ink.paper : Ink.text)
                                     .frame(width: 44, height: 44)
                                     .background(Circle().fill(Ink.paper.opacity(0.55)))
                             }
@@ -54,8 +68,11 @@ struct GameScreen: View {
                 }
 
                 if game.phase == .title {
-                    TitleOverlay { withAnimation(.easeInOut(duration: 1.2)) { game.startGame() } }
-                        .transition(.opacity)
+                    TitleOverlay(chapter: game.chapterTitle, current: game.levelIndex, unlocked: unlocked,
+                                 levelCount: levelCount, onSelect: onSelect) {
+                        withAnimation(.easeInOut(duration: 1.2)) { game.startGame() }
+                    }
+                    .transition(.opacity)
                 }
 
                 if game.menuOpen {
@@ -66,11 +83,15 @@ struct GameScreen: View {
                 }
 
                 if game.phase == .finished {
-                    EndOverlay(onReplay: onRestart)
+                    EndOverlay(level: game.levelIndex, levelCount: levelCount, onReplay: onRestart,
+                               onNext: { onSelect(game.levelIndex + 1) }, onFirst: { onSelect(1) })
                         .transition(.opacity)
                 }
             }
             .animation(.easeInOut(duration: 0.8), value: game.phase)
+            .onChange(of: game.phase) { phase in
+                if phase == .finished { onCompleted(game.levelIndex) }
+            }
             .animation(.easeInOut(duration: 0.3), value: game.menuOpen)
         }
         .statusBarHidden(true)
@@ -80,6 +101,7 @@ struct GameScreen: View {
 
 struct StoryText: View {
     let text: String?
+    var night = false
 
     var body: some View {
         ZStack {
@@ -87,11 +109,11 @@ struct StoryText: View {
                 Text(t)
                     .font(.system(size: 19, weight: .regular, design: .serif))
                     .italic()
-                    .foregroundColor(Ink.text)
+                    .foregroundColor(night ? Ink.paper : Ink.text)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .padding(.horizontal, 34)
-                    .shadow(color: .white.opacity(0.9), radius: 6)
+                    .shadow(color: night ? Color(red: 0.08, green: 0.08, blue: 0.2).opacity(0.9) : .white.opacity(0.9), radius: 6)
                     .id(t)
                     .transition(.opacity.combined(with: .offset(y: 6)))
             }
@@ -101,8 +123,18 @@ struct StoryText: View {
 }
 
 struct TitleOverlay: View {
+    let chapter: String
+    let current: Int
+    let unlocked: Int
+    let levelCount: Int
+    let onSelect: (Int) -> Void
     let onStart: () -> Void
     @State private var pulse = false
+
+    private var chapterParts: (String, String) {
+        let parts = chapter.components(separatedBy: " · ")
+        return (parts.first ?? chapter, parts.count > 1 ? parts[1] : "")
+    }
 
     var body: some View {
         ZStack {
@@ -118,10 +150,29 @@ struct TitleOverlay: View {
                 Rectangle()
                     .fill(Ink.accent.opacity(0.7))
                     .frame(width: 46, height: 1.5)
-                Text("Kapitel I · Der Samen des Waldes")
-                    .font(.system(size: 16, weight: .regular, design: .serif))
-                    .italic()
+                Text(chapterParts.0)
+                    .font(.system(size: 14, weight: .regular, design: .serif))
                     .foregroundColor(Ink.soft)
+                Text(chapterParts.1)
+                    .font(.system(size: 19, weight: .regular, design: .serif))
+                    .italic()
+                    .foregroundColor(Ink.text)
+                HStack(spacing: 14) {
+                    ForEach(1...levelCount, id: \.self) { i in
+                        Button {
+                            if i != current { onSelect(i) }
+                        } label: {
+                            Text(["I", "II", "III", "IV", "V"][min(i - 1, 4)])
+                                .font(.system(size: 15, weight: i == current ? .semibold : .regular, design: .serif))
+                                .foregroundColor(i <= unlocked ? Ink.text : Ink.soft.opacity(0.4))
+                                .frame(width: 40, height: 40)
+                                .background(Circle().stroke(i == current ? Ink.accent : Ink.text.opacity(0.25), lineWidth: i == current ? 1.5 : 1))
+                        }
+                        .disabled(i > unlocked)
+                        .accessibilityLabel("Kapitel \(i)")
+                    }
+                }
+                .padding(.top, 10)
                 Spacer()
                 Text("Tippe, um zu beginnen")
                     .font(.system(size: 15, weight: .regular, design: .serif))
@@ -187,29 +238,47 @@ struct MenuOverlay: View {
 }
 
 struct EndOverlay: View {
+    let level: Int
+    let levelCount: Int
     let onReplay: () -> Void
+    let onNext: () -> Void
+    let onFirst: () -> Void
     @State private var appear = false
+
+    private var isLast: Bool { level >= levelCount }
+    private var roman: String { ["I", "II", "III", "IV", "V"][min(level - 1, 4)] }
+    private var nextRoman: String { ["I", "II", "III", "IV", "V"][min(level, 4)] }
 
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
             VStack(spacing: 12) {
-                Text("Kapitel I abgeschlossen")
+                Text("Kapitel \(roman) abgeschlossen")
                     .font(.system(size: 28, weight: .light, design: .serif))
                     .foregroundColor(Ink.text)
-                Text("Der Wald erwacht. Doch hinter den Wolken\nwarten noch viele stille Türme.")
+                Text(isLast ? "Alle Samen ruhen in der Erde.\nDer Wald wird sich an dich erinnern."
+                            : "Der Wald erwacht. Doch hinter den Wolken\nwarten noch viele stille Türme.")
                     .font(.system(size: 15, design: .serif))
                     .italic()
                     .multilineTextAlignment(.center)
                     .foregroundColor(Ink.soft)
-                Button(action: onReplay) {
-                    Label("Noch einmal", systemImage: "arrow.counterclockwise")
+                if !isLast {
+                    Button(action: onNext) {
+                        Label("Weiter zu Kapitel \(nextRoman)", systemImage: "arrow.right")
+                            .font(.system(size: 16, weight: .semibold, design: .serif))
+                            .foregroundColor(Ink.paper)
+                            .frame(width: 240, height: 46)
+                            .background(Capsule().fill(Ink.accent.opacity(0.9)))
+                    }
+                    .padding(.top, 8)
+                }
+                Button(action: isLast ? onFirst : onReplay) {
+                    Label(isLast ? "Von vorn beginnen" : "Noch einmal", systemImage: "arrow.counterclockwise")
                         .font(.system(size: 16, design: .serif))
                         .foregroundColor(Ink.text)
-                        .frame(width: 200, height: 44)
+                        .frame(width: 240, height: 44)
                         .background(Capsule().stroke(Ink.text.opacity(0.35)))
                 }
-                .padding(.top, 8)
             }
             .padding(26)
             .background(RoundedRectangle(cornerRadius: 26, style: .continuous).fill(Ink.paper.opacity(0.88)))
