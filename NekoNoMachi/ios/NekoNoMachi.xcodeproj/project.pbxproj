@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		370E466361AFC983C87D20D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F28583F5E7B76469479015 /* Assets.xcassets */; };
+		696EAF8A53C955F9AC166834 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22A21E873E30F2D76A0F2B /* GameView.swift */; };
+		A1C3E5F7092B4D6F8A1C3E51 /* StoreBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C3E5F7092B4D6F8A1C3E52 /* StoreBridge.swift */; };
+		CDBDFAC1306ED8FF00ADFA65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDBDFAC0306ED8FF00ADFA65 /* LaunchScreen.storyboard */; };
+		CFE8421D5DE1E465BB6C61FC /* web in Resources */ = {isa = PBXBuildFile; fileRef = 7702899C34D08E3718094B91 /* web */; };
+		EE2E83884EE0AF6B190760B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3F0494DE1C242B84C8A8DBD /* InfoPlist.strings */; };
+		F487C318F7F16BAEF184E6D7 /* NekoNoMachiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBF9B092D64051B54FFE47 /* NekoNoMachiApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		167C1840914E87F5D21E12ED /* NekoNoMachi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NekoNoMachi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A7C4A1B92560BCFF02D9FC1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5A1B2C3D4E5F60718293A4B5 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7702899C34D08E3718094B91 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
+		77FA44C19F796951764E348A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A1C3E5F7092B4D6F8A1C3E52 /* StoreBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBridge.swift; sourceTree = "<group>"; };
+		A1C3E5F7092B4D6F8A1C3E53 /* NekoNoMachi.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = NekoNoMachi.storekit; sourceTree = "<group>"; };
+		A1C3E5F7092B4D6F8A1C3E54 /* NekoNoMachi-Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "NekoNoMachi-Mac.entitlements"; sourceTree = "<group>"; };
+		A1C3E5F7092B4D6F8A1C3E55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9F28583F5E7B76469479015 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9BBF9B092D64051B54FFE47 /* NekoNoMachiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NekoNoMachiApp.swift; sourceTree = "<group>"; };
+		CDBDFAC0306ED8FF00ADFA65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EE22A21E873E30F2D76A0F2B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8FDD48C1DFFC0713C9E49A97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10EDE5CDDA1F64B132196B41 = {
+			isa = PBXGroup;
+			children = (
+				F76CBE26F6A8FC9469B55740 /* NekoNoMachi */,
+				8E59E3DD9DB85112EEC8612A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8E59E3DD9DB85112EEC8612A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				167C1840914E87F5D21E12ED /* NekoNoMachi.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F76CBE26F6A8FC9469B55740 /* NekoNoMachi */ = {
+			isa = PBXGroup;
+			children = (
+				C9BBF9B092D64051B54FFE47 /* NekoNoMachiApp.swift */,
+				EE22A21E873E30F2D76A0F2B /* GameView.swift */,
+				A1C3E5F7092B4D6F8A1C3E52 /* StoreBridge.swift */,
+				A1C3E5F7092B4D6F8A1C3E53 /* NekoNoMachi.storekit */,
+				A1C3E5F7092B4D6F8A1C3E54 /* NekoNoMachi-Mac.entitlements */,
+				A1C3E5F7092B4D6F8A1C3E55 /* Info.plist */,
+				B9F28583F5E7B76469479015 /* Assets.xcassets */,
+				CDBDFAC0306ED8FF00ADFA65 /* LaunchScreen.storyboard */,
+				7702899C34D08E3718094B91 /* web */,
+				B3F0494DE1C242B84C8A8DBD /* InfoPlist.strings */,
+			);
+			path = NekoNoMachi;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C85FD2254794327F07526FCD /* NekoNoMachi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96932325928FB5683AB71244 /* Build configuration list for PBXNativeTarget "NekoNoMachi" */;
+			buildPhases = (
+				8F7176FC6FB2D759C4DB2A74 /* Sources */,
+				8FDD48C1DFFC0713C9E49A97 /* Frameworks */,
+				58B2906A78749D0CA13E49D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NekoNoMachi;
+			productName = NekoNoMachi;
+			productReference = 167C1840914E87F5D21E12ED /* NekoNoMachi.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FBCEFB6F034A37818627C062 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					C85FD2254794327F07526FCD = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 3B5A10B4BDF7C32D85FEC101 /* Build configuration list for PBXProject "NekoNoMachi" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = de;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				de,
+				en,
+				ja,
+				Base,
+			);
+			mainGroup = 10EDE5CDDA1F64B132196B41;
+			productRefGroup = 8E59E3DD9DB85112EEC8612A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C85FD2254794327F07526FCD /* NekoNoMachi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		58B2906A78749D0CA13E49D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				370E466361AFC983C87D20D2 /* Assets.xcassets in Resources */,
+				CDBDFAC1306ED8FF00ADFA65 /* LaunchScreen.storyboard in Resources */,
+				CFE8421D5DE1E465BB6C61FC /* web in Resources */,
+				EE2E83884EE0AF6B190760B5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F7176FC6FB2D759C4DB2A74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F487C318F7F16BAEF184E6D7 /* NekoNoMachiApp.swift in Sources */,
+				A1C3E5F7092B4D6F8A1C3E51 /* StoreBridge.swift in Sources */,
+				696EAF8A53C955F9AC166834 /* GameView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B3F0494DE1C242B84C8A8DBD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A7C4A1B92560BCFF02D9FC1 /* de */,
+				77FA44C19F796951764E348A /* en */,
+				5A1B2C3D4E5F60718293A4B5 /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		82B39A0A94562D102466E3F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "NekoNoMachi/NekoNoMachi-Mac.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NekoNoMachi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Neko no Machi";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Damit du Fotos aus dem Spiel in deiner Fotos-App speichern kannst.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				"INFOPLIST_KEY_UIRequiresFullScreen[sdk=macosx*]" = NO;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIViewControllerBasedStatusBarAppearance = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.nekonomachi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Release;
+		};
+		E7AD954D7350F8F60E7B79EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4YYPQ95GVT;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA77F1B0F8E2AAED9F3541EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4YYPQ95GVT;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FF99A8BB6D06F4E135D7A662 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "NekoNoMachi/NekoNoMachi-Mac.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NekoNoMachi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Neko no Machi";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Damit du Fotos aus dem Spiel in deiner Fotos-App speichern kannst.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				"INFOPLIST_KEY_UIRequiresFullScreen[sdk=macosx*]" = NO;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIViewControllerBasedStatusBarAppearance = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.nekonomachi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B5A10B4BDF7C32D85FEC101 /* Build configuration list for PBXProject "NekoNoMachi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA77F1B0F8E2AAED9F3541EC /* Debug */,
+				E7AD954D7350F8F60E7B79EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96932325928FB5683AB71244 /* Build configuration list for PBXNativeTarget "NekoNoMachi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF99A8BB6D06F4E135D7A662 /* Debug */,
+				82B39A0A94562D102466E3F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FBCEFB6F034A37818627C062 /* Project object */;
+}

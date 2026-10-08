@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Pflicht für den Mac App Store -->
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<!-- WebKit (Spieldarstellung) und App Store -->
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<!-- Fotos aus dem Spiel in der Fotos-App sichern -->
+	<key>com.apple.security.personal-information.photos-library</key>
+	<true/>
+</dict>
+</plist>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Neko no Machi">
+<title>Neko no Machi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div class="card">
+    <img id="hudPortrait" alt="">
+    <div>
+      <div id="hudName">Mochi</div>
+      <div id="hudChapter"></div>
+      <div class="stats"><span><i id="hudItemIcon">🍣</i> <b id="hudFish">0</b></span><span id="hudShrineBox" class="hidden"><i>⛩️</i> <b id="hudShrines">0</b></span><span><i id="hudFriendIcon">🐾</i> <b id="hudFriends">0</b></span><span id="hudTime">☀️</span><span id="hudClock" class="clock">06:00</span></div>
+    </div>
+  </div>
+  <div class="hudButtons">
+    <button id="btnSound" data-i18n-title="soundTitle" title="Ton an/aus">🔊</button>
+    <button id="btnMenu" data-i18n-title="menuTitle" title="Menü (Esc)">☰</button>
+  </div>
+</div>
+<div id="help" class="hidden" data-i18n="help">
+  <b>← →</b> laufen &nbsp; <b>⇧</b> rennen &nbsp; <b>Leertaste</b> springen (2× in der Luft) &nbsp; <b>M</b> miauen &nbsp; <b>S</b> hinsetzen / schlafen &nbsp; <b>K</b> Kapitel &nbsp; <b>Esc</b> Menü
+</div>
+<div id="photoFlash"></div><img id="photoPop" alt="">
+<div id="toast"></div>
+
+<!-- Hauptmenü -->
+<section id="title" class="screen mainmenu">
+  <div class="mmWrap">
+    <div class="mmLeft">
+      <div class="logo big">
+        <div class="jp">猫の町</div>
+        <h1>Neko no Machi</h1>
+      </div>
+      <nav class="mmNav" id="mmNav">
+        <button id="btnContinue" class="mmBtn primary hidden"><span class="ic">▶</span><span><b data-i18n="mmContinue">Weiterspielen</b><small id="contInfo"></small></span></button>
+        <button id="btnStart" class="mmBtn"><span class="ic">🗺️</span><span><b data-i18n="mmChapters">Kapitel wählen</b><small data-i18n="mmChaptersSub">8 Orte in Japan entdecken</small></span></button>
+        <button id="btnDesign" class="mmBtn"><span class="ic">🎨</span><span><b data-i18n="mmDesign">Katze gestalten</b><small data-i18n="mmDesignSub">Zufallskatze &amp; eigene Farben</small></span></button>
+        <button id="btnTitleCollection" class="mmBtn"><span class="ic">🍣</span><span><b data-i18n="mmCollection">Sammlung</b><small data-i18n="mmCollectionSub">Sushi &amp; Monster-Buch</small></span></button>
+        <button id="btnTitleControls" class="mmBtn"><span class="ic">🎮</span><span><b data-i18n="mmControls">Steuerung</b><small data-i18n="mmControlsSub">Tasten &amp; Tipps</small></span></button>
+        <button id="btnSettings" class="mmBtn"><span class="ic">⚙️</span><span><b data-i18n="mmSettings">Einstellungen</b><small data-i18n="mmSettingsSub">Sprache, Lautstärke &amp; Spielstand</small></span></button>
+        <button id="btnQuit" class="mmBtn quiet"><span class="ic">🚪</span><span><b data-i18n="mmQuit">Beenden</b></span></button>
+      </nav>
+    </div>
+    <div class="mmRight">
+      <canvas id="mmCat" width="440" height="400"></canvas>
+      <div class="mmCatName" id="mmCatName"></div>
+      <div class="mmStats" id="mmStats"></div>
+    </div>
+  </div>
+  <div class="mmFoot" data-i18n="mmFoot">↑ ↓ auswählen · Enter bestätigen</div>
+</section>
+
+<!-- Katzen-Editor -->
+<section id="editor" class="screen hidden">
+  <div class="panel wide">
+    <div class="panelHead"><h2 data-i18n="edTitle">Katze gestalten</h2><button id="btnRandom" class="secondary" data-i18n="edRandom">🎲 Zufallskatze</button></div>
+    <div class="edGrid">
+      <div class="edLeft">
+        <canvas id="preview" width="440" height="300"></canvas>
+        <div class="edShape">
+          <label><span data-i18n="edEar">Ohren</span> <input type="range" id="inEar" min="0.6" max="1.5" step="0.01"></label>
+          <label><span data-i18n="edTail">Schwanz</span> <input type="range" id="inTail" min="0.7" max="1.3" step="0.01"></label>
+        </div>
+        <p class="note" data-i18n="edNote">Deine Katze erscheint in der Katzenwahl als vierte Katze neben Mochi, Yoru und Hana.</p>
+      </div>
+      <div class="edRight">
+        <div class="edTop">
+          <label><span data-i18n="edName">Name</span> <input id="inName" maxlength="16"></label>
+          <label><span data-i18n="edPattern">Muster</span> <select id="inPattern"></select></label>
+        </div>
+        <div class="colors">
+          <label><span data-i18n="edBase">Fell</span> <input type="color" id="inBase"></label>
+          <label><span data-i18n="edStripe">Streifen</span> <input type="color" id="inStripe"></label>
+          <label><span data-i18n="edPatch">Flecken</span> <input type="color" id="inPatch"></label>
+          <label><span data-i18n="edWhite">Brust</span> <input type="color" id="inWhite"></label>
+          <label><span data-i18n="edEyes">Augen</span> <input type="color" id="inEyes"></label>
+        </div>
+        <label><span data-i18n="edSize">Größe</span> <input type="range" id="inSize" min="0.8" max="1.2" step="0.01"></label>
+        <label><span data-i18n="edFluff">Flauschigkeit</span> <input type="range" id="inFluff" min="0" max="1" step="0.01"></label>
+      </div>
+      <div class="edFoot">
+        <button id="btnEdDelete" class="secondary danger hidden" data-i18n="edDelete">🗑 Löschen</button>
+        <button id="btnEdBack" class="secondary" data-i18n="back">Zurück</button>
+        <button id="btnEdSave" data-i18n="edSave">Speichern &amp; auswählen 🐾</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Einstellungen -->
+<section id="settings" class="screen hidden">
+  <div class="panel">
+    <div class="panelHead"><h2 data-i18n="setTitle">Einstellungen</h2><button id="btnSetBack" class="secondary" data-i18n="back">Zurück</button></div>
+    <div class="edRight">
+      <label><span data-i18n="setLang">Sprache / Language</span> <select id="setLang"><option value="de">Deutsch</option><option value="en">English</option><option value="ja">日本語</option></select></label>
+      <label><span data-i18n="setMusic">Musik</span> <input type="range" id="setMusic" min="0" max="1" step="0.01"></label>
+      <label><span data-i18n="setSfx">Effekte</span> <input type="range" id="setSfx" min="0" max="1" step="0.01"></label>
+    </div>
+    <div class="row"><button id="btnRestore" class="secondary hidden" data-i18n="shopRestore">Käufe wiederherstellen</button><button id="btnReset" class="secondary danger" data-i18n="reset">Spielstand zurücksetzen</button></div>
+  </div>
+</section>
+
+<!-- Vollversion (In-App-Kauf) -->
+<section id="shop" class="screen hidden">
+  <div class="panel wide shopPanel">
+    <div class="panelHead"><h2 data-i18n="shopTitle">Vollversion</h2><button id="btnShopBack" class="secondary" data-i18n="back">Zurück</button></div>
+    <p class="shopLead" data-i18n="shopLead">Vier neue Kapitel für deine Reise durch Japan – einmal kaufen, für immer spielen.</p>
+    <div id="shopGrid" class="shopGrid"></div>
+    <ul class="shopList">
+      <li data-i18n="shopP1">4 neue Welten mit eigener Musik</li>
+      <li data-i18n="shopP2">4 neue Ziel-Tore und Stempel – das Stempelheft wird komplett</li>
+      <li data-i18n="shopP3">Neun Monster fürs Monster-Buch</li>
+      <li data-i18n="shopP4">Einmaliger Kauf · keine Werbung · Familienfreigabe</li>
+    </ul>
+    <div class="row shopRow"><button id="btnShopRestore" class="secondary" data-i18n="shopRestore">Käufe wiederherstellen</button><button id="btnShopBuy">Freischalten</button></div>
+    <p id="shopStatus" class="note center shopStatus"></p>
+  </div>
+</section>
+
+<!-- Katzenwahl -->
+<section id="catSelect" class="screen hidden">
+  <div class="panel xwide">
+    <div class="panelHead"><h2 data-i18n="catTitle">Wähle deine Katze</h2><button id="btnCatBack" class="secondary" data-i18n="back">Zurück</button></div>
+    <div id="catGrid" class="catGrid"></div>
+    <div class="row"><button id="btnCatGo" data-i18n="catGo">Los geht's! 🐾</button></div>
+    <p class="note center" data-i18n="catHint">← → auswählen · Enter starten</p>
+  </div>
+</section>
+
+<!-- Steuerung -->
+<section id="controls" class="screen hidden">
+  <div class="panel">
+    <div class="panelHead"><h2 data-i18n="ctrlTitle">Steuerung</h2><button id="btnCtrlBack" class="secondary" data-i18n="back">Zurück</button></div>
+    <table class="keys">
+      <tr><td><kbd>←</kbd> <kbd>→</kbd> <span class="or" data-i18n="or">oder</span> <kbd>A</kbd> <kbd>D</kbd></td><td data-i18n="cWalk">laufen</td></tr>
+      <tr><td><kbd>⇧ Shift</kbd> <span data-i18n="hold">halten</span></td><td data-i18n="cRun">rennen</td></tr>
+      <tr><td><kbd data-i18n="space">Leertaste</kbd> <span class="or" data-i18n="or">oder</span> <kbd>↑</kbd></td><td data-i18n="cJump">springen – länger halten springt höher</td></tr>
+      <tr><td><kbd data-i18n="space">Leertaste</kbd> <span data-i18n="inAir">in der Luft</span></td><td data-i18n="cDouble">Doppelsprung mit Salto</td></tr>
+      <tr><td><kbd>↓</kbd></td><td data-i18n="cDrop">von Dach, Zaun oder Regal herunterfallen</td></tr>
+      <tr><td><kbd>M</kbd></td><td data-i18n="cMeow">miauen – Katzen, Rehe und Monster werden deine Freunde</td></tr>
+      <tr><td><kbd>S</kbd></td><td data-i18n="cRest">hinsetzen → schlafen → aufstehen</td></tr>
+      <tr><td><kbd>F</kbd></td><td data-i18n="cPhoto">Foto machen</td></tr>
+      <tr><td><kbd>K</kbd></td><td data-i18n="cChapters">Kapitel wählen</td></tr>
+      <tr><td><kbd>Esc</kbd></td><td data-i18n="cMenu">Menü</td></tr>
+    </table>
+    <p class="note" data-i18n="ctrlNote">Sammle Sushi 🍣 auf Dächern, Ästen und Regalen. Der Tag vergeht in jedem Kapitel – nachts leuchten Laternen, Fenster und Glühwürmchen.</p>
+  </div>
+</section>
+
+<!-- Pause -->
+<section id="pause" class="screen hidden">
+  <div class="panel">
+    <h2 data-i18n="pause">Pause</h2>
+    <div class="col">
+      <button id="btnResume" data-i18n="resume">Weiterspielen</button>
+      <button id="btnChapters" class="secondary" data-i18n="pChapters">📖 Kapitel wählen</button>
+      <button id="btnCollection" class="secondary" data-i18n="pCollection">🍣 Sammlung</button>
+      <button id="btnSwitchCat" class="secondary" data-i18n="pSwitch">🐱 Katze wechseln</button>
+      <button id="btnControls" class="secondary" data-i18n="pControls">🎮 Steuerung</button>
+      <button id="btnPauseSettings" class="secondary" data-i18n="pSettings">⚙️ Einstellungen</button>
+      <button id="btnToTitle" class="secondary" data-i18n="pHome">🏠 Hauptmenü</button>
+    </div>
+  </div>
+</section>
+
+<!-- Kapitel -->
+<section id="chapters" class="screen hidden">
+  <div class="panel xwide">
+    <div class="panelHead"><h2 data-i18n="chTitle">Kapitel wählen</h2><button id="btnChBack" class="secondary">Zurück</button></div>
+    <div id="chapterGrid" class="chapterGrid"></div>
+  </div>
+</section>
+
+<!-- Sammlung -->
+<section id="goal" class="screen hidden">
+  <div class="panel goalPanel">
+    <div class="goalJp">ゴール！</div>
+    <h2 data-i18n="goalTitle">Ziel erreicht!</h2>
+    <div id="goalChapter" class="goalChapter"></div>
+    <div class="goalStampWrap"><img id="goalStamp" alt=""></div>
+    <div id="goalDays" class="goalLine"></div>
+    <div id="goalStats" class="goalLine small"></div>
+    <div id="goalCount" class="goalCount"></div>
+    <div class="col">
+      <button id="btnGoalNext">Nächstes Kapitel ›</button>
+      <button id="btnGoalStay" class="secondary" data-i18n="goalStay">Weiter erkunden</button>
+    </div>
+  </div>
+</section>
+
+<section id="collection" class="screen hidden">
+  <div class="panel wide">
+    <div class="panelHead"><h2><span data-i18n="collTitle">Sammlung</span></h2><button id="btnCollBack" class="secondary" data-i18n="back">Zurück</button></div>
+    <h3 class="firstH"><span data-i18n="stampBook">Stempelheft</span> · <span id="stampTotal">0/8</span></h3>
+    <div id="stampGrid" class="stampGrid"></div>
+    <h3 data-i18n="sushiBook">Sushi</h3>
+    <div id="sushiGrid" class="sushiGrid"></div>
+    <h3><span data-i18n="shrineBook">Schreine</span> <small class="bookPack" data-i18n="shrineBookPack">· Erweiterung „Die Ikonen Japans“</small></h3>
+    <div id="shrineGrid" class="sushiGrid"></div>
+    <h3><span data-i18n="friendsBook">Freunde</span> · <span id="friendTotal">0</span></h3>
+    <div id="friendGrid" class="sushiGrid friendGrid"></div>
+    <h3 data-i18n="monsterBook">Monster-Buch</h3>
+    <div id="monsterGrid" class="sushiGrid"></div>
+  </div>
+</section>
+
+<script src="catgen.js"></script>
+<script src="catart.js"></script>
+<script src="paint.js"></script>
+<script src="shrines.js"></script>
+<script src="goalart.js"></script>
+<script src="store.js"></script>
+<script src="audio.js"></script>
+<script src="world.js"></script>
+<script src="chapters/town.js"></script>
+<script src="chapters/landscape.js"></script>
+<script src="chapters/fuji.js"></script>
+<script src="chapters/classic/town.js"></script>
+<script src="chapters/classic/landscape.js"></script>
+<script src="chapters/classic/fuji.js"></script>
+<script src="chapters/tokyo.js"></script>
+<script src="chapters/temple.js"></script>
+<script src="chapters/cafe.js"></script>
+<script src="chapters/food.js"></script>
+<script src="chapters/monster.js"></script>
+<script src="i18n.js"></script>
+<script src="game.js"></script>
+<script src="touch.js"></script>
+</body>
+</html>
