@@ -1,0 +1,2614 @@
+{
+ "name": "Chapter 10 · The Town of Bellflowers",
+ "theme": "bellflower",
+ "chapter": 10,
+ "start": [
+  -3,
+  0,
+  1
+ ],
+ "goal": [
+  1,
+  4,
+  -7
+ ],
+ "goalItem": "bell",
+ "groups": [
+  {
+   "id": "A",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "step": 1
+  },
+  {
+   "id": "B",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    0,
+    0
+   ],
+   "step": 1
+  },
+  {
+   "id": "lift",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 2,
+   "min": 0,
+   "max": 2
+  },
+  {
+   "id": "C",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    4,
+    -6
+   ],
+   "step": 1
+  },
+  {
+   "id": "E",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    4,
+    -7
+   ],
+   "step": 0,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    0,
+    -3,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    -2,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    2,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    1,
+    0,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "A"
+  },
+  {
+   "p": [
+    -1,
+    2,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "A"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    0,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    1,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    2,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    3,
+    3,
+    0
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "B"
+  },
+  {
+   "p": [
+    2,
+    2,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "B"
+  },
+  {
+   "p": [
+    -2,
+    0,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    0,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -3,
+    -2
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    -2,
+    -2
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -2
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "lift"
+  },
+  {
+   "p": [
+    5,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    2,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    2,
+    0
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    0
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    2,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    1,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    2,
+    0
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    0
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    1,
+    0
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    2,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    1,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    -2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -3,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -3,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -3
+   ],
+   "m": "stone",
+   "walk": true,
+   "stair": "-z"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "stair": "-z"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    -6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    4,
+    -6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    4,
+    -6
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    1,
+    -6
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -6
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -6
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -6
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -6
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -6
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    -2,
+    4,
+    -6
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "C"
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -6
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "C"
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -8
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -8
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -8
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -8
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -9
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -9
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -9
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -9
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -7
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -7
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -7
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    0,
+    4,
+    -7
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    0,
+    5,
+    -7
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    0,
+    6,
+    -7
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "E"
+  },
+  {
+   "p": [
+    1,
+    4,
+    -7
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "E"
+  },
+  {
+   "p": [
+    -6,
+    1,
+    -3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    0,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -3,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -9
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    4,
+    -9
+   ],
+   "m": "rockdark",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "crank",
+   "p": [
+    0,
+    -2,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "A",
+   "face": "+x"
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "s": 2.2,
+   "r": 0.0,
+   "g": "A"
+  },
+  {
+   "t": "crank",
+   "p": [
+    3,
+    -2,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "B",
+   "face": "+x"
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    3,
+    3,
+    0
+   ],
+   "s": 2.2,
+   "r": 0.0,
+   "g": "B"
+  },
+  {
+   "t": "house",
+   "p": [
+    -4,
+    0,
+    0
+   ],
+   "s": 0.9,
+   "r": 1.5708,
+   "variant": 0
+  },
+  {
+   "t": "house",
+   "p": [
+    -3,
+    0,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -3,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    -2,
+    0,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "house",
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "house",
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "s": 0.85,
+   "r": 0.0,
+   "variant": 0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    2,
+    0,
+    -3
+   ],
+   "s": 1.1,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lift",
+   "axis": "y"
+  },
+  {
+   "t": "house",
+   "p": [
+    6,
+    2,
+    0
+   ],
+   "s": 0.8,
+   "r": 1.5708,
+   "variant": 1
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    6,
+    2,
+    -1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "house",
+   "p": [
+    1,
+    2,
+    -3
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 0
+  },
+  {
+   "t": "house",
+   "p": [
+    -2,
+    2,
+    -2
+   ],
+   "s": 0.75,
+   "r": 1.5708,
+   "variant": 1
+  },
+  {
+   "t": "lantern",
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    1,
+    4,
+    -6
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    -3,
+    2,
+    -6
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "C",
+   "face": "+x"
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -3,
+    6,
+    -6
+   ],
+   "s": 2.0,
+   "r": 0.0,
+   "g": "C"
+  },
+  {
+   "t": "house",
+   "p": [
+    -4,
+    4,
+    -9
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "variant": 0
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -3,
+    4,
+    -9
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    0,
+    6,
+    -7
+   ],
+   "s": 2.6,
+   "r": 0.0,
+   "g": "E"
+  },
+  {
+   "t": "altar",
+   "p": [
+    1,
+    4,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "E"
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -6,
+    1,
+    -3
+   ],
+   "s": 1.4,
+   "r": 0.0
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "s": 1.2,
+   "r": 0.0
+  },
+  {
+   "t": "bellflower",
+   "p": [
+    -5,
+    5,
+    -9
+   ],
+   "s": 1.0,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    -3,
+    0,
+    1
+   ],
+   "text": "Evening in the town of bellflowers. Every lamp here is a blossom."
+  },
+  {
+   "at": [
+    0,
+    0,
+    2
+   ],
+   "text": "A bell rings beneath my feet. Somewhere an old flower stirs."
+  },
+  {
+   "at": [
+    3,
+    0,
+    2
+   ],
+   "text": "Each stem holds two petals: one for the street, one for the roofs."
+  },
+  {
+   "at": [
+    5,
+    2,
+    0
+   ],
+   "text": "From the rooftops the turning stems look like a slow blue clock."
+  },
+  {
+   "at": [
+    -3,
+    4,
+    -8
+   ],
+   "text": "Grandfather wrote: the town still sings, if someone listens."
+  },
+  {
+   "at": [
+    0,
+    4,
+    -6
+   ],
+   "text": "The old bellflower waits for every bell, and for the crown to bow."
+  }
+ ],
+ "plates": [
+  {
+   "id": "p4",
+   "at": [
+    0,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "p1",
+   "at": [
+    3,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "p2",
+   "at": [
+    -1,
+    2,
+    -2
+   ]
+  },
+  {
+   "id": "p3",
+   "at": [
+    -3,
+    4,
+    -8
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "E",
+   "value": 2,
+   "plates": [
+    "p1",
+    "p2",
+    "p3",
+    "p4"
+   ],
+   "states": {
+    "C": 1
+   }
+  },
+  {
+   "group": "E",
+   "value": 2,
+   "plates": [
+    "p1",
+    "p2",
+    "p3",
+    "p4"
+   ],
+   "states": {
+    "C": 3
+   }
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    1,
+    4,
+    -7
+   ]
+  },
+  {
+   "target": "C",
+   "reach": [
+    0,
+    4,
+    -6
+   ],
+   "pressed": [
+    "p1",
+    "p2",
+    "p3",
+    "p4"
+   ]
+  },
+  {
+   "target": "p3",
+   "reach": [
+    -3,
+    4,
+    -8
+   ],
+   "unpressed": [
+    "p3"
+   ]
+  },
+  {
+   "target": "C",
+   "reach": [
+    0,
+    4,
+    -6
+   ],
+   "unpressed": [
+    "p3"
+   ]
+  },
+  {
+   "target": "p2",
+   "reach": [
+    -1,
+    2,
+    -2
+   ],
+   "unpressed": [
+    "p2"
+   ]
+  },
+  {
+   "target": "B",
+   "reach": [
+    5,
+    2,
+    0
+   ]
+  },
+  {
+   "target": "lift",
+   "reach": [
+    3,
+    0,
+    -2
+   ]
+  },
+  {
+   "target": "p1",
+   "reach": [
+    3,
+    0,
+    2
+   ],
+   "unpressed": [
+    "p1"
+   ]
+  },
+  {
+   "target": "B",
+   "reach": [
+    0,
+    0,
+    2
+   ],
+   "pressed": [
+    "p4"
+   ]
+  },
+  {
+   "target": "p4",
+   "reach": [
+    0,
+    0,
+    2
+   ],
+   "unpressed": [
+    "p4"
+   ]
+  },
+  {
+   "target": "A"
+  }
+ ],
+ "ending": {
+  "text": "The old bellflower lifts its head and the whole town rings softly. The light moves on, toward the mountain that breathes.",
+  "tree": [
+   -4,
+   0,
+   1
+  ],
+  "spirits": [
+   [
+    -2,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    3
+   ],
+   [
+    3,
+    0,
+    3
+   ],
+   [
+    2,
+    0,
+    -2
+   ],
+   [
+    5,
+    2,
+    -1
+   ],
+   [
+    0,
+    2,
+    -2
+   ],
+   [
+    -1,
+    4,
+    -6
+   ],
+   [
+    -4,
+    4,
+    -8
+   ]
+  ]
+ }
+}

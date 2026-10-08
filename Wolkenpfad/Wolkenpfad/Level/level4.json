@@ -1,95 +1,43 @@
 {
- "name": "Kapitel I · Die Kleinstadt",
- "theme": "town",
- "hints": [
-  {
-   "reach": [
-    5,
-    6,
-    -1
-   ],
-   "target": "goal"
-  },
-  {
-   "reach": [
-    -4,
-    4,
-    -2
-   ],
-   "target": "arm"
-  },
-  {
-   "reach": [
-    -4,
-    1,
-    0
-   ],
-   "target": "lift"
-  },
-  {
-   "target": "bridge"
-  }
- ],
- "ending": {
-  "text": "Das Glöckchen klingt über den Ziegeldächern – und alle Katzen der Stadt kommen heraus.",
-  "tree": [
-   5,
-   6,
-   1
-  ],
-  "spirits": [
-   [
-    -1,
-    0,
-    3
-   ],
-   [
-    1,
-    0,
-    5
-   ],
-   [
-    2,
-    1,
-    0
-   ],
-   [
-    -4,
-    1,
-    0
-   ],
-   [
-    -2,
-    4,
-    -2
-   ]
-  ]
- },
+ "name": "Chapter 4 · The Hum in the Attic",
+ "theme": "attic",
+ "chapter": 4,
  "start": [
+  4,
   0,
-  0,
-  4
+  3
  ],
  "goal": [
-  5,
-  6,
-  -1
+  -11,
+  4,
+  -5
  ],
+ "goalItem": "harp",
  "groups": [
   {
-   "id": "bridge",
-   "kind": "rotate",
-   "pivot": [
-    -2,
-    1,
-    0
+   "id": "trunk",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
    ],
-   "step": 0,
-   "handle": [
-    -2,
-    -1,
-    0
-   ]
+   "value": 3,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "drawer",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1,
+   "locked": true
   },
   {
    "id": "lift",
@@ -101,57 +49,80 @@
    ],
    "value": 0,
    "min": 0,
-   "max": 3,
-   "handle": [
-    -4,
-    1,
-    -1
-   ]
+   "max": 3
   },
   {
-   "id": "arm",
+   "id": "hatch",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1,
+   "locked": true
+  },
+  {
+   "id": "rafter",
    "kind": "rotate",
    "pivot": [
-    0,
-    4,
-    -2
+    1,
+    3,
+    -5
    ],
-   "step": 0,
-   "minStep": 0,
-   "maxStep": 2,
-   "handle": [
+   "step": 0
+  },
+  {
+   "id": "ladder",
+   "kind": "slide",
+   "axis": [
     0,
-    2,
-    -2
-   ]
+    1,
+    0
+   ],
+   "value": 2,
+   "min": 0,
+   "max": 2,
+   "locked": true
   }
  ],
  "blocks": [
   {
    "p": [
-    -1,
     0,
-    3
+    0,
+    0
    ],
-   "m": "pavement",
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    -1,
     0,
-    4
+    -1,
+    0
    ],
-   "m": "pavement",
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    1
+   ],
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    -1,
     0,
-    5
+    -1,
+    1
    ],
-   "m": "garden",
+   "m": "rock",
    "walk": false
   },
   {
@@ -160,152 +131,8 @@
     0,
     2
    ],
-   "m": "pavement",
+   "m": "wood",
    "walk": true
-  },
-  {
-   "p": [
-    0,
-    0,
-    3
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    0,
-    0,
-    4
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    0,
-    0,
-    5
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    1,
-    0,
-    2
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    1,
-    0,
-    3
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    1,
-    0,
-    4
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    1,
-    0,
-    5
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    2,
-    0,
-    2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    0,
-    3
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    2,
-    0,
-    4
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    2,
-    0,
-    5
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    3,
-    0,
-    2
-   ],
-   "m": "garden",
-   "walk": false
-  },
-  {
-   "p": [
-    3,
-    0,
-    3
-   ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    3,
-    0,
-    4
-   ],
-   "m": "water",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    -1,
-    3
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    -1,
-    4
-   ],
-   "m": "foundation",
-   "walk": false
   },
   {
    "p": [
@@ -313,8 +140,17 @@
     -1,
     2
    ],
-   "m": "foundation",
+   "m": "rock",
    "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
   },
   {
    "p": [
@@ -322,26 +158,53 @@
     -1,
     3
    ],
-   "m": "foundation",
+   "m": "rock",
    "walk": false
   },
   {
    "p": [
+    1,
     0,
-    -1,
-    4
+    0
    ],
-   "m": "foundation",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "rock",
    "walk": false
   },
   {
    "p": [
+    1,
     0,
-    -1,
-    5
+    1
    ],
-   "m": "foundation",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "rock",
    "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "wood",
+   "walk": true
   },
   {
    "p": [
@@ -349,8 +212,17 @@
     -1,
     2
    ],
-   "m": "foundation",
+   "m": "rock",
    "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
   },
   {
    "p": [
@@ -358,305 +230,646 @@
     -1,
     3
    ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    1,
-    -1,
-    4
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    1,
-    -1,
-    5
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -1,
-    2
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -1,
-    3
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -1,
-    4
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -1,
-    5
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    3,
-    -1,
-    3
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    3,
-    -1,
-    4
-   ],
-   "m": "foundation",
+   "m": "rock",
    "walk": false
   },
   {
    "p": [
     0,
     -2,
-    3
+    1
    ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
     0,
     -2,
-    4
+    2
    ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
     1,
     -2,
-    3
+    1
    ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
     1,
     -2,
-    4
+    2
    ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -2,
-    3
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    -2,
-    4
-   ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
     1,
     -3,
-    4
+    2
    ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
-    1,
-    -3,
+    0,
+    -2,
     3
    ],
-   "m": "foundationdark",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
-    1,
-    -4,
-    4
+    -1,
+    0,
+    2
    ],
-   "m": "foundationdark",
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    2
+   ],
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
     2,
-    1,
-    2
+    0,
+    3
    ],
-   "m": "roof",
+   "m": "raft",
    "walk": true,
-   "stair": "-z"
+   "g": "trunk"
   },
   {
    "p": [
     2,
-    1,
-    1
+    -1,
+    3
    ],
-   "m": "roof",
+   "m": "wood",
+   "walk": false,
+   "g": "trunk"
+  },
+  {
+   "p": [
+    3,
+    0,
+    0
+   ],
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    2,
-    0,
-    1
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
+    3,
     -1,
-    1
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
-    1,
     0
    ],
-   "m": "roof",
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    2,
-    0,
-    0
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    2,
+    5,
     -1,
     0
    ],
-   "m": "foundation",
+   "m": "rock",
    "walk": false
   },
   {
    "p": [
-    1,
-    1,
+    4,
+    -1,
     0
    ],
-   "m": "roof",
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    1,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    2,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "drawer"
+  },
+  {
+   "p": [
+    0,
+    -4,
+    -1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    0,
+    -3,
+    -1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    0,
+    0,
+    -1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "lift"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -1
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "hatch"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -4
+   ],
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    1,
-    0,
-    0
+    -3,
+    2,
+    -4
    ],
-   "m": "roof",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    1,
+    -3,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -4
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -1
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -1
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
     -1,
-    0
+    3,
+    -4
    ],
-   "m": "foundation",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -1
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -1
+   ],
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
     0,
-    1,
-    0
+    3,
+    -4
    ],
-   "m": "roof",
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
     0,
-    0,
-    0
+    2,
+    -4
    ],
-   "m": "roof",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
     0,
-    -1,
-    0
+    3,
+    -3
    ],
-   "m": "foundation",
-   "walk": false
+   "m": "wood",
+   "walk": true
   },
   {
    "p": [
-    1,
-    1,
-    1
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    1,
     0,
-    1
+    2,
+    -3
    ],
-   "m": "roof",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    1,
-    -1,
-    1
+    0,
+    3,
+    -2
    ],
-   "m": "foundation",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    -2
+   ],
+   "m": "rock",
    "walk": false
   },
   {
@@ -665,645 +878,707 @@
     1,
     -1
    ],
-   "m": "woodplank",
-   "walk": true,
-   "g": "bridge"
+   "m": "rock",
+   "walk": false
   },
   {
    "p": [
-    -2,
+    -1,
     1,
-    0
+    -4
    ],
-   "m": "woodplank",
-   "walk": true,
-   "g": "bridge"
+   "m": "rock",
+   "walk": false
   },
   {
    "p": [
-    -2,
+    -1,
     1,
-    1
+    -3
    ],
-   "m": "woodplank",
-   "walk": true,
-   "g": "bridge"
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
   },
   {
    "p": [
     -2,
     0,
-    0
+    -2
    ],
-   "m": "mech",
-   "walk": false,
-   "g": "bridge"
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
   },
   {
    "p": [
     -2,
     -1,
-    0
+    -2
    ],
-   "m": "mech",
-   "walk": false,
-   "g": "bridge"
+   "m": "rockdark",
+   "walk": false
   },
   {
    "p": [
-    -2,
-    -2,
-    0
+    -1,
+    -1,
+    -3
    ],
-   "m": "mechdark",
-   "walk": false,
-   "g": "bridge"
+   "m": "rockdark",
+   "walk": false
   },
   {
    "p": [
-    -4,
     1,
-    0
+    3,
+    -5
    ],
-   "m": "roof",
+   "m": "tealtop",
+   "walk": true,
+   "g": "rafter"
+  },
+  {
+   "p": [
+    1,
+    3,
+    -4
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "rafter"
+  },
+  {
+   "p": [
+    1,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "rafter"
+  },
+  {
+   "p": [
+    1,
+    2,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "rafter"
+  },
+  {
+   "p": [
+    1,
+    1,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "rafter"
+  },
+  {
+   "p": [
+    2,
+    3,
+    -4
+   ],
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    -4,
-    -3,
-    0
+    2,
+    2,
+    -4
    ],
-   "m": "foundation",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    -4,
-    -2,
-    0
+    2,
+    3,
+    -3
    ],
-   "m": "foundation",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    2,
+    -3
+   ],
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    -4,
-    -1,
-    0
+    2,
+    3,
+    -2
    ],
-   "m": "roof",
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    2,
+    -2
+   ],
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    -4,
+    3,
+    3,
+    -4
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    2,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    2,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    3,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    2,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    1,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    -3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
     0,
-    0
+    -3
    ],
-   "m": "roof",
+   "m": "rockdark",
    "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -2
+   ],
+   "m": "wood",
+   "walk": true,
+   "stair": "-x",
+   "g": "ladder"
   },
   {
    "p": [
     -5,
-    1,
-    0
+    5,
+    -2
    ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -5,
-    0,
-    0
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -5,
-    -1,
-    0
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    -3,
-    -1
-   ],
-   "m": "mech",
-   "walk": false,
-   "g": "lift"
-  },
-  {
-   "p": [
-    -4,
-    -2,
-    -1
-   ],
-   "m": "mech",
-   "walk": false,
-   "g": "lift"
-  },
-  {
-   "p": [
-    -4,
-    -1,
-    -1
-   ],
-   "m": "mech",
-   "walk": false,
-   "g": "lift"
-  },
-  {
-   "p": [
-    -4,
-    0,
-    -1
-   ],
-   "m": "mech",
-   "walk": false,
-   "g": "lift"
-  },
-  {
-   "p": [
-    -4,
-    1,
-    -1
-   ],
-   "m": "mechtop",
+   "m": "wood",
    "walk": true,
-   "g": "lift"
+   "stair": "-x",
+   "g": "ladder"
   },
   {
    "p": [
-    -4,
-    4,
-    -2
-   ],
-   "m": "roof",
-   "walk": true
-  },
-  {
-   "p": [
-    -3,
-    4,
-    -2
-   ],
-   "m": "roof",
-   "walk": true
-  },
-  {
-   "p": [
-    -2,
-    4,
-    -2
-   ],
-   "m": "roof",
-   "walk": true
-  },
-  {
-   "p": [
-    -1,
-    4,
-    -2
-   ],
-   "m": "roof",
-   "walk": true
-  },
-  {
-   "p": [
-    -4,
-    -2,
-    -2
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    -1,
-    -2
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    0,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    1,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    2,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -4,
-    3,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    1,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    2,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    3,
-    -2
-   ],
-   "m": "roof",
-   "walk": false
-  },
-  {
-   "p": [
-    -1,
-    0,
-    -2
-   ],
-   "m": "foundation",
-   "walk": false
-  },
-  {
-   "p": [
-    0,
-    4,
-    -2
-   ],
-   "m": "mechtop",
-   "walk": true,
-   "g": "arm"
-  },
-  {
-   "p": [
-    0,
-    4,
-    -1
-   ],
-   "m": "woodplank",
-   "walk": true,
-   "ill": true,
-   "g": "arm"
-  },
-  {
-   "p": [
-    0,
-    3,
-    -2
-   ],
-   "m": "mech",
-   "walk": false,
-   "g": "arm"
-  },
-  {
-   "p": [
-    0,
-    2,
-    -2
-   ],
-   "m": "mechdark",
-   "walk": false,
-   "g": "arm"
-  },
-  {
-   "p": [
-    4,
+    -6,
     6,
-    0
+    -2
    ],
-   "m": "pavement",
+   "m": "wood",
+   "walk": true,
+   "stair": "-x",
+   "g": "ladder"
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -2
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    6,
+    -3
+   ],
+   "m": "wood",
    "walk": true,
    "ill": true
   },
   {
    "p": [
-    4,
+    -8,
     5,
-    0
+    -3
    ],
-   "m": "foundation",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    4,
+    -8,
     6,
-    -1
+    -2
    ],
-   "m": "pavement",
+   "m": "wood",
    "walk": true
   },
   {
    "p": [
-    4,
+    -8,
     5,
-    -1
+    -2
    ],
-   "m": "foundation",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    5,
+    -7,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
     6,
-    -1
+    -4
    ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    5,
-    5,
-    -1
-   ],
-   "m": "foundation",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
+    -8,
     5,
-    6,
-    0
+    -4
    ],
-   "m": "pavement",
-   "walk": true
-  },
-  {
-   "p": [
-    5,
-    5,
-    0
-   ],
-   "m": "foundation",
+   "m": "rockdark",
    "walk": false
   },
   {
    "p": [
-    4,
-    4,
-    -1
+    -11,
+    -1,
+    -5
    ],
-   "m": "foundation",
+   "m": "stonedark",
    "walk": false
   },
   {
    "p": [
+    -11,
+    0,
+    -5
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    1,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    2,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    4,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
     5,
-    4,
-    -1
+    -5
    ],
-   "m": "foundationdark",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
+    -2,
+    2,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
     4,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    5,
+    -5
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -4
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
     3,
     -1
    ],
-   "m": "foundationdark",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
-    5,
-    6,
-    1
+    3,
+    4,
+    -4
    ],
-   "m": "garden",
+   "m": "wood",
    "walk": false
   },
   {
    "p": [
+    3,
     5,
-    5,
-    1
+    -4
    ],
-   "m": "foundation",
+   "m": "wood",
    "walk": false
   }
  ],
  "decor": [
   {
-   "t": "tree",
-   "p": [
-    -1,
-    0,
-    5
-   ],
-   "s": 1.2,
-   "r": 0.0,
-   "variant": 2
-  },
-  {
-   "t": "house",
-   "p": [
-    3,
-    0,
-    2
-   ],
-   "s": 0.95,
-   "r": 0,
-   "variant": 0
-  },
-  {
-   "t": "pond",
-   "p": [
-    3,
-    0,
-    4
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "waterfall",
-   "p": [
-    3,
-    0,
-    4
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "planter",
+   "t": "chest",
    "p": [
     -1,
     0,
     3
    ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "flowers",
-   "p": [
-    1,
-    0,
-    5
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "grass",
-   "p": [
-    0,
-    0,
-    2
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "postbox",
-   "p": [
-    2,
-    0,
-    5
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "flowers",
-   "p": [
-    -1,
-    0,
-    4
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "bench",
-   "p": [
-    0,
-    0,
-    5
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "chochin",
-   "p": [
-    1,
-    0,
-    2
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "vending",
-   "p": [
-    3,
-    0,
-    3
-   ],
-   "s": 1.0,
+   "s": 0.9,
    "r": 1.5708
   },
   {
-   "t": "pole",
+   "t": "notebook",
    "p": [
-    1,
-    1,
-    1
-   ],
-   "s": 1.0,
-   "r": 0.0,
-   "variant": 3,
-   "to": [
-    -5,
-    1,
-    0
-   ]
-  },
-  {
-   "t": "chochin",
-   "p": [
-    2,
-    1,
-    0
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "laundry",
-   "p": [
-    0,
-    1,
-    0
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "crank",
-   "p": [
-    -2,
     -1,
-    0
+    0,
+    2
    ],
-   "s": 1.0,
-   "r": 0.0,
-   "g": "bridge",
-   "face": "+x"
+   "s": 0.8,
+   "r": 0.0
   },
   {
-   "t": "pole",
+   "t": "lantern",
    "p": [
-    -5,
-    1,
-    0
+    4,
+    0,
+    2
    ],
    "s": 1.0,
    "r": 0.0
@@ -1311,157 +1586,410 @@
   {
    "t": "handle",
    "p": [
-    -4,
+    2,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "trunk",
+   "axis": "z"
+  },
+  {
+   "t": "chest",
+   "p": [
+    4,
+    2,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    5,
     1,
     -1
    ],
    "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    0,
+    0,
+    -1
+   ],
+   "s": 1.0,
    "r": 0.0,
-   "g": "lift"
-  },
-  {
-   "t": "chochin",
-   "p": [
-    -3,
-    4,
-    -2
-   ],
-   "s": 1.0,
-   "r": 0.0
-  },
-  {
-   "t": "laundry",
-   "p": [
-    -2,
-    4,
-    -2
-   ],
-   "s": 1.0,
-   "r": 0.0
+   "g": "lift",
+   "axis": "y"
   },
   {
    "t": "crank",
    "p": [
-    0,
-    2,
-    -2
+    1,
+    1,
+    -5
    ],
    "s": 1.0,
    "r": 0.0,
-   "g": "arm",
-   "face": "+z"
+   "g": "rafter",
+   "face": "+x"
   },
   {
-   "t": "torii",
+   "t": "beam",
    "p": [
-    4,
+    -7,
     6,
-    -1
+    -3
    ],
-   "s": 1.0,
-   "r": 0
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "notebook",
+   "p": [
+    -7,
+    6,
+    -2
+   ],
+   "s": 0.6,
+   "r": 0.0
   },
   {
    "t": "altar",
    "p": [
+    -11,
+    4,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "beam",
+   "p": [
+    -3,
     5,
-    6,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "beam",
+   "p": [
+    -4,
+    5,
+    -4
+   ],
+   "s": 1.0,
+   "r": 1.5708
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    -2,
+    3,
+    -3
+   ],
+   "s": 1.1,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    2,
+    3,
+    -4
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "chest",
+   "p": [
+    -3,
+    3,
     -1
    ],
    "s": 1.0,
    "r": 0.0
   },
   {
-   "t": "tree",
+   "t": "beam",
    "p": [
+    3,
     5,
-    6,
-    1
+    -4
    ],
-   "s": 1.0,
-   "r": 0.0,
-   "variant": 2
+   "s": 0.9,
+   "r": 1.5708
   },
   {
-   "t": "flowers",
+   "t": "lantern",
    "p": [
-    4,
-    6,
-    0
+    -1,
+    3,
+    -4
    ],
    "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "s": 0.7,
    "r": 0.0
   }
  ],
  "texts": [
   {
    "at": [
+    4,
     0,
-    0,
-    4
+    3
    ],
-   "text": "Mochi blinzelt in die Sonne. Irgendwo oben in der Stadt klingt ein Glöckchen."
+   "text": "Grandfather's workshop still smells of pine shavings and rain."
   },
   {
    "at": [
-    0,
     1,
+    0,
     0
    ],
-   "text": "Nicht jede Gasse liegt offen. Manche wollen bewegt werden."
+   "text": "Above the ceiling something hums, like wind in an empty bottle."
   },
   {
    "at": [
-    -4,
-    4,
+    0,
+    3,
+    -3
+   ],
+   "text": "One old rope ties the rafter to the trapdoor. Nothing is wasted."
+  },
+  {
+   "at": [
+    3,
+    3,
     -2
    ],
-   "text": "Katzen wissen: Wer die Stadt anders ansieht, findet neue Wege."
+   "text": "A floorboard sighs, and far below a drawer slides open."
   },
   {
    "at": [
-    4,
-    6,
+    5,
+    0,
     0
    ],
-   "text": "Der kleine Schrein über den Dächern. Das Glöckchen wartet."
+   "text": "In his hand: 'The loft ladder listens to the drawer.'"
+  },
+  {
+   "at": [
+    -7,
+    6,
+    -2
+   ],
+   "text": "From up here, the chimney looks only one step away."
   }
  ],
- "world": "neko",
- "hero": "cat",
- "companion": "sparrow",
- "backdrop": "town",
- "goalItem": "bell",
- "sushi": [
-  [
-   1,
-   0,
-   4
-  ],
-  [
-   1,
-   1,
-   0
-  ],
-  [
-   -4,
-   1,
-   0
-  ],
-  [
-   -1,
-   4,
-   -2
-  ],
-  [
-   5,
+ "plates": [
+  {
+   "id": "pA",
+   "at": [
+    3,
+    3,
+    -2
+   ]
+  },
+  {
+   "id": "pB",
+   "at": [
+    5,
+    0,
+    0
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "hatch",
+   "value": 1,
+   "states": {
+    "rafter": 1
+   }
+  },
+  {
+   "group": "drawer",
+   "value": 1,
+   "plates": [
+    "pA"
+   ]
+  },
+  {
+   "group": "ladder",
+   "value": 0,
+   "plates": [
+    "pB"
+   ]
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -7,
+    6,
+    -2
+   ]
+  },
+  {
+   "target": "ladder",
+   "reach": [
+    -2,
+    3,
+    -2
+   ],
+   "pressed": [
+    "pB"
+   ]
+  },
+  {
+   "target": "pB",
+   "reach": [
+    5,
+    0,
+    0
+   ],
+   "unpressed": [
+    "pB"
+   ]
+  },
+  {
+   "target": "trunk",
+   "reach": [
+    1,
+    0,
+    0
+   ],
+   "pressed": [
+    "pA"
+   ],
+   "unpressed": [
+    "pB"
+   ]
+  },
+  {
+   "target": "rafter",
+   "reach": [
+    -2,
+    3,
+    -2
+   ],
+   "pressed": [
+    "pA"
+   ],
+   "unpressed": [
+    "pB"
+   ]
+  },
+  {
+   "target": "pA",
+   "reach": [
+    2,
+    3,
+    -3
+   ],
+   "unpressed": [
+    "pA"
+   ]
+  },
+  {
+   "target": "lift",
+   "reach": [
+    -2,
+    3,
+    -2
+   ],
+   "unpressed": [
+    "pA"
+   ]
+  },
+  {
+   "target": "rafter",
+   "reach": [
+    1,
+    0,
+    0
+   ],
+   "unpressed": [
+    "pA"
+   ]
+  },
+  {
+   "target": "trunk"
+  }
+ ],
+ "ending": {
+  "text": "The harp hums beneath Hana's fingers. Far away, a windmill begins to turn.",
+  "tree": [
+   -8,
    6,
-   0
+   -4
   ],
-  [
-   2,
-   0,
-   3
+  "spirits": [
+   [
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    3
+   ],
+   [
+    -2,
+    3,
+    -2
+   ],
+   [
+    3,
+    3,
+    -3
+   ],
+   [
+    5,
+    0,
+    0
+   ],
+   [
+    -7,
+    6,
+    -2
+   ],
+   [
+    3,
+    0,
+    3
+   ]
   ]
- ]
+ }
 }

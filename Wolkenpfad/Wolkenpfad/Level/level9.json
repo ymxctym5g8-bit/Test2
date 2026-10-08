@@ -1,0 +1,2365 @@
+{
+ "name": "Chapter 9 · The Lake of Glass",
+ "theme": "glasslake",
+ "chapter": 9,
+ "start": [
+  8,
+  0,
+  2
+ ],
+ "goal": [
+  5,
+  9,
+  -1
+ ],
+ "goalItem": "prism",
+ "groups": [
+  {
+   "id": "paneA",
+   "kind": "slide",
+   "axis": [
+    -1,
+    0,
+    0
+   ],
+   "value": 1,
+   "min": 0,
+   "max": 4
+  },
+  {
+   "id": "paneB",
+   "kind": "slide",
+   "axis": [
+    -1,
+    0,
+    0
+   ],
+   "value": 4,
+   "min": 3,
+   "max": 4
+  },
+  {
+   "id": "paneC",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 4,
+   "min": 0,
+   "max": 4
+  },
+  {
+   "id": "ferry",
+   "kind": "slide",
+   "axis": [
+    -1,
+    0,
+    0
+   ],
+   "value": 4,
+   "min": 0,
+   "max": 4
+  },
+  {
+   "id": "paneD",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 1,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "paneE",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 3,
+   "min": 3,
+   "max": 4
+  },
+  {
+   "id": "paneF",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 3,
+   "min": 3,
+   "max": 4
+  },
+  {
+   "id": "vane",
+   "kind": "rotate",
+   "pivot": [
+    -4,
+    0,
+    1
+   ],
+   "step": 2
+  },
+  {
+   "id": "skypane",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    0
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    3
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    5
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    5
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    5
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    6
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    4
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -3,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -3,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -3,
+    2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -3,
+    3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneA"
+  },
+  {
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneA"
+  },
+  {
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneB"
+  },
+  {
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneB"
+  },
+  {
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneC"
+  },
+  {
+   "p": [
+    0,
+    0,
+    4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneC"
+  },
+  {
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "ferry"
+  },
+  {
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "ferry"
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneD"
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneD"
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneE"
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneE"
+  },
+  {
+   "p": [
+    4,
+    0,
+    5
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneF"
+  },
+  {
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "paneF"
+  },
+  {
+   "p": [
+    6,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    8,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    8,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -3,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    0,
+    1
+   ],
+   "m": "tealtop",
+   "walk": false,
+   "g": "vane"
+  },
+  {
+   "p": [
+    -4,
+    -1,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "vane"
+  },
+  {
+   "p": [
+    -4,
+    -2,
+    1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "vane"
+  },
+  {
+   "p": [
+    -3,
+    0,
+    1
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "vane"
+  },
+  {
+   "p": [
+    -2,
+    0,
+    1
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "vane",
+   "ill": true
+  },
+  {
+   "p": [
+    -1,
+    3,
+    1
+   ],
+   "m": "stone",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    0
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    0
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    0
+   ],
+   "m": "glass",
+   "walk": true,
+   "stair": "-x"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    0
+   ],
+   "m": "glass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    3,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -1
+   ],
+   "m": "glass",
+   "walk": true,
+   "stair": "-z"
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -2
+   ],
+   "m": "glass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -2
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -3
+   ],
+   "m": "glass",
+   "walk": true,
+   "stair": "-z"
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -3
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    6,
+    -4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    6,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    6,
+    -4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "skypane"
+  },
+  {
+   "p": [
+    -1,
+    6,
+    -4
+   ],
+   "m": "glass",
+   "walk": true,
+   "g": "skypane",
+   "ill": true
+  },
+  {
+   "p": [
+    4,
+    9,
+    -1
+   ],
+   "m": "cloud",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    4,
+    8,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    9,
+    -1
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    8,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    9,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    8,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    9,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    8,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    7,
+    -1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    7,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    6,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -4,
+    7
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -4,
+    7
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    4,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    5,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    4,
+    0
+   ],
+   "m": "cloud",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "handle",
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneA",
+   "axis": "x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneB",
+   "axis": "x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    0,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneC",
+   "axis": "z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "ferry",
+   "axis": "x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneD",
+   "axis": "z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneE",
+   "axis": "z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    4,
+    0,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "paneF",
+   "axis": "z"
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    6,
+    -1,
+    6
+   ],
+   "s": 1.2,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    -1,
+    -1,
+    6
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    6,
+    -1,
+    -1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    3,
+    -1,
+    6
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    6,
+    -1,
+    4
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    -1,
+    -1,
+    0
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    6,
+    -1,
+    0
+   ],
+   "s": 0.6,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    0,
+    -1,
+    6
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    8,
+    0,
+    4
+   ],
+   "s": 1.1,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "flowers",
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    8,
+    0,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    6,
+    0,
+    2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "bush",
+   "p": [
+    7,
+    0,
+    4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -3,
+    0,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    -4,
+    -1,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "vane",
+   "face": "+x"
+  },
+  {
+   "t": "tree",
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    0,
+    3,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    -5,
+    6,
+    -5
+   ],
+   "s": 1.2,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -3,
+    6,
+    -5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -5,
+    6,
+    -4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -2,
+    6,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "skypane",
+   "axis": "x"
+  },
+  {
+   "t": "altar",
+   "p": [
+    5,
+    9,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    5,
+    9,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    4,
+    9,
+    0
+   ],
+   "s": 0.6,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    0,
+    -4,
+    7
+   ],
+   "s": 1.3,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    7,
+    5,
+    0
+   ],
+   "s": 1.1,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    8,
+    0,
+    2
+   ],
+   "text": "The lake lies so still that the sky forgets which way is up."
+  },
+  {
+   "at": [
+    6,
+    0,
+    2
+   ],
+   "text": "Glass panes drift on the water. Only one of them is mine."
+  },
+  {
+   "at": [
+    -1,
+    0,
+    2
+   ],
+   "text": "Barefoot on the sky, I can hear the glass humming."
+  },
+  {
+   "at": [
+    -1,
+    3,
+    1
+   ],
+   "text": "I stepped into the reflection, and it held me."
+  },
+  {
+   "at": [
+    -4,
+    4,
+    0
+   ],
+   "text": "Grandfather wrote: light hides where the water looks up."
+  },
+  {
+   "at": [
+    -3,
+    6,
+    -4
+   ],
+   "text": "Up here the lake is a mirror, and the mirror is a door."
+  }
+ ],
+ "plates": [],
+ "triggers": [],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    5,
+    9,
+    -1
+   ]
+  },
+  {
+   "target": "skypane",
+   "reach": [
+    -3,
+    6,
+    -4
+   ]
+  },
+  {
+   "target": "vane",
+   "reach": [
+    -3,
+    0,
+    2
+   ]
+  },
+  {
+   "target": "ferry",
+   "reach": [
+    5,
+    0,
+    2
+   ]
+  },
+  {
+   "target": "paneE"
+  }
+ ],
+ "ending": {
+  "text": "The prism drinks the stillness of the lake and begins to glow. Somewhere ahead, a sunbeam remembers its way.",
+  "tree": [
+   8,
+   0,
+   1
+  ],
+  "spirits": [
+   [
+    7,
+    0,
+    2
+   ],
+   [
+    7,
+    0,
+    1
+   ],
+   [
+    6,
+    0,
+    2
+   ],
+   [
+    -2,
+    0,
+    2
+   ],
+   [
+    -1,
+    0,
+    2
+   ],
+   [
+    -1,
+    3,
+    1
+   ],
+   [
+    -4,
+    6,
+    -4
+   ],
+   [
+    4,
+    9,
+    -1
+   ]
+  ]
+ }
+}

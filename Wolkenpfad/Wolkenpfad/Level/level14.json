@@ -1,0 +1,3127 @@
+{
+ "name": "Chapter 14 · The Ascent to the Sky Garden",
+ "theme": "skygarden",
+ "chapter": 14,
+ "start": [
+  3,
+  0,
+  3
+ ],
+ "goal": [
+  2,
+  20,
+  -1
+ ],
+ "goalItem": "feather",
+ "groups": [
+  {
+   "id": "l1",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 4,
+   "locked": true
+  },
+  {
+   "id": "A",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    4,
+    0
+   ],
+   "step": 3,
+   "minStep": 2,
+   "maxStep": 4
+  },
+  {
+   "id": "l2",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 4,
+   "locked": true
+  },
+  {
+   "id": "B",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    8,
+    0
+   ],
+   "step": 2,
+   "minStep": 2,
+   "maxStep": 4
+  },
+  {
+   "id": "bud8",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1,
+   "locked": true
+  },
+  {
+   "id": "C",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    12,
+    0
+   ],
+   "step": 4,
+   "minStep": 2,
+   "maxStep": 4
+  },
+  {
+   "id": "bud12",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1,
+   "locked": true
+  },
+  {
+   "id": "D",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    16,
+    0
+   ],
+   "step": 4,
+   "minStep": 2,
+   "maxStep": 4
+  },
+  {
+   "id": "l3",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 4,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    0,
+    -3,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    5,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    6,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    7,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    9,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    10,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    11,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    13,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    14,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    15,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    17,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    18,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    19,
+    0
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "m": "water",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -3,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -3,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -4,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "l1"
+  },
+  {
+   "p": [
+    5,
+    -1,
+    0
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "l1"
+  },
+  {
+   "p": [
+    5,
+    -2,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "l1"
+  },
+  {
+   "p": [
+    4,
+    4,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    3,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    4,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    3,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    4,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    3,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "A"
+  },
+  {
+   "p": [
+    1,
+    4,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "A"
+  },
+  {
+   "p": [
+    2,
+    4,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "A"
+  },
+  {
+   "p": [
+    -1,
+    4,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    3,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    4,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    3,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    3,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    3,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    3,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "l2"
+  },
+  {
+   "p": [
+    0,
+    3,
+    3
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "l2"
+  },
+  {
+   "p": [
+    0,
+    2,
+    3
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "l2"
+  },
+  {
+   "p": [
+    0,
+    8,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "B"
+  },
+  {
+   "p": [
+    1,
+    8,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "B"
+  },
+  {
+   "p": [
+    2,
+    8,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "B"
+  },
+  {
+   "p": [
+    -4,
+    8,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    7,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    8,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    7,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    8,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    7,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    8,
+    -1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    7,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    8,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    7,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    8,
+    -2
+   ],
+   "m": "petal",
+   "walk": true,
+   "ill": true,
+   "g": "bud8"
+  },
+  {
+   "p": [
+    4,
+    8,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    7,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    6,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    8,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    7,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    8,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    7,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    12,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "C"
+  },
+  {
+   "p": [
+    1,
+    12,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "C"
+  },
+  {
+   "p": [
+    2,
+    12,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "ill": true,
+   "g": "C"
+  },
+  {
+   "p": [
+    4,
+    12,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    11,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    10,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    12,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    11,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    12,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    11,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    12,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    11,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    12,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    12,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    12,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    12,
+    -1
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    12,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    12,
+    -2
+   ],
+   "m": "petal",
+   "walk": true,
+   "ill": true,
+   "g": "bud12"
+  },
+  {
+   "p": [
+    0,
+    16,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "D"
+  },
+  {
+   "p": [
+    1,
+    16,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "g": "D"
+  },
+  {
+   "p": [
+    2,
+    16,
+    0
+   ],
+   "m": "petal",
+   "walk": true,
+   "ill": true,
+   "g": "D"
+  },
+  {
+   "p": [
+    4,
+    16,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    15,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    14,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    16,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    15,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    16,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    15,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    16,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    16,
+    0
+   ],
+   "m": "cloud",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    16,
+    1
+   ],
+   "m": "cloud",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    16,
+    0
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "l3"
+  },
+  {
+   "p": [
+    5,
+    15,
+    0
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "l3"
+  },
+  {
+   "p": [
+    5,
+    14,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "l3"
+  },
+  {
+   "p": [
+    -2,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    20,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    20,
+    -2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    20,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    20,
+    -2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    20,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    20,
+    -2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    20,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    19,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    20,
+    -1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    18,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    20,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    19,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    3,
+    -2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    10,
+    2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    9,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    14,
+    -3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    13,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    2,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    18,
+    3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    17,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    17,
+    2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    16,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    13,
+    -2
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    12,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    10,
+    0
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    9,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    17,
+    -3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    16,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    18,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    17,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -3,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -3,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -3,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    19,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    19,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    19,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    19,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    19,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    19,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    19,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    19,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    19,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    19,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    18,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    18,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "tree",
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "s": 1.2,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "tree",
+   "p": [
+    5,
+    0,
+    4
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "pond",
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    0,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "mushroom",
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "grass",
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "bush",
+   "p": [
+    4,
+    4,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    4,
+    4,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    4,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "A",
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    4,
+    0
+   ],
+   "s": 0.55,
+   "r": 0.0,
+   "g": "A"
+  },
+  {
+   "t": "vine",
+   "p": [
+    -1,
+    4,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    -4,
+    4,
+    2
+   ],
+   "s": 0.75,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "vine",
+   "p": [
+    -3,
+    4,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    8,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "B",
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    8,
+    0
+   ],
+   "s": 0.55,
+   "r": 0.0,
+   "g": "B"
+  },
+  {
+   "t": "bush",
+   "p": [
+    -4,
+    8,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -4,
+    8,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -6,
+    8,
+    -2
+   ],
+   "s": 0.5,
+   "r": 0.0,
+   "g": "bud8"
+  },
+  {
+   "t": "tree",
+   "p": [
+    4,
+    8,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "vine",
+   "p": [
+    3,
+    8,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    12,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "C",
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    12,
+    0
+   ],
+   "s": 0.55,
+   "r": 0.0,
+   "g": "C"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    3,
+    12,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    3,
+    12,
+    1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    -4,
+    12,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -6,
+    12,
+    -2
+   ],
+   "s": 0.5,
+   "r": 0.0,
+   "g": "bud12"
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    16,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "D",
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    16,
+    0
+   ],
+   "s": 0.55,
+   "r": 0.0,
+   "g": "D"
+  },
+  {
+   "t": "vine",
+   "p": [
+    4,
+    16,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "bush",
+   "p": [
+    -4,
+    16,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -3,
+    16,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "altar",
+   "p": [
+    2,
+    20,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    0,
+    20,
+    0
+   ],
+   "s": 0.6,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -1,
+    20,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "bush",
+   "p": [
+    -1,
+    20,
+    -1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    1,
+    20,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    3,
+    20,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    1,
+    20,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    -1,
+    20,
+    0
+   ],
+   "s": 0.6,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    4,
+    20,
+    -1
+   ],
+   "s": 0.6,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    6,
+    3,
+    -2
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "tree",
+   "p": [
+    -5,
+    10,
+    2
+   ],
+   "s": 0.75,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "tree",
+   "p": [
+    4,
+    14,
+    -3
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -6,
+    2,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -6,
+    2,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -3,
+    18,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    6,
+    17,
+    2
+   ],
+   "s": 0.6,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -7,
+    13,
+    -2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    7,
+    10,
+    0
+   ],
+   "s": 0.6,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -7,
+    17,
+    -3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -6,
+    18,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "waterfall",
+   "p": [
+    1,
+    20,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    -2,
+    20,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -1,
+    20,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    5,
+    -2,
+    0
+   ],
+   "s": 1.4,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    -4,
+    6,
+    4
+   ],
+   "s": 1.2,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    -2,
+    14,
+    5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    3,
+    0,
+    3
+   ],
+   "text": "Grandfather wrote: the sky garden grows where the wind first woke."
+  },
+  {
+   "at": [
+    3,
+    4,
+    0
+   ],
+   "text": "The great leaves turn, and the green stems remember how to rise."
+  },
+  {
+   "at": [
+    -1,
+    4,
+    3
+   ],
+   "text": "Two leaves must agree before a stem will carry you."
+  },
+  {
+   "at": [
+    -3,
+    8,
+    0
+   ],
+   "text": "A bud opens when its leaf greets the dawn and the one below bows west."
+  },
+  {
+   "at": [
+    -3,
+    12,
+    0
+   ],
+   "text": "Seen from the right place, the leaf above is only one step away."
+  },
+  {
+   "at": [
+    3,
+    16,
+    0
+   ],
+   "text": "Four flowers sing. Now the whole tower wants to bloom toward you."
+  },
+  {
+   "at": [
+    4,
+    20,
+    0
+   ],
+   "text": "Up here the wind smells of petals and grandfather's old songs."
+  }
+ ],
+ "plates": [
+  {
+   "id": "pW",
+   "at": [
+    -4,
+    4,
+    1
+   ]
+  },
+  {
+   "id": "pE",
+   "at": [
+    4,
+    8,
+    0
+   ]
+  },
+  {
+   "id": "pX",
+   "at": [
+    4,
+    12,
+    1
+   ]
+  },
+  {
+   "id": "p16",
+   "at": [
+    -4,
+    16,
+    0
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "l1",
+   "value": 4,
+   "states": {
+    "A": 4
+   }
+  },
+  {
+   "group": "l2",
+   "value": 4,
+   "states": {
+    "A": 3,
+    "B": 3
+   }
+  },
+  {
+   "group": "bud8",
+   "value": 1,
+   "states": {
+    "B": 4,
+    "A": 2
+   }
+  },
+  {
+   "group": "bud12",
+   "value": 1,
+   "states": {
+    "C": 4,
+    "B": 2
+   }
+  },
+  {
+   "group": "l3",
+   "value": 4,
+   "plates": [
+    "pW",
+    "pE",
+    "pX",
+    "p16"
+   ],
+   "states": {
+    "A": 3,
+    "B": 3,
+    "C": 3,
+    "D": 3
+   }
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    2,
+    20,
+    -1
+   ]
+  },
+  {
+   "target": "D",
+   "reach": [
+    4,
+    16,
+    0
+   ],
+   "pressed": [
+    "pW",
+    "pE",
+    "pX",
+    "p16"
+   ]
+  },
+  {
+   "target": "p16",
+   "reach": [
+    -4,
+    16,
+    0
+   ],
+   "unpressed": [
+    "p16"
+   ]
+  },
+  {
+   "target": "D",
+   "reach": [
+    -4,
+    12,
+    0
+   ],
+   "pressed": [
+    "pX"
+   ]
+  },
+  {
+   "target": "pX",
+   "reach": [
+    4,
+    12,
+    1
+   ],
+   "unpressed": [
+    "pX"
+   ]
+  },
+  {
+   "target": "C",
+   "reach": [
+    -4,
+    8,
+    0
+   ]
+  },
+  {
+   "target": "pE",
+   "reach": [
+    4,
+    8,
+    0
+   ],
+   "unpressed": [
+    "pE"
+   ]
+  },
+  {
+   "target": "B",
+   "reach": [
+    -1,
+    4,
+    3
+   ],
+   "pressed": [
+    "pW"
+   ]
+  },
+  {
+   "target": "pW",
+   "reach": [
+    -4,
+    4,
+    1
+   ],
+   "unpressed": [
+    "pW"
+   ]
+  },
+  {
+   "target": "A",
+   "reach": [
+    3,
+    4,
+    0
+   ]
+  },
+  {
+   "target": "A"
+  }
+ ],
+ "ending": {
+  "text": "The sky garden opens its leaves to the wind. Far away, a harp string hums.",
+  "tree": [
+   0,
+   20,
+   0
+  ],
+  "spirits": [
+   [
+    2,
+    0,
+    2
+   ],
+   [
+    4,
+    4,
+    0
+   ],
+   [
+    -1,
+    4,
+    4
+   ],
+   [
+    -4,
+    12,
+    0
+   ],
+   [
+    4,
+    16,
+    1
+   ],
+   [
+    -3,
+    16,
+    0
+   ],
+   [
+    4,
+    20,
+    0
+   ]
+  ]
+ }
+}
