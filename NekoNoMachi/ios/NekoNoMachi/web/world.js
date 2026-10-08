@@ -48,6 +48,27 @@ class World {
     this.goalX = window.Goal ? Goal.x(theme) : null; this.goalDone = false;
     this.collected = new Set(persisted.collected || []); this.friends = new Set(persisted.friends || []);
   }
+  // ------------------------------------------------------------ Etappen
+  // Kapitel mit „route“ sind bis zum Ziel-Tor in Etappen gegliedert (feste Abfolge, eigene Bausteine und Szenen).
+  // Hinter dem Tor – und für alte Freundes-Einträge (legacy) – gilt weiter der freie Zufallsmodus.
+  routeAt(x) {
+    const R = this.theme.route;
+    if (!R || this.legacy || !window.Goal) return null;
+    const spawn = this.theme.spawnX ?? 200, dist = Goal.dist(this.theme), p = (x - spawn) / dist;
+    if (p >= 1) return null;
+    let idx = R.findIndex(s => p < s.to); if (idx < 0) idx = R.length - 1;
+    const sec = R[idx], from = idx ? R[idx - 1].to : 0;
+    const c0 = Math.floor((spawn + from * dist) / CH), c1 = Math.floor((spawn + sec.to * dist) / CH);
+    return { sec, idx, count: R.length, p, from, to: sec.to, c0, c1, x0: spawn + from * dist, x1: spawn + sec.to * dist };
+  }
+  // Zonen am Boden: Wasser (Kanal) und Hügel (nicht unterlaufbar)
+  zoneAt(x) {
+    const i = Math.floor(x / CH);
+    for (let j = i - 1; j <= i + 1; j++) for (const z of this.chunk(j).zones) if (x >= z.x1 && x <= z.x2) return z;
+    return null;
+  }
+  zoneBlocks(z) { return z.kind === 'water'; }
+
   rng(i, salt = 0) { return mulberry((this.seed * 1000003) ^ Math.imul(i + 100000, 2654435761) ^ salt ^ (this.theme.salt || 0)); }
   chunk(i) {
     let c = this.chunks.get(i);
@@ -59,31 +80,33 @@ class World {
   }
 
   gen(i) {
-    const r = this.rng(i), C = { objs: [], plats: [], sushi: [], shrines: [], npcs: [], emit: [] };
+    const r = this.rng(i), C = { objs: [], plats: [], sushi: [], shrines: [], npcs: [], emit: [], zones: [] };
+    const route = this.routeAt(i * CH + CH / 2), pre = route ? 'r' : ''; // eigene Kennungen, damit alte Spielstände nichts verwechseln
     // Sammelobjekte: überall Sushi
     const weights = this.theme.sushi || {};
     const pool = SUSHI.map(s => [s.id, (weights[s.id] ?? s.w)]);
     const totalW = pool.reduce((s, p) => s + p[1], 0);
     const pickSushi = () => { let v = r() * totalW; for (const [id, w] of pool) { v -= w; if (v <= 0) return id; } return pool[0][0]; };
     const api = {
-      r, x0: i * CH, end: i * CH + CH - 20, i,
+      r, x0: i * CH, end: i * CH + CH - 20, i, route,
       obj: o => (C.objs.push(o), o),
       plat: (x1, x2, y, extra) => C.plats.push(Object.assign({ x1, x2, y }, extra || {})),
       emit: e => C.emit.push(e),
-      sushi: (fx, fy, n = 1, arc = false) => {
+      sushi: (fx, fy, n = 1, arc = false, type = null) => {
         for (let k = 0; k < n; k++) {
           const u = n === 1 ? 0 : k / (n - 1) - 0.5;
-          C.sushi.push({ id: `${i}:${C.sushi.length}`, type: pickSushi(), x: fx + u * 36 * n, y: fy - (arc ? (1 - 4 * u * u) * 28 : 0) });
+          C.sushi.push({ id: `${i}:${pre}${C.sushi.length}`, type: type || pickSushi(), x: fx + u * 36 * n, y: fy - (arc ? (1 - 4 * u * u) * 28 : 0) });
         }
       },
       sushiRide: (bx, y, span, conv, n) => {
-        for (let k = 0; k < n; k++) C.sushi.push({ id: `${i}:${C.sushi.length}`, type: pickSushi(), x: bx, base: bx, ph: k * span / n, span, conv, y });
+        for (let k = 0; k < n; k++) C.sushi.push({ id: `${i}:${pre}${C.sushi.length}`, type: pickSushi(), x: bx, base: bx, ph: k * span / n, span, conv, y });
       },
       npc: (x, y, o = {}) => {
-        const n = Object.assign({ id: `${i}:n${C.npcs.length}`, kind: 'cat', x, y, pose: r() < 0.5 ? 'sleep' : 'sit', face: r() < 0.5 ? 1 : -1 }, o);
+        const n = Object.assign({ id: `${i}:${pre}n${C.npcs.length}`, kind: 'cat', x, y, pose: r() < 0.5 ? 'sleep' : 'sit', face: r() < 0.5 ? 1 : -1 }, o);
         if (n.kind === 'cat' && !n.cat) n.cat = CatModel.random(r());
         n.home = n.pose; C.npcs.push(n); return n;
       },
+      zone: (x1, x2, kind, extra) => C.zones.push(Object.assign({ x1, x2, kind }, extra || {})),
     };
     this.theme.gen.call(this, api);
     // Erweiterung „Die Ikonen Japans“: zusätzlich zum Sushi verstecken sich Schreine (eigenes Sammelbuch, wie Freunde und Monster).
@@ -112,6 +135,7 @@ class World {
       C.sushi = C.sushi.filter(f => f.conv ? !hit(f.base, f.base + f.span) && !inGone(f.base, f.base + f.span) : !hit(f.x - (f.y < -10 ? 150 : 20), f.x + (f.y < -10 ? 150 : 20)) && !(f.y < -10 && inGone(f.x, f.x)));
       C.shrines = C.shrines.filter(f => !hit(f.x - (f.y < -10 ? 150 : 20), f.x + (f.y < -10 ? 150 : 20)) && !(f.y < -10 && inGone(f.x, f.x)));
       C.emit = C.emit.filter(e => e.x == null || !hit(e.x - 30, e.x + 30));
+      C.zones = C.zones.filter(z => !hit(z.x1, z.x2));
     }
     return C;
   }

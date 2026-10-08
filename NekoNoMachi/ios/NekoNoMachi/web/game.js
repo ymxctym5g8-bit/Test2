@@ -95,7 +95,7 @@
     if (p.onGround) { p.vy = -11.6; p.onGround = false; p.plat = null; p.jumps = 1; p.cut = false; Sound.jump(); puff(p.x, p.y, 4); }
     else if (p.jumps < 2) { p.vy = -10.4; p.jumps = 2; p.cut = false; p.spin = 0.0001; Sound.jump(); sparkle(p.x, p.y - 20, 6, '#ffffff'); }
   }
-  function dropDown() { const p = player; if (p.onGround && p.y < -1) { p.drop = 0.22; p.onGround = false; p.plat = null; p.y += 1; } }
+  function dropDown() { const p = player; if (p.onGround && p.y < -1 && !(p.plat && p.plat.solid)) { p.drop = 0.22; p.onGround = false; p.plat = null; p.y += 1; } }
   function rest() { const p = player; if (!p.onGround) return; p.rest = (p.rest + 1) % 3; p.idleT = p.rest === 1 ? 6 : p.rest === 2 ? 20 : 0; }
   function meow() {
     Sound.init();
@@ -280,9 +280,15 @@
       if (!still) { p.onGround = false; p.plat = null; p.jumps = 1; } else p.plat = still;
     }
     if (p.onGround && p.plat && p.plat.conv) p.x += p.plat.conv * k;
+    if (p.onGround && p.plat && p.plat.dx) p.x += p.plat.dx;      // fahrende Plattform (Zugdach) nimmt Mochi mit
     if (!p.onGround) p.vy = Math.min(16, p.vy + 0.55 * k);
     const prevY = p.y;
     p.x += p.vx * k; p.y += p.vy * k;
+    if (p.onGround && p.vx) { // Stufen (Treppen, Brückenbogen): kleine Absätze geht Mochi einfach hinauf
+      const ahead = pl => p.vx > 0 ? p.x >= pl.x1 - 4 && p.x <= pl.x2 - 2 : p.x >= pl.x1 + 2 && p.x <= pl.x2 + 4;
+      const up = plats.find(pl => pl.step && ahead(pl) && p.y - pl.y > 0.5 && p.y - pl.y <= 26);
+      if (up) { p.y = up.y; p.plat = up; }
+    }
     if (!p.onGround && p.vy >= 0) {
       let land = null;
       if (p.drop <= 0) for (const pl of plats) if (p.x >= pl.x1 - 8 && p.x <= pl.x2 + 8 && prevY <= pl.y + 0.5 && p.y >= pl.y && (!land || pl.y < land.y)) land = pl;
@@ -290,6 +296,16 @@
       if (land && land.bounce) { p.y = land.y; p.vy = -15.5; p.jumps = 1; p.cut = true; land.squash = 1; Sound.boing(); puff(p.x, land.y, 4); sparkle(p.x, land.y - 10, 5, '#ffffff'); }
       else if (land) { if (p.vy > 6) { puff(p.x, land.y, 5); Sound.land(); } p.y = land.y; p.vy = 0; p.onGround = true; p.plat = land.x1 !== undefined ? land : null; p.jumps = 0; p.landT = 0.15; }
     }
+    // Zonen am Boden: Kanal (Wasser) und Hügel (nicht unterlaufbar)
+    if (p.onGround && !p.plat) {
+      const z = state.world.zoneAt(p.x);
+      if (z && z.kind === 'hill') { // am Hangfuß stehen bleiben, sonst (z. B. nach dem Laden) zurück auf die Terrasse
+        if (z.level && p.x > z.hx0 + 40 && p.x < z.hx1 - 40) { p.y = z.level(p.x) - 1; p.vy = 0; p.onGround = false; }
+        else { p.x = p.x - z.hx0 < z.hx1 - p.x ? z.hx0 - 1 : z.hx1 + 1; p.vx = 0; }
+      }
+      else if (z && state.world.zoneBlocks(z)) hazard(z);
+    }
+    if (p.onGround) { const z = p.plat ? null : state.world.zoneAt(p.x); if (!z || (z.kind !== 'hill' && !state.world.zoneBlocks(z))) { p.safeX = p.x; p.safeY = p.y; } }
     if (p.spin) { p.spin += dt * 16; if (p.spin > TAU) p.spin = 0; }
     p.landT = Math.max(0, p.landT - dt); p.meowT = Math.max(0, p.meowT - dt);
     if (p.onGround && Math.abs(p.vx) < 0.3 && !(p.plat && p.plat.conv)) p.idleT += dt; else if (p.onGround) p.idleT = 0;
@@ -332,6 +348,15 @@
     const info = Collectible.info(f.type) || { name: f.type, jp: '' };
     toast(t(first ? 'newShrine' : 'shrineAgain', { name: info.name, jp: info.jp, n: Object.keys(book).length, total: SHRINES.length }));
     updateHud(); saveSoon();
+  }
+  // Mochi landet im Kanal: zurück an die letzte sichere Stelle
+  const hazardTold = {};
+  function hazard(z) {
+    const p = player;
+    Sound.splash(); sparkle(p.x, -6, 16, '#a8daf2'); puff(p.x, 0, 4);
+    const back = p.x < (z.x1 + z.x2) / 2 ? z.x1 - 40 : z.x2 + 40;
+    p.x = p.safeX ?? back; p.y = p.safeY ?? 0; p.vx = 0; p.vy = -7; p.onGround = false; p.plat = null; p.jumps = 1; p.landT = 0;
+    if (!hazardTold.wet) { hazardTold.wet = 1; toast(t('wetCat', { cat: state.cat.name })); }
   }
   const sushiOf = list => { let n = 0; for (const id of list) if (!id.endsWith(':s')) n++; return n; };
   let saveTimer = 0; function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(save, 1500); }
@@ -520,7 +545,7 @@
     state.dayT = snap.dayT ?? ch.startT ?? 0.12;
     if (!state.prog.stamps[id] && state.world.goalX != null && player.x > state.world.goalX - 500) player.x = state.world.goalX - 500; // kürzere Strecke (kostenlose Version): alter Spielstand lag schon hinter dem Tor
     state.chDays = snap.days != null ? (+snap.days || 0) : Goal.progress(ch, player.x) * Goal.DAYS; // alte Spielstände: Tage aus dem Weg schätzen
-    state.world.goalDone = !!state.prog.stamps[id]; goalRun = null;
+    state.world.goalDone = !!state.prog.stamps[id]; goalRun = null; state.etappe = null; player.safeX = player.safeY = null;
     state.camX = player.x - LW * 0.4; state.camY = 0;
     Sound.playSong(ch.music);
     startGame();
@@ -734,7 +759,9 @@
     let skipped = 0, k = list.length - 1;                     // die neuesten zuerst – nur Freunde, die sich wiederfinden lassen
     for (; k >= 0 && shown.length < FRIENDS_SHOWN; k--) {
       const [ch, id] = list[k];
-      const w = worlds[ch.id] || (worlds[ch.id] = new World(ch, 7));
+      // Freunde aus der Zeit vor den Etappen (Kennung ohne „r“) stammen aus dem freien Zufallsmodus
+      const legacy = !!ch.route && !/^-?\d+:r/.test(String(id)), wk = ch.id + (legacy ? ':alt' : '');
+      const w = worlds[wk] || (worlds[wk] = Object.assign(new World(ch, 7), { legacy }));
       const ci = parseInt(String(id).split(':')[0], 10);
       const n = Number.isFinite(ci) ? w.chunk(ci).npcs.find(q => q.id === id) : null;
       if (n) shown.push([ch, n, w]); else skipped++;
@@ -840,7 +867,14 @@
     const t = state.dayT; $('hudTime').textContent = t < 0.05 || t > 0.95 ? '🌅' : t < 0.52 ? '☀️' : t < 0.62 ? '🌇' : '🌙';
     $('hudClock').textContent = clock(t);
     $('hudName').textContent = state.cat.name;
-    $('hudChapter').textContent = `${state.chapter.num} · ${state.chapter.title}`;
+    // Etappen: Name in der Kopfzeile, beim Wechsel eine kurze Meldung
+    const ra = state.world.routeAt(player.x), etName = ra ? (ra.sec.name[I18N.lang] || ra.sec.name.de) : '';
+    $('hudChapter').textContent = `${state.chapter.num} · ${state.chapter.title}` + (ra ? ` · ${etName}` : '');
+    const et = ra ? ra.idx : -1;
+    if (state.etappe !== et) {
+      if (state.etappe != null && ra && state.mode === 'play') { toast(I18N.t('etappe', { n: ra.idx + 1, m: ra.count, name: etName })); Sound.friend(); }
+      state.etappe = et;
+    }
   }
   function pause(on) {
     if (on) { state.mode = 'pause'; show('pause'); save(); Sound.duck(true); }

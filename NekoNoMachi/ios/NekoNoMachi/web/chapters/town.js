@@ -46,22 +46,29 @@ Chapters.add({
   gen(a) {
     const { r, x0, end, i } = a;
     const par = ((i % 2) + 2) % 2, seed = () => Math.floor(r() * 1e6), ri = n => Math.floor(r() * n);
+    // Etappen (chapters/town_route.js): eigene Bausteine, Dichten und Szenen. Ohne Etappe (hinter dem Ziel-Tor,
+    // alte Spielstände) läuft alles exakt wie bisher – dort verbrauchen die Zusätze keine Zufallszahlen.
+    const RT = a.route, R = RT && RT.sec, SU = R ? R.sushi : 1, CATS = R ? R.cats : 1;
+    const S = (...q) => { if (!R || r() < SU) a.sushi(...q); };
+    const W = q => R ? (R.mods[q.t[0]] || 0) : q.wt;
+    if (R && R.builder) { TownRoute[R.builder](a, R); return; }
     // Beutel-Auswahl: kein Typ, der unter den letzten drei Objekten war; große Typen nur einmal je Abschnitt (Häuser zweimal).
     // Anfang und Ende eines Abschnitts nehmen Bausteine der Gruppe „par“ – so stoßen an der Grenze nie gleiche Typen aneinander.
     const SMALL = { gaito: 1, planter: 1, kanban: 1, tree: 1, bench: 1 }, MAXN = { house: 3 }, recent = [], used = {};
     const O = o => { recent.push(o.t); used[o.t] = (used[o.t] || 0) + 1; return a.obj(o); };
     let x = x0 + 20 + r() * 20, n = 0;
-    let torii = (((i % 4) + 4) % 4) === 2;
-    let tower = (((i % 7) + 7) % 7) === 3, arch = (((i % 6) + 6) % 6) === 5;
+    let torii = !R && (((i % 4) + 4) % 4) === 2;
+    let tower = !R && (((i % 7) + 7) % 7) === 3, arch = !R && (((i % 6) + 6) % 6) === 5;
     if (i === 0) {
       O({ t: 'tree', x: x0 + 120, kind: 'sakura', s: 1, seed: 3 }); a.emit({ x: x0 + 120, y: -170, k: 'petal' });
       O({ t: 'bench', x: x0 + 230 }); a.plat(x0 + 206, x0 + 254, -30);
       x = x0 + 360;
     }
+    if (R) x = TownRoute.scene(a, R, x, O);  // feste Szene dieser Etappe (falls dieser Abschnitt eine hat)
     const MODS = [
       { g: 2, wt: 9, need: 220, t: ['house'], run: x => { // Wohnhaus oder Laden, vier Dach-Varianten
         const w = Math.round(200 + r() * 150 > end - x ? 200 : 200 + r() * 150);
-        const shop = r() < 0.5;
+        const shop = r() < (R ? R.shopRate : 0.5);
         const h = O({ t: 'house', x, w, shop, v: ri(4), wallH: Math.round(shop ? 165 + r() * 35 : 150 + r() * 45), roofH: Math.round(42 + r() * 20),
           plaster: pickR(r, PAL.plaster), wood: pickR(r, PAL.wood), roof: pickR(r, PAL.roof), noren: pickR(r, PAL.noren),
           awning: pickR(r, PAL.awning), sign: pickR(r, PAL.signs), ledge: Math.round(-88 - r() * 16), wins: 1 + Math.floor(r() * (w > 280 ? 3 : 2)),
@@ -69,17 +76,17 @@ Chapters.add({
         const rt = -(h.wallH + h.roofH);
         a.plat(x + 26, x + w - 26, rt - 3);
         if (shop) a.plat(x + 10, x + w - 10, h.ledge); else a.plat(x - 8, x + w + 8, h.ledge);
-        if (r() < 0.75) a.sushi(x + w / 2, rt - 30, 1 + Math.floor(r() * 3));
-        if (r() < 0.4) a.sushi(x + w * 0.25, h.ledge - 26, 2);
-        if (r() < 0.22) a.npc(x + w * (0.3 + r() * 0.4), rt - 3);
+        if (r() < 0.75 * SU) a.sushi(x + w / 2, rt - 30, 1 + Math.floor(r() * 3));
+        if (r() < 0.4 * SU) a.sushi(x + w * 0.25, h.ledge - 26, 2);
+        if (r() < 0.22 * CATS) a.npc(x + w * (0.3 + r() * 0.4), rt - 3);
         return x + w + 30 + r() * 30;
       } },
       { g: 0, wt: 1.6, need: 150, t: ['wall'], run: x => { // Steinmauer mit Hecke
         const w = Math.round(120 + r() * 90), hgt = Math.round(62 + r() * 14);
         O({ t: 'wall', x, w, h: hgt, seed: seed() });
         a.plat(x, x + w, -hgt - 24); // oben auf der Hecke
-        if (r() < 0.5) a.sushi(x + w / 2, -hgt - 42, 3, true);
-        if (r() < 0.2) a.npc(x + w / 2, -hgt - 24, { pose: 'sleep' });
+        if (r() < 0.5 * SU) a.sushi(x + w / 2, -hgt - 42, 3, true);
+        if (r() < 0.2 * CATS) a.npc(x + w / 2, -hgt - 24, { pose: 'sleep' });
         a.emit({ x: x + w / 2, y: -hgt, k: 'firefly', w });
         return x + w + 30 + r() * 20;
       } },
@@ -87,22 +94,23 @@ Chapters.add({
         const w = Math.round(100 + r() * 80), hgt = 52 + Math.round(r() * 8);
         O({ t: 'fence', x, w, h: hgt, kind: r() < 0.5 ? 'bamboo' : 'wood' });
         a.plat(x, x + w, -hgt - 2);
-        if (r() < 0.4) a.sushi(x + w / 2, -hgt - 34, 2);
+        if (r() < 0.4 * SU) a.sushi(x + w / 2, -hgt - 34, 2);
         return x + w + 30 + r() * 20;
       } },
       { g: 0, wt: 1.4, need: 190, t: ['tree', 'bench'], run: x => { // Baum mit Bank
-        const kind = pickR(r, ['sakura', 'round', 'sakura', 'broad', 'pine']);
+        const kind = pickR(r, R && R.trees ? R.trees : ['sakura', 'round', 'sakura', 'broad', 'pine']);
         O({ t: 'tree', x: x + 70, kind, s: 0.8 + r() * 0.3, seed: Math.floor(r() * 50), back: kind !== 'sakura' });
         if (kind === 'sakura') a.emit({ x: x + 70, y: -170, k: 'petal' });
         O({ t: 'bench', x: x + 124 }); a.plat(x + 100, x + 148, -30);
-        if (r() < 0.5) a.sushi(x + 70, -40, 1);
+        if (r() < 0.5 * SU) a.sushi(x + 70, -40, 1);
+        if (R && r() < 0.25 * CATS) a.npc(x + 124, -30, { pose: 'sit' });
         return x + 175 + r() * 25;
       } },
       { g: 1, wt: 1.4, need: 130, t: ['vending', 'mailbox'], run: x => { // Getränkeautomat und Briefkasten
         O({ t: 'vending', x: x + 10, w: 56, col: pickR(r, ['#e9e6e0', '#c9463f', '#3f6fa8']) });
         a.plat(x + 6, x + 62, -98);
         O({ t: 'mailbox', x: x + 88 });
-        if (r() < 0.6) a.sushi(x + 34, -128, 1);
+        if (r() < 0.6 * SU) a.sushi(x + 34, -128, 1);
         return x + 125 + r() * 20;
       } },
       { g: 0, wt: 2.2, need: 340, t: ['sento'], run: x => { // Badehaus mit Schornstein
@@ -110,90 +118,92 @@ Chapters.add({
         O({ t: 'sento', x, w, v: ri(3), seed: seed() });
         a.plat(x + 26, x + w - 26, -203); a.plat(x + 88, x + 212, -96); a.plat(x + 230, x + 268, -332);
         a.emit({ x: x + 249, y: -350, k: 'smoke', w: 2, rate: 3 });
-        a.sushi(x + 120, -232, 3, true); a.sushi(x + 249, -362, 1); if (r() < 0.5) a.sushi(x + 150, -126, 2);
-        if (r() < 0.3) a.npc(x + 60 + r() * 100, -203, { pose: 'sleep' });
+        S(x + 120, -232, 3, true); S(x + 249, -362, 1); if (r() < 0.5 * SU) a.sushi(x + 150, -126, 2);
+        if (r() < 0.3 * CATS) a.npc(x + 60 + r() * 100, -203, { pose: 'sleep' });
         return x + w + 40;
       } },
       { g: 1, wt: 2, need: 240, t: ['tofu'], run: x => { // Tofu-Laden mit Wasserbottich
         O({ t: 'tofu', x, w: 200, v: ri(3), seed: seed() });
         a.plat(x - 6, x + 196, -146); a.plat(x + 6, x + 134, -96); a.plat(x + 150, x + 198, -36);
-        a.sushi(x + 95, -176, 2 + ri(2), true); if (r() < 0.5) a.sushi(x + 70, -126, 1);
+        S(x + 95, -176, 2 + ri(2), true); if (r() < 0.5 * SU) a.sushi(x + 70, -126, 1);
         return x + 200 + 40;
       } },
       { g: 0, wt: 2, need: 260, t: ['yaoya'], run: x => { // Gemüsehändler
         O({ t: 'yaoya', x, w: 210, v: ri(3), seed: seed() });
-        a.plat(x - 8, x + 218, -134);
-        a.sushi(x + 105, -164, 3, true);
-        if (r() < 0.4) a.npc(x + 218 + r() * 20, 0, { pose: 'sit' });
+        a.plat(x - 8, x + 218, -134, R && R.bounce ? { bounce: true } : undefined); // Etappe Einkaufsstraße: Markisen federn
+        S(x + 105, -164, 3, true);
+        if (R && R.bounce) a.sushi(x + 105, -330, 3, true);                          // hoch oben – nur mit Schwung von der Markise
+        if (r() < 0.4 * CATS) a.npc(x + 218 + r() * 20, 0, { pose: 'sit' });
         return x + 210 + 48;
       } },
       { g: 1, wt: 2, need: 270, t: ['post'], run: x => { // Postamt
         O({ t: 'post', x, w: 226, v: ri(2), seed: seed() });
         a.plat(x - 4, x + 204, -176); a.plat(x + 58, x + 142, -94); a.plat(x + 197, x + 227, -66);
-        a.sushi(x + 100, -206, 3, true); a.sushi(x + 212, -98, 1);
+        S(x + 100, -206, 3, true); S(x + 212, -98, 1);
         return x + 226 + 40;
       } },
       { g: 0, wt: 2, need: 280, t: ['hana'], run: x => { // Blumenladen
         O({ t: 'hana', x, w: 244, v: ri(3), seed: seed() });
-        a.plat(x - 6, x + 186, -136); a.plat(x + 194, x + 244, -58);
+        a.plat(x - 6, x + 186, -136, R && R.bounce ? { bounce: true } : undefined); a.plat(x + 194, x + 244, -58);
         a.emit({ x: x + 90, y: -60, k: 'petal', rate: 0.6 });
-        a.sushi(x + 90, -166, 2 + ri(2), true); if (r() < 0.6) a.sushi(x + 219, -90, 1);
+        S(x + 90, -166, 2 + ri(2), true); if (r() < 0.6 * SU) a.sushi(x + 219, -90, 1);
+        if (R && R.bounce) a.sushi(x + 90, -330, 2, true);
         return x + 244 + 40;
       } },
       { g: 0, wt: 1.5, need: 200, t: ['busstop'], run: x => { // Bushaltestelle
         O({ t: 'busstop', x, w: 160, seed: seed() });
         a.plat(x - 4, x + 144, -112); a.plat(x + 30, x + 110, -30);
-        a.sushi(x + 70, -142, 2);
-        if (r() < 0.35) a.npc(x + 50 + r() * 40, -30, { pose: 'sleep' });
+        S(x + 70, -142, 2);
+        if (r() < 0.35 * CATS) a.npc(x + 50 + r() * 40, -30, { pose: 'sleep' });
         return x + 160 + 40;
       } },
       { g: 1, wt: 1.8, need: 270, t: ['playground'], run: x => { // Spielplatz: Rutsche und Schaukel
         O({ t: 'playground', x, w: 230, v: ri(3), seed: seed() });
         a.plat(x + 8, x + 62, -96); a.plat(x + 148, x + 228, -120);
-        a.sushi(x + 35, -128, 1); a.sushi(x + 188, -150, 2);
+        S(x + 35, -128, 1); S(x + 188, -150, 2);
         return x + 230 + 40;
       } },
       { g: 0, wt: 1.2, need: 130, t: ['ido'], run: x => { // Brunnen mit Dach
         O({ t: 'ido', x, w: 90, v: ri(2), seed: seed() });
         a.plat(x + 2, x + 88, -114); a.plat(x + 12, x + 78, -40);
-        a.sushi(x + 45, -144, 1);
+        S(x + 45, -144, 1);
         return x + 90 + 40;
       } },
       { g: 0, wt: 1, need: 100, t: ['phone'], run: x => { // Telefonzelle
         O({ t: 'phone', x, w: 54, v: ri(2) });
         a.plat(x - 3, x + 57, -120);
-        if (r() < 0.6) a.sushi(x + 27, -150, 1);
+        if (r() < 0.6 * SU) a.sushi(x + 27, -150, 1);
         return x + 54 + 40;
       } },
       { g: 1, wt: 1.4, need: 200, t: ['monohoshi'], run: x => { // Wäscheplatz
         O({ t: 'monohoshi', x, w: 160, seed: seed() });
         a.plat(x + 2, x + 158, -102);
-        a.sushi(x + 80, -132, 3, true);
+        S(x + 80, -132, 3, true);
         return x + 160 + 40;
       } },
       { g: 1, wt: 1.2, need: 130, t: ['hokora'], run: x => { // kleiner Eckschrein
         O({ t: 'hokora', x, w: 90, seed: seed() });
         a.plat(x + 20, x + 70, -102); a.plat(x + 6, x + 84, -28);
-        a.sushi(x + 45, -132, 1);
+        S(x + 45, -132, 1);
         return x + 90 + 40;
       } },
       { g: 1, wt: 1.4, need: 220, t: ['churin'], run: x => { // überdachter Fahrradständer
         O({ t: 'churin', x, w: 180, seed: seed() });
         a.plat(x - 4, x + 184, -88);
-        a.sushi(x + 90, -118, 2);
-        if (r() < 0.3) a.npc(x + 40 + r() * 100, -88, { pose: 'sleep' });
+        S(x + 90, -118, 2);
+        if (r() < 0.3 * CATS) a.npc(x + 40 + r() * 100, -88, { pose: 'sleep' });
         return x + 180 + 40;
       } },
       { g: 0, wt: 1.5, need: 170, t: ['kiosk'], run: x => { // Kiosk
         O({ t: 'kiosk', x, w: 120, v: ri(3), seed: seed() });
         a.plat(x - 8, x + 128, -122);
-        a.sushi(x + 60, -152, 2);
+        S(x + 60, -152, 2);
         return x + 120 + 44;
       } },
       { g: 0, wt: 0.9, need: 110, t: ['crates'], run: x => { // Getränkekisten
         O({ t: 'crates', x, w: 84, v: ri(3) });
         a.plat(x, x + 84, -32); a.plat(x + 21, x + 63, -64);
-        if (r() < 0.6) a.sushi(x + 42, -94, 1);
+        if (r() < 0.6 * SU) a.sushi(x + 42, -94, 1);
         return x + 84 + 36;
       } },
       { g: 0, wt: 0.9, need: 70, t: ['gaito'], run: x => { // Straßenlaterne
@@ -202,7 +212,7 @@ Chapters.add({
       } },
       { g: 1, wt: 0.9, need: 100, t: ['planter'], run: x => { // Blumenkasten
         O({ t: 'planter', x, w: 72, v: ri(3), seed: seed() });
-        if (r() < 0.4) a.sushi(x + 36, -60, 1);
+        if (r() < 0.4 * SU) a.sushi(x + 36, -60, 1);
         return x + 72 + 30;
       } },
       { g: 1, wt: 0.8, need: 80, t: ['kanban'], run: x => { // Aufsteller
@@ -211,7 +221,7 @@ Chapters.add({
       } },
       { g: 1, wt: 0.7, need: 90, t: ['tanuki'], run: x => { // Tanuki-Figur aus Keramik
         O({ t: 'tanuki', x, w: 46 });
-        if (r() < 0.5) a.sushi(x + 23, -96, 1);
+        if (r() < 0.5 * SU) a.sushi(x + 23, -96, 1);
         return x + 46 + 36;
       } },
       { g: 1, wt: 0.7, need: 100, t: ['bike'], run: x => { // abgestelltes Fahrrad
@@ -248,10 +258,10 @@ Chapters.add({
       const edge = recent.length < 3 || x > end - 540, rec = recent.slice(-3);
       let m = null;
       for (let lvl = 0; lvl < 3 && !m; lvl++) {
-        const c = MODS.filter(q => x + q.need <= end && !q.t.some(t => rec.includes(t)) && (lvl > 1 || !q.t.some(t => !SMALL[t] && (used[t] || 0) >= (MAXN[t] || 1))) && (lvl > 0 || !edge || q.g === par || q.g === 2));
+        const c = MODS.filter(q => W(q) > 0 && x + q.need <= end && !q.t.some(t => rec.includes(t)) && (lvl > 1 || !q.t.some(t => !SMALL[t] && (used[t] || 0) >= (MAXN[t] || 1))) && (lvl > 0 || !edge || q.g === par || q.g === 2));
         if (!c.length) continue;
-        let u = r() * c.reduce((s, q) => s + q.wt, 0); m = c[c.length - 1];
-        for (const q of c) { u -= q.wt; if (u <= 0) { m = q; break; } }
+        let u = r() * c.reduce((s, q) => s + W(q), 0); m = c[c.length - 1];
+        for (const q of c) { u -= W(q); if (u <= 0) { m = q; break; } }
       }
       if (!m) break;
       x = m.run(x); n++;

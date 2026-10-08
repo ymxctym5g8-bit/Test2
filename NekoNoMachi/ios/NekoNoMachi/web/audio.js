@@ -434,6 +434,19 @@ const Sound = {
     this.note(base * Math.pow(2, (k + 7) / 12), 0.07, 0.6, 0.05);
     if (gold) [12, 16, 19, 24].forEach((s, i) => this.note(base * Math.pow(2, s / 12), 0.12 + i * 0.07, 0.7, 0.05));
   },
+  splash() { // Platsch – Mochi landet im Kanal
+    if (!this.ctx) return; const c = this.ctx, t = this.now();
+    const s = this.noise(t, t + 0.5), f = c.createBiquadFilter(), g = c.createGain();
+    f.type = 'lowpass'; f.frequency.setValueAtTime(2400, t); f.frequency.exponentialRampToValueAtTime(260, t + 0.42);
+    this.env(g, t, 0.006, 0.3, 0.4); s.connect(f); f.connect(g); this.out(g, 1, 0.3, this.sfx);
+    this.note(880, 0.03, 0.12, 0.025, 'sine'); this.note(1320, 0.09, 0.1, 0.02, 'sine');
+  },
+  train() { // Zug fährt an / rauscht vorbei
+    if (!this.ctx) return; const c = this.ctx, t = this.now();
+    const s = this.noise(t, t + 1.8), f = c.createBiquadFilter(), g = c.createGain();
+    f.type = 'bandpass'; f.frequency.setValueAtTime(300, t); f.frequency.linearRampToValueAtTime(700, t + 0.8); f.frequency.linearRampToValueAtTime(240, t + 1.7);
+    this.env(g, t, 0.35, 0.22, 1.3, 0.2); s.connect(f); f.connect(g); this.out(g, 1, 0.2, this.sfx);
+  },
   boing() {
     if (!this.ctx) return; const c = this.ctx, t = this.now(), o = c.createOscillator(), g = c.createGain();
     o.type = 'sine'; o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(720, t + 0.18);
