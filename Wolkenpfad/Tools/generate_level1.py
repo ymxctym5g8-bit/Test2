@@ -37,6 +37,7 @@ dec("pond",(3,0,4)); dec("waterfall",(3,0,4))
 dec("flowers",(-1,0,3)); dec("flowers",(1,0,5)); dec("grass",(0,0,2)); dec("grass",(2,0,5))
 dec("grass",(-1,0,4)); dec("mushroom",(0,0,5)); dec("lantern",(1,0,2))
 dec("rock",(3,0,3),0.6)
+dec("butterflies",(0,0,3)); dec("tallgrass",(2,0,4),0.9); dec("cloudpuff",(1,-4,4),1.4)
 
 # Treppe hinauf zur Terrasse
 blk((2,1,2),"stone",True,stair="-z")
@@ -93,15 +94,15 @@ dec("tree",(5,6,1),0.9,variant=1)
 dec("flowers",(4,6,0),0.8)
 
 level={
- "name":"Kapitel I · Der Samen des Waldes",
- "theme":"day",
+ "name":"Chapter 1 · The Seed of the Forest",
+ "theme":"meadow","chapter":1,"goalItem":"seed",
  "hints":[
   {"reach":[5,6,-1],"target":"goal"},
   {"reach":[-4,4,-2],"target":"arm"},
   {"reach":[-4,1,0],"target":"lift"},
   {"target":"bridge"}
  ],
- "ending":{"text":"Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.","tree":[5,6,1],
+ "ending":{"text":"Where a seed takes root, the forest returns.","tree":[5,6,1],
            "spirits":[[-1,0,3],[1,0,5],[2,1,0],[-4,1,0],[-2,4,-2],[4,6,0],[5,6,0],[3,0,3]]},
  "start":[0,0,4],"goal":[5,6,-1],
  "groups":[
@@ -111,10 +112,10 @@ level={
  ],
  "blocks":B,"decor":D,
  "texts":[
-  {"at":[0,0,4],"text":"Ein Samen, so alt wie der Wind, ruht über den Wolken."},
-  {"at":[0,1,0],"text":"Nicht jeder Weg liegt offen. Manche wollen bewegt werden."},
-  {"at":[-4,4,-2],"text":"Manche Wege sieht man erst, wenn man die Welt anders betrachtet."},
-  {"at":[4,6,0],"text":"Der Schrein erinnert sich an den Wald."}
+  {"at":[0,0,4],"text":"A seed as old as the wind rests above the clouds."},
+  {"at":[0,1,0],"text":"Not every path lies open. Some want to be moved."},
+  {"at":[-4,4,-2],"text":"Some paths appear only when you look at the world differently."},
+  {"at":[4,6,0],"text":"The shrine remembers the forest."}
  ]
 }
 json.dump(level,open(sys.argv[1],'w'),indent=1,ensure_ascii=False)

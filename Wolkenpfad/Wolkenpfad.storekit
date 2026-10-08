@@ -1,0 +1,79 @@
+{
+  "identifier": "7A6E5C1E-9B1B-4C2A-8E44-0A1B2C3D4E5F",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "2.99",
+      "familyShareable": true,
+      "internalID": "6741000001",
+      "localizations": [
+        {
+          "description": "Chapters 4\u20138: the attic, the mist, the whispering grass, the mill and the storm.",
+          "displayName": "Act I \u2013 The Call of the Sky",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.example.Wolkenpfad.act1",
+      "referenceName": "Act I \u2013 The Call of the Sky",
+      "type": "NonConsumable"
+    },
+    {
+      "displayPrice": "2.99",
+      "familyShareable": true,
+      "internalID": "6741000002",
+      "localizations": [
+        {
+          "description": "Chapters 9\u201313: the lake of glass, the bellflower town, the sleeping giant, the sunbeam maze and the old bridge-builder.",
+          "displayName": "Act II \u2013 The Search for the Light",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.example.Wolkenpfad.act2",
+      "referenceName": "Act II \u2013 The Search for the Light",
+      "type": "NonConsumable"
+    },
+    {
+      "displayPrice": "2.99",
+      "familyShareable": true,
+      "internalID": "6741000003",
+      "localizations": [
+        {
+          "description": "Chapters 14\u201318: the sky garden, the ruins, the echoes, the great wind harp and a new horizon.",
+          "displayName": "Act III \u2013 The Heart of the Sky",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.example.Wolkenpfad.act3",
+      "referenceName": "Act III \u2013 The Heart of the Sky",
+      "type": "NonConsumable"
+    },
+    {
+      "displayPrice": "6.99",
+      "familyShareable": true,
+      "internalID": "6741000004",
+      "localizations": [
+        {
+          "description": "All 15 chapters of Acts I\u2013III in one purchase.",
+          "displayName": "The Complete Journey",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.example.Wolkenpfad.journey",
+      "referenceName": "The Complete Journey",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_applicationInternalID": "6741000000",
+    "_developerTeamID": "",
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

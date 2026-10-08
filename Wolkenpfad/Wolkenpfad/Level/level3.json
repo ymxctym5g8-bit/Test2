@@ -1,6 +1,8 @@
 {
- "name": "Kapitel III · Der Turm der Laternen",
- "theme": "night",
+ "name": "Chapter 3 · The Tower of Lanterns",
+ "theme": "lanterns",
+ "chapter": 3,
+ "goalItem": "seed",
  "start": [
   6,
   -2,
@@ -171,7 +173,7 @@
   }
  ],
  "ending": {
-  "text": "Alle Laternen brennen. Der Wald hat seinen Weg nach Hause gefunden.",
+  "text": "Every lantern burns. The forest has found its way home.",
   "tree": [
    5,
    7,
@@ -2144,7 +2146,7 @@
     -2,
     4
    ],
-   "text": "In der Nacht leuchten die Laternen nur für die, die suchen."
+   "text": "At night, the lanterns glow only for those who seek."
   },
   {
    "at": [
@@ -2152,7 +2154,7 @@
     0,
     3
    ],
-   "text": "Der Hof ist still. Nur ein Trittstein fehlt."
+   "text": "The courtyard is quiet. Only one stepping stone is missing."
   },
   {
    "at": [
@@ -2160,7 +2162,7 @@
     0,
     0
    ],
-   "text": "Ein Turm, der sich dreht, hat viele Türen."
+   "text": "A tower that turns has many doors."
   },
   {
    "at": [
@@ -2168,7 +2170,7 @@
     3,
     -1
    ],
-   "text": "Eine Laterne entzündet. Eine zweite fehlt noch."
+   "text": "One lantern lit. A second one is still missing."
   },
   {
    "at": [
@@ -2176,7 +2178,7 @@
     3,
     -1
    ],
-   "text": "Zwei Lichter öffnen jedes Tor."
+   "text": "Two lights open every gate."
   },
   {
    "at": [
@@ -2184,7 +2186,7 @@
     7,
     2
    ],
-   "text": "Von hier oben sieht der Turm ganz anders aus."
+   "text": "From up here, the tower looks quite different."
   }
  ]
 }

@@ -86,7 +86,7 @@
 				};
 			};
 			buildConfigurationList = B2000000000000000000000B /* Build configuration list for PBXProject "Wolkenpfad" */;
-			developmentRegion = de;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				de,

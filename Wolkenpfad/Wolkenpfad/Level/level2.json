@@ -1,6 +1,8 @@
 {
- "name": "Kapitel II · Das Lied des Flusses",
- "theme": "evening",
+ "name": "Chapter 2 · The Song of the River",
+ "theme": "river",
+ "chapter": 2,
+ "goalItem": "seed",
  "start": [
   0,
   0,
@@ -135,7 +137,7 @@
   }
  ],
  "ending": {
-  "text": "Der Fluss singt wieder. Irgendwo oben leuchtet ein Turm.",
+  "text": "The river sings again. Somewhere above, a tower glows.",
   "tree": [
    -3,
    6,
@@ -1872,7 +1874,7 @@
     0,
     4
    ],
-   "text": "Am Abend erzählt der Fluss von einem zweiten Samen."
+   "text": "In the evening, the river tells of a second seed."
   },
   {
    "at": [
@@ -1880,7 +1882,7 @@
     0,
     2
    ],
-   "text": "Was treibt, kann tragen."
+   "text": "What drifts can carry."
   },
   {
    "at": [
@@ -1888,7 +1890,7 @@
     1,
     0
    ],
-   "text": "Ein leiser Klang – tief unten erwacht der Stein."
+   "text": "A soft chime – far below, the stone awakens."
   },
   {
    "at": [
@@ -1896,7 +1898,7 @@
     3,
     -4
    ],
-   "text": "Manchmal muss man ein Stück zurückgehen, um weiterzukommen."
+   "text": "Sometimes you have to step back to move on."
   },
   {
    "at": [
@@ -1904,7 +1906,7 @@
     6,
     1
    ],
-   "text": "Der zweite Schrein wartet schon lange."
+   "text": "The second shrine has waited a long time."
   }
  ]
 }

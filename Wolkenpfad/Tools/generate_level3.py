@@ -111,8 +111,8 @@ dec("tree", (7, 7, 1), 0.9, variant=4); dec("flowers", (7, 7, 2), 0.8)
 blk((6, 4, 2), "rockdark"); blk((6, 6, 1), "rock"); blk((6, 6, 0), "rock")
 
 level = {
-    "name": "Kapitel III · Der Turm der Laternen",
-    "theme": "night",
+    "name": "Chapter 3 · The Tower of Lanterns",
+    "theme": "lanterns", "chapter": 3, "goalItem": "seed",
     "start": [6, -2, 4], "goal": [1, 3, -2],
     "groups": [
         {"id": "stone", "kind": "slide", "axis": [1, 0, 0], "value": 0, "min": 0, "max": 3, "handle": [-3, 0, 1]},
@@ -131,18 +131,18 @@ level = {
         {"reach": [0, 0, 0], "target": "tower"},
         {"target": "stone"},
     ],
-    "ending": {"text": "Alle Laternen brennen. Der Wald hat seinen Weg nach Hause gefunden.",
+    "ending": {"text": "Every lantern burns. The forest has found its way home.",
                "tree": [5, 7, -2],
                "spirits": [[0, 0, 4], [1, 0, 3], [-2, 3, -1], [-7, 3, 0], [3, 3, -1], [5, 7, -1], [6, 7, 1], [-1, 0, 3]]},
     "blocks": B, "decor": D,
     "texts": [
-        {"at": [6, -2, 4], "text": "In der Nacht leuchten die Laternen nur für die, die suchen."},
-        {"at": [0, 0, 3], "text": "Der Hof ist still. Nur ein Trittstein fehlt."},
-        {"at": [0, 0, 0], "text": "Ein Turm, der sich dreht, hat viele Türen."},
-        {"at": [-7, 3, -1], "text": "Eine Laterne entzündet. Eine zweite fehlt noch."},
-        {"at": [3, 3, -1], "text": "Zwei Lichter öffnen jedes Tor."},
-        {"at": [6, 7, 2], "text": "Von hier oben sieht der Turm ganz anders aus."},
+        {"at": [6, -2, 4], "text": "At night, the lanterns glow only for those who seek."},
+        {"at": [0, 0, 3], "text": "The courtyard is quiet. Only one stepping stone is missing."},
+        {"at": [0, 0, 0], "text": "A tower that turns has many doors."},
+        {"at": [-7, 3, -1], "text": "One lantern lit. A second one is still missing."},
+        {"at": [3, 3, -1], "text": "Two lights open every gate."},
+        {"at": [6, 7, 2], "text": "From up here, the tower looks quite different."},
     ],
 }
 json.dump(level, open(sys.argv[1], "w"), indent=1, ensure_ascii=False)
-print(len(B), "Blöcke,", len(D), "Deko")
+print(len(B), "blocks,", len(D), "decor")

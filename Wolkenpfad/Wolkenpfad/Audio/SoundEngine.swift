@@ -43,6 +43,19 @@ final class SoundEngine {
         var taikoEvery = 1
         /// Ab welchem Takt des 16-Takte-Bogens die Melodie einsetzt.
         var melodyFrom = 8
+
+        /// Dasselbe Stück in anderer Tonart, anderem Tempo und mit anderen Instrumenten.
+        func variant(transpose t: Int, bpm newBpm: Double, arp: Timbre, melody: Timbre, from: Int? = nil) -> Song {
+            var s = Song(bpm: newBpm, chords: chords.map { $0.map { $0 + t } }, arpeggio: arpeggio, arpTimbre: arp, arpOctave: arpOctave,
+                         melody: self.melody.map { bar in bar.map { ($0.0 > 0 ? $0.0 + t : 0, $0.1) } }, melodyTimbre: melody,
+                         bassEveryHalf: bassEveryHalf, padLevel: padLevel)
+            s.stepsPerBar = stepsPerBar
+            s.bassPattern = bassPattern
+            s.taiko = taiko
+            s.taikoEvery = taikoEvery
+            s.melodyFrom = from ?? melodyFrom
+            return s
+        }
     }
 
     private let engine = AVAudioEngine()
@@ -134,7 +147,29 @@ final class SoundEngine {
         lock.unlock()
     }
 
+    /// Stücke der 18 Kapitel: sechs Grundstücke, je Kapitel in eigener Tonart, eigenem Tempo und eigener Farbe.
     static func song(for theme: String) -> Song {
+        switch theme {
+        case "attic": return base("night").variant(transpose: 8, bpm: 60, arp: .musicBox, melody: .piano)
+        case "mist": return base("satoyama").variant(transpose: -2, bpm: 62, arp: .musicBox, melody: .flute)
+        case "grassvale": return base("day").variant(transpose: 2, bpm: 86, arp: .koto, melody: .ocarina, from: 0)
+        case "mill": return base("town").variant(transpose: -2, bpm: 88, arp: .piano, melody: .ocarina)
+        case "storm": return base("evening").variant(transpose: -3, bpm: 56, arp: .piano, melody: .flute)
+        case "glasslake": return base("fuji").variant(transpose: 0, bpm: 68, arp: .musicBox, melody: .flute)
+        case "bellflower": return base("night").variant(transpose: 3, bpm: 62, arp: .musicBox, melody: .musicBox)
+        case "giant": return base("satoyama").variant(transpose: -5, bpm: 58, arp: .koto, melody: .ocarina)
+        case "sunbeam": return base("evening").variant(transpose: 3, bpm: 70, arp: .koto, melody: .ocarina)
+        case "bridgeworks": return base("town").variant(transpose: 0, bpm: 104, arp: .koto, melody: .piano)
+        case "skygarden": return base("fuji").variant(transpose: 2, bpm: 88, arp: .koto, melody: .flute)
+        case "ruins": return base("night").variant(transpose: -2, bpm: 54, arp: .koto, melody: .flute)
+        case "echo": return base("evening").variant(transpose: -5, bpm: 56, arp: .musicBox, melody: .musicBox)
+        case "heart": return base("satoyama").variant(transpose: 4, bpm: 76, arp: .musicBox, melody: .flute, from: 0)
+        case "horizon": return base("day").variant(transpose: 0, bpm: 80, arp: .piano, melody: .ocarina, from: 0)
+        default: return base(theme)
+        }
+    }
+
+    private static func base(_ theme: String) -> Song {
         switch theme {
         case "evening":
             // Abendfluss – d-Moll/dorisch, Okarina über wiegendem Klavier

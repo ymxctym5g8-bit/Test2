@@ -109,8 +109,8 @@ dec("tree", (-3, 6, 3), 1.0, variant=2)
 dec("flowers", (-4, 6, 1), 0.8)
 
 level = {
-    "name": "Kapitel II · Das Lied des Flusses",
-    "theme": "evening",
+    "name": "Chapter 2 · The Song of the River",
+    "theme": "river", "chapter": 2, "goalItem": "seed",
     "start": [0, 0, 4], "goal": [-4, 6, 2],
     "groups": [
         {"id": "raft", "kind": "slide", "axis": [1, 0, 0], "value": 0, "min": 0, "max": 3, "handle": [3, 0, 2]},
@@ -127,17 +127,17 @@ level = {
         {"reach": [5, 1, 0], "target": "wheel"},
         {"target": "raft"},
     ],
-    "ending": {"text": "Der Fluss singt wieder. Irgendwo oben leuchtet ein Turm.",
+    "ending": {"text": "The river sings again. Somewhere above, a tower glows.",
                "tree": [-3, 6, 3],
                "spirits": [[1, 0, 3], [7, 0, 2], [5, 1, 1], [1, 1, 0], [3, 1, -2], [0, 3, -4], [0, 5, 1], [-3, 6, 2]]},
     "blocks": B, "decor": D,
     "texts": [
-        {"at": [0, 0, 4], "text": "Am Abend erzählt der Fluss von einem zweiten Samen."},
-        {"at": [7, 0, 2], "text": "Was treibt, kann tragen."},
-        {"at": [1, 1, 0], "text": "Ein leiser Klang – tief unten erwacht der Stein."},
-        {"at": [0, 3, -4], "text": "Manchmal muss man ein Stück zurückgehen, um weiterzukommen."},
-        {"at": [-3, 6, 1], "text": "Der zweite Schrein wartet schon lange."},
+        {"at": [0, 0, 4], "text": "In the evening, the river tells of a second seed."},
+        {"at": [7, 0, 2], "text": "What drifts can carry."},
+        {"at": [1, 1, 0], "text": "A soft chime – far below, the stone awakens."},
+        {"at": [0, 3, -4], "text": "Sometimes you have to step back to move on."},
+        {"at": [-3, 6, 1], "text": "The second shrine has waited a long time."},
     ],
 }
 json.dump(level, open(sys.argv[1], "w"), indent=1, ensure_ascii=False)
-print(len(B), "Blöcke,", len(D), "Deko")
+print(len(B), "blocks,", len(D), "decor")

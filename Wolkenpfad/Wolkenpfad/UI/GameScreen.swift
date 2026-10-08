@@ -13,28 +13,27 @@ enum Ink {
     static let soft = Color(red: 0.32, green: 0.24, blue: 0.3).opacity(0.65)
     static let paper = Color(red: 1, green: 0.97, blue: 0.92)
     static let accent = Color(red: 0.86, green: 0.36, blue: 0.3)
-    /// Neko no Machi: Tiefblau des Himmels und Postkasten-Rot
-    static let nekoBlue = Color(red: 0.16, green: 0.3, blue: 0.52)
-    static let nekoRed = Color(red: 0.85, green: 0.24, blue: 0.2)
+    static let gold = Color(red: 0.86, green: 0.64, blue: 0.3)
 }
-
-let romanNumerals = ["I", "II", "III", "IV", "V", "VI"]
 
 struct GameScreen: View {
     @StateObject private var game: GameCoordinator
-    let unlocked: Set<Int>
+    @EnvironmentObject private var progress: ChapterProgress
+    @EnvironmentObject private var store: Store
+    @State private var showChapters = false
+    @State private var showStore = false
     let onRestart: () -> Void
     let onSelect: (Int) -> Void
     let onCompleted: (Int) -> Void
 
-    init(levelIndex: Int, unlocked: Set<Int>, onRestart: @escaping () -> Void,
-         onSelect: @escaping (Int) -> Void, onCompleted: @escaping (Int) -> Void) {
+    init(levelIndex: Int, onRestart: @escaping () -> Void, onSelect: @escaping (Int) -> Void, onCompleted: @escaping (Int) -> Void) {
         _game = StateObject(wrappedValue: GameCoordinator(levelIndex: levelIndex))
-        self.unlocked = unlocked
         self.onRestart = onRestart
         self.onSelect = onSelect
         self.onCompleted = onCompleted
     }
+
+    private var playable: Bool { store.owns(chapter: game.levelIndex) && progress.reached(game.levelIndex) }
 
     var body: some View {
         GeometryReader { geo in
@@ -52,9 +51,6 @@ struct GameScreen: View {
                 if game.phase == .playing || game.phase == .ending {
                     VStack {
                         HStack {
-                            if game.sushiTotal > 0 {
-                                SushiCounter(count: game.sushiCount, total: game.sushiTotal)
-                            }
                             Spacer()
                             Button {
                                 game.menuOpen = true
@@ -65,7 +61,7 @@ struct GameScreen: View {
                                     .frame(width: 44, height: 44)
                                     .background(Circle().fill(Ink.paper.opacity(0.55)))
                             }
-                            .accessibilityLabel("Menü")
+                            .accessibilityLabel("Menu")
                         }
                         Spacer()
                     }
@@ -74,23 +70,24 @@ struct GameScreen: View {
                 }
 
                 if game.phase == .title {
-                    TitleOverlay(chapter: game.chapterTitle, current: game.levelIndex, unlocked: unlocked,
-                                 onSelect: onSelect) {
+                    TitleOverlay(level: game.levelIndex, playable: playable,
+                                 onChapters: { showChapters = true }, onStore: { showStore = true }) {
                         withAnimation(.easeInOut(duration: 1.2)) { game.startGame() }
                     }
                     .transition(.opacity)
                 }
 
                 if game.menuOpen {
-                    MenuOverlay(soundOn: $game.soundOn, neko: game.isNeko,
+                    MenuOverlay(soundOn: $game.soundOn,
                                 onResume: { game.menuOpen = false },
+                                onChapters: { showChapters = true },
                                 onRestart: onRestart)
                         .transition(.opacity)
                 }
 
                 if game.phase == .finished {
-                    EndOverlay(level: game.levelIndex, sushi: game.sushiCount, sushiTotal: game.sushiTotal,
-                               onReplay: onRestart, onSelect: onSelect)
+                    EndOverlay(level: game.levelIndex, onReplay: onRestart, onSelect: onSelect,
+                               onChapters: { showChapters = true }, onStore: { showStore = true })
                         .transition(.opacity)
                 }
             }
@@ -102,6 +99,20 @@ struct GameScreen: View {
         }
         .statusBarHidden(true)
         .persistentSystemOverlays(.hidden)
+        .sheet(isPresented: $showChapters) {
+            ChapterSelect(current: game.levelIndex, onSelect: { n in
+                showChapters = false
+                onSelect(n)
+            }, onStore: {
+                showChapters = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { showStore = true }
+            })
+            .environmentObject(progress)
+            .environmentObject(store)
+        }
+        .sheet(isPresented: $showStore) {
+            StoreView().environmentObject(store)
+        }
     }
 }
 
@@ -129,157 +140,116 @@ struct StoryText: View {
 }
 
 struct TitleOverlay: View {
-    let chapter: String
-    let current: Int
-    let unlocked: Set<Int>
-    let onSelect: (Int) -> Void
+    let level: Int
+    let playable: Bool
+    let onChapters: () -> Void
+    let onStore: () -> Void
     let onStart: () -> Void
     @State private var pulse = false
 
-    private var world: GameWorld { GameWorld.of(level: current) }
-    private var neko: Bool { world.id == "neko" }
-    private var ink: Color { neko ? Ink.nekoBlue : Ink.text }
-    private var accent: Color { neko ? Ink.nekoRed : Ink.accent }
-
-    private var chapterParts: (String, String) {
-        let parts = chapter.components(separatedBy: " · ")
-        return (parts.first ?? chapter, parts.count > 1 ? parts[1] : "")
-    }
-
     var body: some View {
+        let chapter = Catalog.chapter(level), act = Catalog.act(of: level)
         ZStack {
-            LinearGradient(colors: [Ink.paper.opacity(0.75), Ink.paper.opacity(0.15), .clear, Ink.paper.opacity(0.45)],
+            LinearGradient(colors: [Ink.paper.opacity(0.8), Ink.paper.opacity(0.15), .clear, Ink.paper.opacity(0.45)],
                            startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
-            VStack(spacing: 14) {
-                Spacer().frame(height: 70)
-                Text(world.title)
-                    .font(.system(size: neko ? 44 : 50, weight: neko ? .bold : .light, design: neko ? .rounded : .serif))
-                    .foregroundColor(ink)
+            VStack(spacing: 12) {
+                Spacer().frame(height: 64)
+                Text("Wolkenpfad")
+                    .font(.system(size: 50, weight: .light, design: .serif))
+                    .foregroundColor(Ink.text)
                     .shadow(color: .white, radius: 10)
-                if neko {
-                    Text("猫の町")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(accent)
-                }
-                Rectangle()
-                    .fill(accent.opacity(0.7))
-                    .frame(width: 46, height: 1.5)
-                Text(chapterParts.0)
-                    .font(.system(size: 14, weight: .regular, design: neko ? .rounded : .serif))
-                    .foregroundColor(ink.opacity(0.65))
-                Text(chapterParts.1)
-                    .font(.system(size: 19, weight: neko ? .semibold : .regular, design: neko ? .rounded : .serif))
-                    .italic(!neko)
-                    .foregroundColor(ink)
+                Text("A journey above the clouds")
+                    .font(.system(size: 14, design: .serif))
+                    .italic()
+                    .foregroundColor(Ink.soft)
+                Rectangle().fill(Ink.accent.opacity(0.7)).frame(width: 46, height: 1.5).padding(.vertical, 4)
+                Text("\(act.title) · \(act.subtitle)")
+                    .font(.system(size: 13, design: .serif))
+                    .foregroundColor(Ink.soft)
+                Text("Chapter \(level)")
+                    .font(.system(size: 14, weight: .regular, design: .serif))
+                    .foregroundColor(Ink.soft)
+                Text(chapter.title)
+                    .font(.system(size: 22, weight: .regular, design: .serif))
+                    .italic()
                     .multilineTextAlignment(.center)
+                    .foregroundColor(Ink.text)
+                    .padding(.horizontal, 30)
                 Spacer()
-                VStack(spacing: 10) {
-                    ForEach(GameWorld.all) { w in
-                        worldRow(w)
-                    }
+                HStack(spacing: 14) {
+                    pill("Chapters", icon: "book", action: onChapters)
+                    pill("Journey", icon: "sparkles", action: onStore)
                 }
-                .padding(.vertical, 12)
-                .padding(.horizontal, 16)
-                .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Ink.paper.opacity(0.7)))
-                Text("Tippe, um zu beginnen")
-                    .font(.system(size: 15, weight: .regular, design: neko ? .rounded : .serif))
-                    .foregroundColor(ink)
-                    .opacity(pulse ? 0.9 : 0.35)
-                    .padding(.top, 14)
-                    .padding(.bottom, 46)
+                if playable {
+                    Text("Tap to begin")
+                        .font(.system(size: 15, weight: .regular, design: .serif))
+                        .foregroundColor(Ink.text)
+                        .opacity(pulse ? 0.9 : 0.35)
+                        .padding(.top, 16)
+                        .padding(.bottom, 54)
+                } else {
+                    Button(action: onStore) {
+                        Label("Unlock \(act.title)", systemImage: "lock.open")
+                            .font(.system(size: 16, weight: .semibold, design: .serif))
+                            .foregroundColor(Ink.paper)
+                            .frame(width: 230, height: 46)
+                            .background(Capsule().fill(Ink.accent.opacity(0.9)))
+                    }
+                    .padding(.top, 16)
+                    .padding(.bottom, 50)
+                }
             }
         }
         .contentShape(Rectangle())
-        .onTapGesture(perform: onStart)
+        .onTapGesture { if playable { onStart() } }
         .onAppear {
             withAnimation(.easeInOut(duration: 1.6).repeatForever()) { pulse = true }
         }
     }
 
-    private func worldRow(_ w: GameWorld) -> some View {
-        let isNeko = w.id == "neko"
-        let rowInk = isNeko ? Ink.nekoBlue : Ink.text
-        let rowAccent = isNeko ? Ink.nekoRed : Ink.accent
-        return HStack(spacing: 12) {
-            Text(w.title)
-                .font(.system(size: 14, weight: .semibold, design: isNeko ? .rounded : .serif))
-                .foregroundColor(rowInk)
-                .frame(width: 112, alignment: .leading)
-            ForEach(Array(w.levels), id: \.self) { i in
-                Button {
-                    if i != current { onSelect(i) }
-                } label: {
-                    Text(romanNumerals[w.chapter(of: i) - 1])
-                        .font(.system(size: 15, weight: i == current ? .semibold : .regular, design: isNeko ? .rounded : .serif))
-                        .foregroundColor(unlocked.contains(i) ? rowInk : rowInk.opacity(0.25))
-                        .frame(width: 40, height: 40)
-                        .background(Circle().stroke(i == current ? rowAccent : rowInk.opacity(0.25), lineWidth: i == current ? 1.5 : 1))
-                }
-                .disabled(!unlocked.contains(i))
-                .accessibilityLabel("\(w.title), Kapitel \(w.chapter(of: i))")
-            }
+    private func pill(_ title: String, icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: icon)
+                .font(.system(size: 15, design: .serif))
+                .foregroundColor(Ink.text)
+                .padding(.horizontal, 18)
+                .frame(height: 40)
+                .background(Capsule().fill(Ink.paper.opacity(0.75)))
+                .overlay(Capsule().stroke(Ink.text.opacity(0.2)))
         }
-    }
-}
-
-struct SushiCounter: View {
-    let count: Int
-    let total: Int
-
-    var body: some View {
-        HStack(spacing: 6) {
-            Text("🍣")
-                .font(.system(size: 16))
-            Text("\(count) / \(total)")
-                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                .foregroundColor(Ink.nekoBlue)
-                .monospacedDigit()
-        }
-        .padding(.horizontal, 12)
-        .frame(height: 36)
-        .background(Capsule().fill(Ink.paper.opacity(0.7)))
-        .scaleEffect(count == total ? 1.08 : 1)
-        .animation(.spring(response: 0.3, dampingFraction: 0.5), value: count)
-        .accessibilityLabel("Sushi \(count) von \(total)")
     }
 }
 
 struct MenuOverlay: View {
     @Binding var soundOn: Bool
-    var neko = false
     let onResume: () -> Void
+    let onChapters: () -> Void
     let onRestart: () -> Void
 
     var body: some View {
         ZStack {
-            Ink.paper.opacity(0.82)
+            Ink.paper.opacity(0.84)
                 .ignoresSafeArea()
                 .onTapGesture(perform: onResume)
-            VStack(spacing: 26) {
-                Text("Innehalten")
-                    .font(.system(size: 32, weight: .light, design: .serif))
+            VStack(spacing: 22) {
+                Text("A Quiet Moment")
+                    .font(.system(size: 30, weight: .light, design: .serif))
                     .foregroundColor(Ink.text)
                 VStack(alignment: .leading, spacing: 10) {
-                    if neko {
-                        hint("pawprint", "Tippe auf einen Weg, und Mochi tapst dorthin.")
-                        hint("arrow.triangle.2.circlepath", "Ziehe an goldenen Kurbeln und Griffen, um die Stadt zu bewegen.")
-                        hint("eye", "Was für das Auge verbunden ist, ist auch begehbar.")
-                        hint("bird", "Warte einen Moment – der Spatz zeigt dir den Weg.")
-                        hint("fork.knife", "Sammle unterwegs das Sushi ein.")
-                    } else {
-                        hint("hand.tap", "Tippe auf einen Weg, und Hana geht dorthin.")
-                        hint("arrow.triangle.2.circlepath", "Ziehe an goldenen Kurbeln und Griffen, um die Welt zu bewegen.")
-                        hint("eye", "Was für das Auge verbunden ist, ist auch begehbar.")
-                        hint("leaf", "Warte einen Moment – Kiko zeigt dir den Weg.")
-                    }
+                    hint("hand.tap", "Tap a path and Hana walks there.")
+                    hint("arrow.triangle.2.circlepath", "Drag the golden cranks and handles to move the world.")
+                    hint("eye", "What looks connected is connected.")
+                    hint("circle.dotted", "Pressure stones wake sleeping mechanisms.")
+                    hint("leaf", "Wait a moment – Kiko will show you the way.")
                 }
                 .padding(.horizontal, 30)
-                menuButton(soundOn ? "Klang: an" : "Klang: aus", icon: soundOn ? "speaker.wave.2" : "speaker.slash") {
+                menuButton(soundOn ? "Sound: on" : "Sound: off", icon: soundOn ? "speaker.wave.2" : "speaker.slash") {
                     soundOn.toggle()
                 }
-                menuButton("Kapitel neu beginnen", icon: "arrow.counterclockwise", action: onRestart)
-                menuButton("Weiter", icon: "play", action: onResume)
+                menuButton("Chapters", icon: "book", action: onChapters)
+                menuButton("Restart chapter", icon: "arrow.counterclockwise", action: onRestart)
+                menuButton("Continue", icon: "play", action: onResume)
             }
         }
     }
@@ -296,7 +266,7 @@ struct MenuOverlay: View {
             Label(title, systemImage: icon)
                 .font(.system(size: 17, weight: .regular, design: .serif))
                 .foregroundColor(Ink.text)
-                .frame(width: 250, height: 48)
+                .frame(width: 250, height: 46)
                 .background(Capsule().stroke(Ink.text.opacity(0.35), lineWidth: 1))
         }
     }
@@ -304,82 +274,70 @@ struct MenuOverlay: View {
 
 struct EndOverlay: View {
     let level: Int
-    let sushi: Int
-    let sushiTotal: Int
     let onReplay: () -> Void
     let onSelect: (Int) -> Void
+    let onChapters: () -> Void
+    let onStore: () -> Void
+    @EnvironmentObject private var store: Store
     @State private var appear = false
 
-    private var world: GameWorld { GameWorld.of(level: level) }
-    private var neko: Bool { world.id == "neko" }
-    private var isLast: Bool { level >= world.levels.upperBound }
-    private var roman: String { romanNumerals[world.chapter(of: level) - 1] }
-    private var nextRoman: String { romanNumerals[min(world.chapter(of: level), romanNumerals.count - 1)] }
-    private var otherWorld: GameWorld { GameWorld.all.first { $0.id != world.id } ?? world }
-    private var ink: Color { neko ? Ink.nekoBlue : Ink.text }
-    private var accent: Color { neko ? Ink.nekoRed : Ink.accent }
-    private var design: Font.Design { neko ? .rounded : .serif }
+    private var isLast: Bool { level >= Catalog.count }
+    private var next: Int { level + 1 }
+    private var nextOwned: Bool { !isLast && store.owns(chapter: next) }
 
     private var message: String {
-        switch (neko, isLast) {
-        case (false, false): return "Der Wald erwacht. Doch hinter den Wolken\nwarten noch viele stille Türme."
-        case (false, true): return "Alle Samen ruhen in der Erde.\nDer Wald wird sich an dich erinnern."
-        case (true, false): return "Das Glöckchen klingt. Irgendwo hinter\nden Hügeln wartet schon das nächste."
-        case (true, true): return "Alle Glöckchen läuten über dem See.\nMochi ist angekommen."
+        if isLast { return "The cloud paths shine golden.\nThe journey is complete – for now." }
+        if Catalog.act(of: next).id != Catalog.act(of: level).id {
+            return "\(Catalog.act(of: level).title) is complete.\nThe wind is calling from further away."
         }
+        return "The wind remembers you.\nThe path goes on."
     }
 
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
             VStack(spacing: 12) {
-                Text("Kapitel \(roman) abgeschlossen")
-                    .font(.system(size: 28, weight: neko ? .semibold : .light, design: design))
-                    .foregroundColor(ink)
+                Text("Chapter \(level) complete")
+                    .font(.system(size: 28, weight: .light, design: .serif))
+                    .foregroundColor(Ink.text)
                 Text(message)
-                    .font(.system(size: 15, design: design))
-                    .italic(!neko)
+                    .font(.system(size: 15, design: .serif))
+                    .italic()
                     .multilineTextAlignment(.center)
-                    .foregroundColor(ink.opacity(0.65))
-                if sushiTotal > 0 {
-                    Text(sushi == sushiTotal ? "🍣 Alles Sushi gefunden – \(sushi) / \(sushiTotal)" : "🍣 \(sushi) / \(sushiTotal) Sushi gefunden")
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(ink)
-                }
-                if !isLast {
-                    Button { onSelect(level + 1) } label: {
-                        Label("Weiter zu Kapitel \(nextRoman)", systemImage: "arrow.right")
-                            .font(.system(size: 16, weight: .semibold, design: design))
-                            .foregroundColor(Ink.paper)
-                            .frame(width: 250, height: 46)
-                            .background(Capsule().fill(accent.opacity(0.9)))
-                    }
-                    .padding(.top, 8)
+                    .foregroundColor(Ink.soft)
+                if isLast {
+                    primary("Choose a chapter", icon: "book", action: onChapters)
+                } else if nextOwned {
+                    primary("Continue to Chapter \(next)", icon: "arrow.right") { onSelect(next) }
                 } else {
-                    Button { onSelect(otherWorld.levels.lowerBound) } label: {
-                        Label("Zu \(otherWorld.title)", systemImage: "arrow.right")
-                            .font(.system(size: 16, weight: .semibold, design: design))
-                            .foregroundColor(Ink.paper)
-                            .frame(width: 250, height: 46)
-                            .background(Capsule().fill(accent.opacity(0.9)))
-                    }
-                    .padding(.top, 8)
+                    primary("Unlock \(Catalog.act(of: next).title)", icon: "lock.open", action: onStore)
                 }
-                Button(action: isLast ? { onSelect(world.levels.lowerBound) } : onReplay) {
-                    Label(isLast ? "Von vorn beginnen" : "Noch einmal", systemImage: "arrow.counterclockwise")
-                        .font(.system(size: 16, design: design))
-                        .foregroundColor(ink)
+                Button(action: onReplay) {
+                    Label("Play again", systemImage: "arrow.counterclockwise")
+                        .font(.system(size: 16, design: .serif))
+                        .foregroundColor(Ink.text)
                         .frame(width: 250, height: 44)
-                        .background(Capsule().stroke(ink.opacity(0.35)))
+                        .background(Capsule().stroke(Ink.text.opacity(0.35)))
                 }
             }
             .padding(26)
-            .background(RoundedRectangle(cornerRadius: 26, style: .continuous).fill(Ink.paper.opacity(0.88)))
+            .background(RoundedRectangle(cornerRadius: 26, style: .continuous).fill(Ink.paper.opacity(0.9)))
             .padding(.horizontal, 24)
             .padding(.bottom, 40)
             .opacity(appear ? 1 : 0)
             .offset(y: appear ? 0 : 20)
         }
         .onAppear { withAnimation(.easeOut(duration: 1.2)) { appear = true } }
+    }
+
+    private func primary(_ title: String, icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: icon)
+                .font(.system(size: 16, weight: .semibold, design: .serif))
+                .foregroundColor(Ink.paper)
+                .frame(width: 250, height: 46)
+                .background(Capsule().fill(Ink.accent.opacity(0.9)))
+        }
+        .padding(.top, 8)
     }
 }

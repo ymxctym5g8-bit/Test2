@@ -1,6 +1,8 @@
 {
- "name": "Kapitel I · Der Samen des Waldes",
- "theme": "day",
+ "name": "Chapter 1 · The Seed of the Forest",
+ "theme": "meadow",
+ "chapter": 1,
+ "goalItem": "seed",
  "hints": [
   {
    "reach": [
@@ -31,7 +33,7 @@
   }
  ],
  "ending": {
-  "text": "Wo ein Samen Wurzeln schlägt, kehrt der Wald zurück.",
+  "text": "Where a seed takes root, the forest returns.",
   "tree": [
    5,
    6,
@@ -1265,6 +1267,36 @@
    "r": 0.0
   },
   {
+   "t": "butterflies",
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    1,
+    -4,
+    4
+   ],
+   "s": 1.4,
+   "r": 0.0
+  },
+  {
    "t": "bush",
    "p": [
     1,
@@ -1419,7 +1451,7 @@
     0,
     4
    ],
-   "text": "Ein Samen, so alt wie der Wind, ruht über den Wolken."
+   "text": "A seed as old as the wind rests above the clouds."
   },
   {
    "at": [
@@ -1427,7 +1459,7 @@
     1,
     0
    ],
-   "text": "Nicht jeder Weg liegt offen. Manche wollen bewegt werden."
+   "text": "Not every path lies open. Some want to be moved."
   },
   {
    "at": [
@@ -1435,7 +1467,7 @@
     4,
     -2
    ],
-   "text": "Manche Wege sieht man erst, wenn man die Welt anders betrachtet."
+   "text": "Some paths appear only when you look at the world differently."
   },
   {
    "at": [
@@ -1443,7 +1475,7 @@
     6,
     0
    ],
-   "text": "Der Schrein erinnert sich an den Wald."
+   "text": "The shrine remembers the forest."
   }
  ]
 }

@@ -100,9 +100,12 @@ struct PlateDef: Codable {
     let at: IVec3
 }
 
-/// Sobald alle genannten Platten gedrückt sind, fährt die Gruppe in die Zielstellung.
+/// Steuert eine gesperrte Gruppe: Sind alle genannten Platten gedrückt und stehen alle genannten
+/// Gruppen in der verlangten Stellung, fährt die Gruppe in die Zielstellung – sonst in ihre Ausgangsstellung.
+/// Der erste zutreffende Auslöser einer Gruppe gilt. (Platten bleiben gedrückt, Zustände können sich ändern.)
 struct TriggerDef: Codable {
-    let plates: [String]
+    let plates: [String]?
+    let states: [String: Int]?
     let group: String
     let value: Int
 }
@@ -123,6 +126,8 @@ struct EndingDef: Codable {
 
 struct LevelDef: Codable {
     let name: String
+    /// Kapitelnummer (1 … 18).
+    let chapter: Int?
     let theme: String?
     let start: IVec3
     let goal: IVec3
@@ -144,7 +149,7 @@ struct LevelDef: Codable {
     let backdrop: String?
     /// Sammel-Sushi auf festen Feldern.
     let sushi: [IVec3]?
-    /// Gegenstand auf dem Zielaltar: "seed" (Standard) oder "bell".
+    /// Gegenstand auf dem Zielaltar: seed (Standard), harp, letter, feather, gear, prism, lamp, string, heart, bell.
     let goalItem: String?
 
     static func load(_ resource: String) -> LevelDef {
@@ -205,6 +210,11 @@ final class LevelLogic {
     let groupsByID: [String: GroupDef]
     let startBlock: Int
     let goalBlock: Int
+    /// Gedrückte Platten (bleiben gedrückt).
+    private(set) var pressed = Set<String>()
+    /// Gruppen, die nur von Auslösern bewegt werden.
+    let derivedGroups: [String]
+    private let initialState: [String: Int]
 
     init(def: LevelDef) {
         self.def = def
@@ -216,9 +226,14 @@ final class LevelLogic {
         }
         groupsByID = g
         state = st
+        initialState = st
+        var d: [String] = []
+        for t in def.triggers ?? [] where !d.contains(t.group) { d.append(t.group) }
+        derivedGroups = d
         startBlock = def.blocks.firstIndex { $0.p == def.start && $0.g == nil } ?? 0
         goalBlock = def.blocks.firstIndex { $0.p == def.goal && $0.g == nil }
             ?? def.blocks.firstIndex { $0.p == def.goal } ?? 0
+        state = derived(state, pressed: [])   // gekoppelte Teile stehen von Anfang an richtig
         rebuild()
     }
 
@@ -243,10 +258,22 @@ final class LevelLogic {
         return (p, dir)
     }
 
-    /// Prüft, ob ein Mechanismus-Zustand Blöcke überlappen lassen würde.
+    /// Prüft, ob ein Mechanismus-Zustand Blöcke überlappen lassen würde (Durchgangsstellung beim Ziehen:
+    /// die übrigen Gruppen behalten ihre jetzige Stellung).
     func isFree(group: String, value: Int) -> Bool {
         var st = state
         st[group] = value
+        return cellsFree(st)
+    }
+
+    /// Endstellung: Auch die von Auslösern gesteuerten Gruppen fahren mit – darf nichts überlappen?
+    func isSettleFree(group: String, value: Int) -> Bool {
+        var st = state
+        st[group] = value
+        return cellsFree(derived(st, pressed: pressed))
+    }
+
+    private func cellsFree(_ st: [String: Int]) -> Bool {
         var cells = Set<IVec3>()
         for i in def.blocks.indices {
             let c = worldCell(i, in: st).0
@@ -255,6 +282,36 @@ final class LevelLogic {
         }
         return true
     }
+
+    /// Stellungen der gesteuerten Gruppen für einen Zustand und die gedrückten Platten.
+    func derived(_ base: [String: Int], pressed: Set<String>) -> [String: Int] {
+        var st = base
+        for g in derivedGroups { st[g] = initialState[g] ?? 0 }
+        for _ in 0..<4 {
+            var changed = false
+            for g in derivedGroups {
+                var v = initialState[g] ?? 0
+                for t in def.triggers ?? [] where t.group == g {
+                    let platesOK = (t.plates ?? []).allSatisfy { pressed.contains($0) }
+                    let statesOK = (t.states ?? [:]).allSatisfy { st[$0.key] == $0.value }
+                    if platesOK && statesOK { v = t.value; break }
+                }
+                if st[g] != v { st[g] = v; changed = true }
+            }
+            if !changed { break }
+        }
+        return st
+    }
+
+    /// Gesteuerte Gruppen, die gerade woanders stehen sollten (Gruppe → Zielstellung).
+    func pendingTriggers() -> [String: Int] {
+        let want = derived(state, pressed: pressed)
+        var out: [String: Int] = [:]
+        for g in derivedGroups where want[g] != state[g] { out[g] = want[g] }
+        return out
+    }
+
+    func press(_ plate: String) { pressed.insert(plate) }
 
     func setState(_ group: String, _ v: Int) {
         state[group] = v

@@ -31,17 +31,19 @@ final class WorldNodes {
     var shrineTree: SCNNode?
     var grassTiles: [SIMD3<Float>] = []
     var plates: [String: (node: SCNNode, rune: SCNMaterial)] = [:]
-    /// Sammel-Sushi nach Feld.
-    var sushi: [IVec3: SCNNode] = [:]
 }
 
 enum WorldBuilder {
+    /// Kapitel, in denen von selbst Gras, Büsche und Ranken wachsen.
+    private static let lush: Set<String> = ["meadow", "river", "lanterns", "mist", "grassvale", "mill", "storm", "bellflower",
+                                             "giant", "sunbeam", "bridgeworks", "skygarden", "ruins", "horizon"]
+
     static func build(_ logic: LevelLogic, theme: Theme) -> WorldNodes {
         let w = WorldNodes()
         w.root.name = "level"
         let def = logic.def
 
-        // Gruppen (Drehbrücke, Aufzug, Bogenarm)
+        // Gruppen (Drehbrücken, Aufzüge, Spiegel, Harfenwirbel …)
         for g in def.groups {
             let n = SCNNode()
             n.name = "group:\(g.id)"
@@ -66,32 +68,40 @@ enum WorldBuilder {
 
         // Blöcke
         var boxCache: [String: SCNGeometry] = [:]
-        var lipMaterial: SCNMaterial?
+        var lipCache: [String: SCNMaterial] = [:]
         let occupied = Set(def.blocks.map { $0.p })
         for (i, b) in def.blocks.enumerated() {
             let node: SCNNode
             if let st = b.stair {
-                node = stairNode(material: b.m, dir: st)
+                node = stairNode(material: b.m, dir: st, theme: theme)
             } else {
                 let geo: SCNGeometry
                 if let cached = boxCache[b.m] {
                     geo = cached
                 } else {
                     let box = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0.025)
-                    box.materials = Art.blockMaterials(b.m)
+                    box.materials = Art.blockMaterials(b.m, theme: theme)
                     boxCache[b.m] = box
                     geo = box
                 }
                 node = SCNNode(geometry: geo)
-                // Moosiger Grasrand, der leicht über die Kante hängt
-                if b.m == "grass" && !occupied.contains(b.p + IVec3(0, 1, 0)) {
-                    if lipMaterial == nil { lipMaterial = Art.mat(Art.painted(Palette.grass, seed: 13, dabs: 60, strength: 0.15)) }
+                // Moosiger Rand, der leicht über die Kante hängt
+                if (b.m == "grass" || b.m == "moss") && !occupied.contains(b.p + IVec3(0, 1, 0)) {
+                    let lipMat: SCNMaterial
+                    if let m = lipCache[b.m] { lipMat = m } else {
+                        lipMat = Art.mat(Art.painted(theme.colors(b.m).top, seed: 13, dabs: 70, strength: 0.16 * theme.brush))
+                        lipCache[b.m] = lipMat
+                    }
                     let lip = SCNBox(width: 1.05, height: 0.08, length: 1.05, chamferRadius: 0.035)
-                    lip.materials = [lipMaterial!]
+                    lip.materials = [lipMat]
                     let ln = SCNNode(geometry: lip)
                     ln.simdPosition = SIMD3(0, 0.47, 0)
                     ln.categoryBitMask = Props.blockCategory
                     node.addChildNode(ln)
+                }
+                if b.m == "light" || b.m == "ghost" {
+                    node.castsShadow = false
+                    node.runAction(.repeatForever(.sequence([.fadeOpacity(to: 0.82, duration: 1.6), .fadeOpacity(to: 1, duration: 1.6)])))
                 }
             }
             node.name = "block:\(i)"
@@ -101,114 +111,55 @@ enum WorldBuilder {
             node.simdPosition = local
             parent.addChildNode(node)
             w.blockNodes[i] = node
-            if b.walk && ["grass", "satograss", "autumn"].contains(b.m) && b.g == nil {
+            if b.walk && (b.m == "grass" || b.m == "moss") && b.g == nil {
                 w.grassTiles.append(b.p.float3 + SIMD3(0, 0.5, 0))
             }
         }
 
         // Dekoration
+        var decorCells = Set<IVec3>()
         for (i, d) in def.decor.enumerated() {
-            let s = Float(d.s)
+            decorCells.insert(d.p)
             let seed = UInt64(i * 7919 + 17)
             let (parent, local) = parentAndLocal(d.p, group: d.g)
-            var n: SCNNode?
-            var offset = SIMD3<Float>(0, 0.5, 0)
-            switch d.t {
-            case "tree":
-                n = Props.tree(scale: s, variant: d.variant ?? 0, seed: seed)
-                if let endTree = def.ending?.tree, d.p == endTree { w.shrineTree = n }
-            case "bush": n = Props.bush(scale: s)
-            case "flowers": n = Props.flowers(scale: s, seed: seed)
-            case "grass": n = Props.grass(scale: s, seed: seed)
-            case "mushroom": n = Props.mushroom(scale: s)
-            case "rock": n = Props.rock(scale: s)
-            case "lantern": n = Props.lantern(scale: s, boost: theme.lanternBoost)
-            case "bamboo": n = Props.bamboo(scale: s, seed: seed)
-            case "millwheel":
-                n = Props.millwheel(face: d.face ?? "+z")
-                offset = .zero
-            case "vine":
-                n = Props.vines(scale: s, seed: seed)
-                offset = SIMD3(0, 0.5, 0.5)
-            case "torii": n = Props.torii(scale: s)
-            case "altar":
-                let (a, seedNode) = Props.altar(scale: s)
-                n = a
-                w.seed = seedNode
-                if def.goalItem == "bell" {
-                    // Statt des Samens schwebt ein goldenes Glöckchen über dem Altar.
-                    seedNode.childNodes.forEach { $0.removeFromParentNode() }
-                    seedNode.addChildNode(Props.bell())
-                    seedNode.addChildNode(Props.billboardGlow(size: 0.6, color: UIColor(red: 1, green: 0.9, blue: 0.55, alpha: 0.8)))
-                }
-            // Neko-no-Machi-Kulisse
-            case "house": n = Props.house(variant: d.variant ?? 0, scale: s)
-            case "pole": n = Props.powerPole(scale: s)
-            case "laundry":
-                n = Props.laundry(seed: seed)
-                offset = SIMD3(0, 0.5, 0.5)
-            case "vending": n = Props.vending()
-            case "postbox": n = Props.postbox()
-            case "bench": n = Props.bench()
-            case "planter": n = Props.planter(seed: seed)
-            case "chochin": n = Props.chochin(scale: s)
-            case "minka": n = Props.minka(scale: s)
-            case "jizo": n = Props.jizo()
-            case "kakashi": n = Props.kakashi()
-            case "haystack": n = Props.haystack()
-            case "pagoda": n = Props.pagoda(scale: s)
-            case "lookout": n = Props.lookout()
-            case "dango": n = Props.dangoStall()
-            case "pinerock": n = Props.pineRock()
-            case "pond": n = Props.pondDetails()
-            case "waterfall":
-                n = Props.waterfall()
-                offset = SIMD3(0.52, 0.4, 0)
-            case "crank":
-                let (c, spinner) = Props.crank(face: d.face ?? "+x")
-                c.name = "crank:\(d.g ?? "")"
-                n = c
-                offset = .zero
-                if let g = d.g {
-                    w.spinners[g] = spinner
-                    w.handles[g] = c
-                }
-            case "handle":
-                let h = Props.liftHandle(axis: d.axis ?? "y")
-                h.name = "crank:\(d.g ?? "")"
-                n = h
-                offset = .zero
-                if let g = d.g { w.handles[g] = h }
-            default: break
-            }
-            guard let node = n else { continue }
-            node.enumerateHierarchy { c, _ in
-                if c.categoryBitMask != Props.mechanismCategory { c.categoryBitMask = Props.decorCategory }
-            }
-            let holder = SCNNode()
-            holder.addChildNode(node)
-            holder.simdPosition = local + offset
-            holder.eulerAngles.y = Float(d.r)
-            holder.categoryBitMask = Props.decorCategory
-            parent.addChildNode(holder)
+            guard let made = makeDecor(d, seed: seed, def: def, theme: theme, w: w) else { continue }
+            place(made.0, at: local + made.1, rotation: Float(d.r), in: parent)
         }
 
-        // Stromleitungen zwischen Masten (nur feste Masten), mit Spatzen darauf
-        for d in def.decor where d.t == "pole" && d.g == nil {
+        // Verbindungen: Seile, Wimpel, Harfensaiten
+        for (i, d) in def.decor.enumerated() where ["rope", "pennant", "harpstring"].contains(d.t) {
             guard let to = d.to else { continue }
-            let top = SIMD3<Float>(0, 0.5 + 1.55 * Float(d.s), 0)
-            let wire = Props.wire(from: d.p.float3 + top, to: to.float3 + top, sparrows: d.variant ?? 0)
-            wire.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
-            w.root.addChildNode(wire)
+            let h: Float = d.t == "harpstring" ? 1.2 * Float(d.s) : 0.9 * Float(d.s)
+            let a = d.p.float3 + SIMD3(0, 0.5 + h, 0), b = to.float3 + SIMD3(0, 0.5 + h, 0)
+            let n = Props.span(d.t, from: a, to: b, seed: UInt64(i + 5))
+            n.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
+            let (parent, _) = parentAndLocal(d.p, group: d.g)
+            if parent === w.root { w.root.addChildNode(n) }
         }
 
-        // Sushi zum Einsammeln
-        for (k, p) in (def.sushi ?? []).enumerated() {
-            let n = Props.sushi(kind: k)
-            n.simdPosition = p.float3 + SIMD3(0, 0.78, 0)
-            n.enumerateHierarchy { c, _ in c.categoryBitMask = Props.decorCategory }
-            w.root.addChildNode(n)
-            w.sushi[p] = n
+        // Ghibli: Die Natur erobert sich die Steine zurück – kleine Büsche, Gras und Ranken
+        if lush.contains(theme.name) {
+            let reserved = Set([def.start, def.goal] + (def.plates ?? []).map { $0.at } + def.texts.map { $0.at })
+            for (i, b) in def.blocks.enumerated() where b.g == nil && b.stair == nil {
+                let p = b.p
+                guard !occupied.contains(p + IVec3(0, 1, 0)), !decorCells.contains(p), !reserved.contains(p) else { continue }
+                guard ["grass", "moss", "stone", "rock", "stonedark"].contains(b.m) else { continue }
+                var rng = Rand(UInt64(abs(p.x * 73856093 ^ p.y * 19349663 ^ p.z * 83492791)) &+ 7)
+                let roll = rng.next()
+                if !b.walk && roll < 0.42 {
+                    let pick = rng.next()
+                    let n: SCNNode = pick < 0.35 ? Props.bush(scale: Float(rng.range(0.6, 0.9)))
+                        : pick < 0.7 ? Props.grass(scale: 1, seed: UInt64(i))
+                        : pick < 0.85 ? Props.flowers(scale: 0.8, seed: UInt64(i)) : Props.mushroom(scale: 0.8)
+                    place(n, at: p.float3 + SIMD3(0, 0.5, 0), rotation: Float(rng.range(0, 6)), in: w.root)
+                } else if b.walk && roll < 0.1 && (b.m == "grass" || b.m == "moss") {
+                    place(Props.grass(scale: 0.7, seed: UInt64(i)), at: p.float3 + SIMD3(0, 0.5, 0), rotation: 0, in: w.root)
+                }
+                // Ranken an Inselkanten (vorne frei, darunter frei)
+                if !occupied.contains(p + IVec3(0, 0, 1)) && !occupied.contains(p + IVec3(0, -1, 0)) && rng.next() < 0.22 {
+                    place(Props.vines(scale: 0.8, seed: UInt64(i + 3)), at: p.float3 + SIMD3(0, 0.5, 0.5), rotation: 0, in: w.root)
+                }
+            }
         }
 
         // Druckplatten
@@ -224,11 +175,98 @@ enum WorldBuilder {
         return w
     }
 
+    private static func place(_ node: SCNNode, at p: SIMD3<Float>, rotation: Float, in parent: SCNNode) {
+        node.enumerateHierarchy { c, _ in
+            if c.categoryBitMask != Props.mechanismCategory { c.categoryBitMask = Props.decorCategory }
+        }
+        let holder = SCNNode()
+        holder.addChildNode(node)
+        holder.simdPosition = p
+        holder.eulerAngles.y = rotation
+        holder.categoryBitMask = Props.decorCategory
+        parent.addChildNode(holder)
+    }
+
+    /// Ein Dekorationsobjekt und seine Lage relativ zur Feldmitte.
+    private static func makeDecor(_ d: DecorDef, seed: UInt64, def: LevelDef, theme: Theme, w: WorldNodes) -> (SCNNode, SIMD3<Float>)? {
+        let s = Float(d.s)
+        let top = SIMD3<Float>(0, 0.5, 0), front = SIMD3<Float>(0, 0.5, 0.5)
+        switch d.t {
+        case "tree":
+            let n = Props.tree(scale: s, variant: d.variant ?? 0, seed: seed)
+            if let endTree = def.ending?.tree, d.p == endTree { w.shrineTree = n }
+            return (n, top)
+        case "bush": return (Props.bush(scale: s), top)
+        case "flowers": return (Props.flowers(scale: s, seed: seed), top)
+        case "grass": return (Props.grass(scale: s, seed: seed), top)
+        case "tallgrass": return (Props.tallGrass(scale: s, seed: seed), top)
+        case "mushroom": return (Props.mushroom(scale: s), top)
+        case "rock": return (Props.rock(scale: s), top)
+        case "bamboo": return (Props.bamboo(scale: s, seed: seed), top)
+        case "oak": return (Props.oak(scale: s, seed: seed), top)
+        case "bellflower": return (Props.bellflower(scale: s, seed: seed, lights: theme.night), top)
+        case "butterflies": return (Props.butterflies(scale: s, seed: seed), top)
+        case "cloudpuff": return (Props.cloudPuff(scale: s, seed: seed), top)
+        case "lantern": return (Props.lantern(scale: s, boost: theme.lanternBoost), top)
+        case "torii": return (Props.torii(scale: s), top)
+        case "millwheel": return (Props.millwheel(face: d.face ?? "+z"), .zero)
+        case "windmill": return (Props.windmill(face: d.face ?? "+z", scale: s), top)
+        case "house": return (Props.house(variant: d.variant ?? 0, scale: s), top)
+        case "chest": return (Props.chest(scale: s), top)
+        case "beam": return (Props.beam(scale: s), top)
+        case "notebook": return (Props.notebook(), top)
+        case "letters": return (Props.letters(seed: seed), front)
+        case "vine": return (Props.vines(scale: s, seed: seed), front)
+        case "scaffold": return (Props.scaffold(scale: s), top)
+        case "pillar": return (Props.pillar(scale: s, seed: seed), top)
+        case "gear": return (Props.gear(face: d.face ?? "+z", scale: s), .zero)
+        case "mirror": return (Props.mirror(scale: s), top)
+        case "vent": return (Props.vent(), top)
+        case "lightshaft": return (Props.lightShaft(scale: s), top)
+        case "windharp": return (Props.windharp(scale: s), top)
+        case "kodama": return (Props.kodama(scale: s, seed: seed), top)
+        case "oldwoman": return (Props.oldWoman(), top)
+        case "guardian": return (Props.guardian(scale: s), top)
+        case "projection": return (Props.projection(scale: s), top)
+        case "giantface":
+            let face = d.face ?? "+z"
+            return (Props.giantFace(face: face, scale: s), face == "+x" ? SIMD3(0.52, 0.5, 0) : SIMD3(0, 0.5, 0.52))
+        case "pond": return (Props.pondDetails(), top)
+        case "waterfall": return (Props.waterfall(), SIMD3(0.52, 0.4, 0))
+        case "rope", "pennant", "harpstring":
+            // Pfosten am Anfang; die Leine selbst entsteht danach
+            if d.t == "harpstring" { return (Props.billboardGlow(size: 0.5, color: UIColor(hex: 0xFFF0C8, alpha: 0.8)).withPosition(SIMD3(0, 1.2 * s, 0)), top) }
+            return (Props.cylinder(0.03, 0.9 * s, UIColor(hex: 0x8A6A44), SIMD3(0, 0.45 * s, 0)), top)
+        case "altar":
+            let (a, seedNode) = Props.altar(scale: s)
+            w.seed = seedNode
+            if let item = def.goalItem, item != "seed" {
+                seedNode.childNodes.forEach { $0.removeFromParentNode() }
+                seedNode.addChildNode(Props.goalItem(item))
+            }
+            return (a, top)
+        case "crank":
+            let (c, spinner) = Props.crank(face: d.face ?? "+x")
+            c.name = "crank:\(d.g ?? "")"
+            if let g = d.g {
+                w.spinners[g] = spinner
+                w.handles[g] = c
+            }
+            return (c, .zero)
+        case "handle":
+            let h = Props.liftHandle(axis: d.axis ?? "y")
+            h.name = "crank:\(d.g ?? "")"
+            if let g = d.g { w.handles[g] = h }
+            return (h, .zero)
+        default:
+            return nil
+        }
+    }
+
     /// Treppe aus vier Stufen; Grundform steigt Richtung −Z an.
-    static func stairNode(material: String, dir: String) -> SCNNode {
+    static func stairNode(material: String, dir: String, theme: Theme) -> SCNNode {
         let root = SCNNode()
-        let mats = Art.blockMaterials(material)
-        // Sockel unter den Stufen
+        let mats = Art.blockMaterials(material, theme: theme)
         for i in 0..<4 {
             let h = Float(i + 1) * 0.25
             let box = SCNBox(width: 1, height: CGFloat(h), length: 0.25, chamferRadius: 0.012)
@@ -246,29 +284,34 @@ enum WorldBuilder {
 // MARK: - Himmel, Wolken, Licht
 
 enum Atmosphere {
-    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float, theme: Theme,
-                      backdrop: String? = nil) -> (sun: SCNNode, clouds: [SCNNode]) {
+    static func setup(scene: SCNScene, basis: ViewBasis, scale: Float, theme: Theme) -> (sun: SCNNode, clouds: [SCNNode]) {
         scene.background.contents = Art.skyGradient(theme)
 
-        // Ferne Kulisse (Neko-Kapitel): zwischen Himmelswolken und Wolkenmeer
-        if let name = backdrop {
-            let w = scale * 2.3
-            let plane = SCNPlane(width: CGFloat(w), height: CGFloat(w / 2))
-            let m = SCNMaterial()
-            m.diffuse.contents = Art.backdrop(name)
-            m.lightingModel = .constant
-            m.writesToDepthBuffer = false
-            plane.materials = [m]
-            let n = SCNNode(geometry: plane)
-            n.simdPosition = basis.world(u: 0, v: -2.2 * scale / 11, depth: -24)
-            n.constraints = [SCNBillboardConstraint()]
-            n.renderingOrder = -55
-            n.castsShadow = false
-            n.categoryBitMask = Props.decorCategory
-            scene.rootNode.addChildNode(n)
+        // Luftperspektive: ferne Teile verblassen im Dunst
+        if let haze = theme.haze {
+            scene.fogColor = haze
+            scene.fogStartDistance = 86
+            scene.fogEndDistance = 170
+            scene.fogDensityExponent = 1.2
         }
 
-        // Licht: warme Abendsonne + bläuliches Himmelslicht
+        // Ferne, gemalte Kulisse zwischen Himmelswolken und Wolkenmeer
+        let bw = scale * 2.4
+        let plane = SCNPlane(width: CGFloat(bw), height: CGFloat(bw / 2))
+        let bm = SCNMaterial()
+        bm.diffuse.contents = Art.backdrop(theme.backdrop, theme: theme)
+        bm.lightingModel = .constant
+        bm.writesToDepthBuffer = false
+        plane.materials = [bm]
+        let backdrop = SCNNode(geometry: plane)
+        backdrop.simdPosition = basis.world(u: 0, v: -2.4 * scale / 11, depth: -24)
+        backdrop.constraints = [SCNBillboardConstraint()]
+        backdrop.renderingOrder = -55
+        backdrop.castsShadow = false
+        backdrop.categoryBitMask = Props.decorCategory
+        scene.rootNode.addChildNode(backdrop)
+
+        // Licht: Sonne (oder Mond) und Himmelslicht
         let sun = SCNNode()
         let light = SCNLight()
         light.type = .directional
@@ -276,13 +319,13 @@ enum Atmosphere {
         light.intensity = theme.sunIntensity
         light.castsShadow = true
         light.shadowMode = .forward
-        light.shadowColor = UIColor(red: 0.3, green: 0.2, blue: 0.4, alpha: 0.38)
-        light.shadowRadius = 4
+        light.shadowColor = UIColor(red: 0.3, green: 0.22, blue: 0.4, alpha: theme.night ? 0.3 : 0.4)
+        light.shadowRadius = 5
         light.shadowSampleCount = 8
         light.shadowMapSize = CGSize(width: 2048, height: 2048)
-        light.orthographicScale = 14
+        light.orthographicScale = 16
         light.zNear = 1
-        light.zFar = 80
+        light.zFar = 90
         light.categoryBitMask = -1
         sun.light = light
         sun.simdPosition = basis.target + SIMD3(14, 30, 6)
@@ -296,15 +339,30 @@ enum Atmosphere {
         ambient.light?.intensity = theme.ambientIntensity
         scene.rootNode.addChildNode(ambient)
 
+        // Gewitter: ab und zu ein fahler Blitz
+        if theme.lightning {
+            let flash = SCNNode()
+            flash.light = SCNLight()
+            flash.light?.type = .ambient
+            flash.light?.color = UIColor(hex: 0xDDE6FF)
+            flash.light?.intensity = 0
+            scene.rootNode.addChildNode(flash)
+            let strike = SCNAction.customAction(duration: 0.5) { node, t in
+                let k = t / 0.5
+                node.light?.intensity = k < 0.15 ? 1600 : (k < 0.3 ? 200 : (k < 0.42 ? 1100 : CGFloat(1 - k) * 600))
+            }
+            let thunder = SCNAction.run { _ in SoundEngine.shared.rumble() }
+            flash.runAction(.repeatForever(.sequence([.wait(duration: 9, withRange: 8), strike,
+                                                      .customAction(duration: 0) { n, _ in n.light?.intensity = 0 }, thunder])))
+        }
+
         // Wolken: hinten am Himmel, unten als Wolkenmeer und ein paar ganz vorne
         var clouds: [SCNNode] = []
         let sky: [(u: Float, v: Float, d: Float, w: Float, warm: Bool)] = [
             (-5, 7.5, -30, 9, false), (5.5, 9.5, -32, 11, false), (-1, 12, -34, 8, true),
             (6, 2, -28, 7, true), (-6.5, 1, -28, 8, false),
-            // Wolkenmeer
             (-5, -8.5, -12, 11, true), (2, -9.5, -14, 13, false), (7, -7.5, -16, 10, true),
             (-1, -11, -10, 14, false), (-7, -10.5, -9, 12, false), (5, -11.5, -8, 13, true),
-            // Vordergrund (halb transparent über dem Inselfels)
             (-4.5, -7.2, 18, 7, false), (4.8, -8.4, 20, 8, true),
         ]
         for (i, c) in sky.enumerated() {
@@ -331,73 +389,92 @@ enum Atmosphere {
         }
 
         // Sonne – oder nachts der Mond – hinter allem
-        let glowColor = theme.stars ? UIColor(red: 0.8, green: 0.86, blue: 1, alpha: 0.7)
-            : (theme.name == "evening" ? UIColor(red: 1, green: 0.75, blue: 0.5, alpha: 0.9) : UIColor(red: 1, green: 0.95, blue: 0.8, alpha: 0.8))
+        let glowColor = theme.stars ? UIColor(red: 0.8, green: 0.86, blue: 1, alpha: 0.7) : theme.sun.withAlphaComponent(0.85)
         let sunGlow = Props.billboardGlow(size: CGFloat(scale * 1.6), color: glowColor)
         sunGlow.simdPosition = basis.world(u: 3.5 * scale / 11, v: 8 * scale / 11, depth: -40)
         sunGlow.renderingOrder = -60
         sunGlow.castsShadow = false
         scene.rootNode.addChildNode(sunGlow)
         if theme.stars {
-            let moon = SCNNode(geometry: SCNPlane(width: CGFloat(scale * 0.16), height: CGFloat(scale * 0.16)))
-            let mm = SCNMaterial()
-            mm.diffuse.contents = Art.glow(color: UIColor(red: 0.98, green: 0.97, blue: 0.9, alpha: 1))
-            mm.lightingModel = .constant
-            mm.writesToDepthBuffer = false
-            moon.geometry?.materials = [mm]
-            moon.constraints = [SCNBillboardConstraint()]
-            moon.simdPosition = sunGlow.simdPosition + ViewBasis.back * 0.5
-            moon.renderingOrder = -59
-            moon.castsShadow = false
             let disc = SCNNode(geometry: SCNSphere(radius: CGFloat(scale * 0.035)))
             disc.geometry?.materials = [Art.mat(UIColor(red: 1, green: 0.98, blue: 0.9, alpha: 1), lighting: .constant)]
-            disc.simdPosition = moon.simdPosition + ViewBasis.back * 0.5
+            disc.simdPosition = sunGlow.simdPosition + ViewBasis.back * 1
             disc.castsShadow = false
-            scene.rootNode.addChildNode(moon)
             scene.rootNode.addChildNode(disc)
         }
 
-        // Treibende Blütenblätter
-        let petals = SCNNode()
+        // Treibende Teilchen
+        let emitter = SCNNode()
         let ps = SCNParticleSystem()
-        switch theme.particle {
-        case .petals: ps.particleImage = Art.petal()
-        case .leaves: ps.particleImage = Art.leaf()
-        case .motes:
-            ps.particleImage = Art.glow(color: UIColor(red: 0.75, green: 1, blue: 0.85, alpha: 1))
-            ps.blendMode = .additive
-        case .dragonflies:
-            ps.particleImage = Art.dragonfly()
-        }
-        ps.birthRate = theme.particle == .motes ? 4 : 2.2
         ps.particleLifeSpan = 12
         ps.particleSize = 0.09
         ps.particleSizeVariation = 0.03
         ps.emitterShape = SCNBox(width: CGFloat(scale * 1.6), height: 0.2, length: CGFloat(scale * 1.6), chamferRadius: 0)
         ps.birthLocation = .volume
+        ps.birthRate = theme.particleRate
         ps.particleVelocity = 0.25
         ps.emittingDirection = SCNVector3(-0.3, -1, 0.2)
         ps.spreadingAngle = 30
         ps.acceleration = SCNVector3(-0.05, -0.08, 0.03)
-        ps.particleAngularVelocity = theme.particle == .dragonflies ? 0 : 90
-        ps.particleAngularVelocityVariation = theme.particle == .dragonflies ? 20 : 120
-        if theme.particle == .dragonflies {
-            // Libellen schweben eher waagerecht als zu fallen
-            ps.birthRate = 0.8
-            ps.particleSize = 0.14
-            ps.emittingDirection = SCNVector3(1, 0, -0.3)
-            ps.acceleration = SCNVector3(0, 0.01, 0)
-            ps.particleVelocity = 0.6
-        }
+        ps.particleAngularVelocity = 90
+        ps.particleAngularVelocityVariation = 120
         ps.isLightingEnabled = false
         ps.warmupDuration = 10
-        ps.propertyControllers = [.opacity: SCNParticlePropertyController(animation: Props.fadeOutAnimation())]
-        petals.addParticleSystem(ps)
-        petals.simdPosition = basis.target + SIMD3(0, theme.particle == .dragonflies ? 3 : 9, 0)
-        if theme.particle == .dragonflies {
-            ps.emitterShape = SCNBox(width: CGFloat(scale * 1.4), height: CGFloat(scale * 0.5), length: CGFloat(scale * 1.4), chamferRadius: 0)
+        var height: Float = 9
+        switch theme.particle {
+        case .petals: ps.particleImage = Art.petal()
+        case .leaves: ps.particleImage = Art.leaf()
+        case .letters:
+            ps.particleImage = Art.letterPaper(); ps.particleSize = 0.14
+            ps.acceleration = SCNVector3(-0.25, -0.05, 0.12)
+        case .seeds:
+            ps.particleImage = Art.seedFluff(); ps.particleSize = 0.1
+            ps.acceleration = SCNVector3(-0.12, 0.01, 0.06); ps.particleAngularVelocity = 30
+            height = 4
+            ps.emitterShape = SCNBox(width: CGFloat(scale * 1.6), height: CGFloat(scale * 0.8), length: CGFloat(scale * 1.6), chamferRadius: 0)
+        case .motes, .spores, .dust, .goldmotes:
+            let col: UIColor = theme.particle == .spores ? UIColor(hex: 0x9CFFD8)
+                : theme.particle == .dust ? UIColor(hex: 0xFFE2B0)
+                : theme.particle == .goldmotes ? UIColor(hex: 0xFFD27A) : UIColor(red: 0.75, green: 1, blue: 0.85, alpha: 1)
+            ps.particleImage = Art.glow(color: col)
+            ps.blendMode = .additive
+            ps.particleSize = theme.particle == .dust ? 0.05 : 0.08
+            ps.acceleration = SCNVector3(0, 0.02, 0)
+            ps.particleVelocity = 0.1
+            ps.spreadingAngle = 180
+            height = 3
+            ps.emitterShape = SCNBox(width: CGFloat(scale * 1.5), height: CGFloat(scale * 0.9), length: CGFloat(scale * 1.5), chamferRadius: 0)
+        case .butterflies:
+            ps.particleImage = Art.butterfly(UIColor(hex: 0xFFE07A))
+            ps.blendMode = .additive
+            ps.particleSize = 0.14
+            ps.particleAngularVelocity = 0
+            ps.acceleration = SCNVector3(0.02, 0.03, 0)
+            ps.particleVelocity = 0.3
+            ps.spreadingAngle = 180
+            height = 3
+            ps.emitterShape = SCNBox(width: CGFloat(scale * 1.4), height: CGFloat(scale * 0.8), length: CGFloat(scale * 1.4), chamferRadius: 0)
+        case .dragonflies:
+            ps.particleImage = Art.dragonfly(); ps.particleSize = 0.14; ps.particleAngularVelocity = 0
+            ps.emittingDirection = SCNVector3(1, 0, -0.3); ps.particleVelocity = 0.6; height = 3
+        case .rain:
+            ps.particleImage = Art.raindrop()
+            ps.particleSize = 0.12
+            ps.particleLifeSpan = 1.6
+            ps.particleVelocity = 9
+            ps.emittingDirection = SCNVector3(-0.15, -1, 0.1)
+            ps.spreadingAngle = 2
+            ps.acceleration = SCNVector3(0, -4, 0)
+            ps.particleAngularVelocity = 0
+            ps.particleAngularVelocityVariation = 0
+            ps.stretchFactor = 0.08
+            ps.warmupDuration = 2
+            height = 12
         }
-        scene.rootNode.addChildNode(petals)
+        ps.propertyControllers = [.opacity: SCNParticlePropertyController(animation: Props.fadeOutAnimation())]
+        emitter.addParticleSystem(ps)
+        emitter.simdPosition = basis.target + SIMD3(0, height, 0)
+        scene.rootNode.addChildNode(emitter)
 
         return (sun, clouds)
     }
