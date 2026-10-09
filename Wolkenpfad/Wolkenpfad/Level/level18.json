@@ -1,0 +1,2025 @@
+{
+ "name": "Chapter 18 · A New Horizon",
+ "theme": "horizon",
+ "chapter": 18,
+ "start": [
+  7,
+  0,
+  4
+ ],
+ "goal": [
+  -10,
+  8,
+  -3
+ ],
+ "goalItem": "seed",
+ "groups": [
+  {
+   "id": "dawn",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    0,
+    1
+   ],
+   "step": 1
+  },
+  {
+   "id": "left",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "right",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "sun",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    2,
+    2
+   ],
+   "step": 0,
+   "minStep": 0,
+   "maxStep": 1
+  },
+  {
+   "id": "ray1",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "ray2",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "noon",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    3,
+    -5
+   ],
+   "step": 2
+  },
+  {
+   "id": "counter",
+   "kind": "slide",
+   "axis": [
+    0,
+    3,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1,
+   "locked": true
+  },
+  {
+   "id": "hoist",
+   "kind": "slide",
+   "axis": [
+    0,
+    3,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1
+  },
+  {
+   "id": "dusk",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    8,
+    -4
+   ],
+   "step": 0
+  },
+  {
+   "id": "drift",
+   "kind": "slide",
+   "axis": [
+    -2,
+    0,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 1
+  },
+  {
+   "id": "horizon",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    6,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "dawn"
+  },
+  {
+   "p": [
+    4,
+    0,
+    1
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "dawn"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "dawn"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "dawn"
+  },
+  {
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "left"
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "left"
+  },
+  {
+   "p": [
+    4,
+    -2,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "left"
+  },
+  {
+   "p": [
+    2,
+    0,
+    -2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "right"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "right"
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "right"
+  },
+  {
+   "p": [
+    5,
+    3,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    3,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    3,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "sun"
+  },
+  {
+   "p": [
+    -3,
+    1,
+    2
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "sun"
+  },
+  {
+   "p": [
+    -3,
+    -2,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -7,
+    -1
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "ray1"
+  },
+  {
+   "p": [
+    1,
+    -7,
+    0
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "ray1"
+  },
+  {
+   "p": [
+    1,
+    3,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -7,
+    -3
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "ray2"
+  },
+  {
+   "p": [
+    0,
+    -7,
+    -4
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "ray2"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "noon"
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -5
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "noon"
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "noon"
+  },
+  {
+   "p": [
+    -3,
+    1,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "noon"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -7
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -7
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -3
+   ],
+   "m": "grass",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -5,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    4,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -2
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    6,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "counter"
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -2
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -3,
+    8,
+    -4
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "dusk"
+  },
+  {
+   "p": [
+    -2,
+    8,
+    -4
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "dusk"
+  },
+  {
+   "p": [
+    -3,
+    7,
+    -4
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "dusk"
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -4
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "dusk"
+  },
+  {
+   "p": [
+    -1,
+    8,
+    -4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    7,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    8,
+    -6
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    7,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    8,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    7,
+    -4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    6,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    8,
+    -4
+   ],
+   "m": "cloud",
+   "walk": true,
+   "g": "drift"
+  },
+  {
+   "p": [
+    -9,
+    8,
+    -4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -9,
+    7,
+    -4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    6,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    8,
+    -3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -9,
+    7,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    8,
+    -3
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -10,
+    7,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    6,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    9,
+    -3
+   ],
+   "m": "gate",
+   "walk": false,
+   "g": "horizon"
+  },
+  {
+   "p": [
+    -10,
+    8,
+    -4
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    7,
+    -4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -5,
+    6
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -6,
+    6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -5,
+    7
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -6,
+    7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -5,
+    6
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -6,
+    6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -5,
+    1
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -6,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -5,
+    7
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -6,
+    7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    8,
+    -3
+   ],
+   "m": "grass",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    7,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "crank",
+   "p": [
+    3,
+    -2,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "dawn",
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "left",
+   "axis": "y"
+  },
+  {
+   "t": "mirror",
+   "p": [
+    -3,
+    2,
+    2
+   ],
+   "s": 1.1,
+   "r": 0.0,
+   "g": "sun"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -3,
+    1,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "sun",
+   "face": "+z"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -3,
+    1,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "noon",
+   "face": "+x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    -3,
+    5,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "hoist",
+   "axis": "y"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -3,
+    6,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "dusk",
+   "face": "+x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    -6,
+    8,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "drift",
+   "axis": "x"
+  },
+  {
+   "t": "altar",
+   "p": [
+    -10,
+    8,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "house",
+   "p": [
+    5,
+    -5,
+    6
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 0
+  },
+  {
+   "t": "house",
+   "p": [
+    2,
+    -5,
+    7
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "house",
+   "p": [
+    -2,
+    -5,
+    6
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 0
+  },
+  {
+   "t": "house",
+   "p": [
+    8,
+    -5,
+    1
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "windmill",
+   "p": [
+    0,
+    -5,
+    7
+   ],
+   "s": 1.2,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "tree",
+   "p": [
+    6,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    3,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    1,
+    0,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    5,
+    3,
+    -2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    0,
+    3,
+    -2
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    1,
+    3,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "bush",
+   "p": [
+    -1,
+    3,
+    -5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -3,
+    3,
+    -7
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -5,
+    5,
+    -2
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -4,
+    5,
+    -2
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "pennant",
+   "p": [
+    -1,
+    8,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "to": [
+    -3,
+    8,
+    -6
+   ]
+  },
+  {
+   "t": "windmill",
+   "p": [
+    -11,
+    8,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -9,
+    8,
+    -3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    7,
+    0,
+    4
+   ],
+   "text": "Morning. Far below, the village opens its shutters to a warm new wind."
+  },
+  {
+   "at": [
+    3,
+    0,
+    4
+   ],
+   "text": "Every island Hana mended is blooming. Some of them wave."
+  },
+  {
+   "at": [
+    6,
+    3,
+    -2
+   ],
+   "text": "Dawn, noon and dusk – the whole day is a single path."
+  },
+  {
+   "at": [
+    0,
+    3,
+    1
+   ],
+   "text": "The sun mirror turns, and the light goes where it is needed."
+  },
+  {
+   "at": [
+    -5,
+    5,
+    -3
+   ],
+   "text": "There is always one more step than the eye believes."
+  },
+  {
+   "at": [
+    -1,
+    8,
+    -4
+   ],
+   "text": "Evening. Grandfather's notebook has one empty page left."
+  },
+  {
+   "at": [
+    -9,
+    8,
+    -4
+   ],
+   "text": "Beyond the gate: a horizon no one has drawn yet."
+  }
+ ],
+ "plates": [
+  {
+   "id": "d1",
+   "at": [
+    2,
+    0,
+    4
+   ]
+  },
+  {
+   "id": "d2",
+   "at": [
+    0,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "d3",
+   "at": [
+    6,
+    3,
+    -2
+   ]
+  },
+  {
+   "id": "d4",
+   "at": [
+    0,
+    3,
+    1
+   ]
+  },
+  {
+   "id": "d5",
+   "at": [
+    -3,
+    3,
+    -3
+   ]
+  },
+  {
+   "id": "d6",
+   "at": [
+    -4,
+    3,
+    -7
+   ]
+  },
+  {
+   "id": "d7",
+   "at": [
+    -1,
+    8,
+    -4
+   ]
+  },
+  {
+   "id": "d8",
+   "at": [
+    -3,
+    8,
+    -6
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "right",
+   "value": 3,
+   "states": {
+    "left": 0
+   }
+  },
+  {
+   "group": "right",
+   "value": 2,
+   "states": {
+    "left": 1
+   }
+  },
+  {
+   "group": "right",
+   "value": 1,
+   "states": {
+    "left": 2
+   }
+  },
+  {
+   "group": "right",
+   "value": 0,
+   "states": {
+    "left": 3
+   }
+  },
+  {
+   "group": "ray1",
+   "value": 10,
+   "states": {
+    "sun": 1
+   }
+  },
+  {
+   "group": "ray2",
+   "value": 10,
+   "states": {
+    "sun": 0
+   }
+  },
+  {
+   "group": "counter",
+   "value": 1,
+   "states": {
+    "hoist": 1
+   }
+  },
+  {
+   "group": "horizon",
+   "value": 2,
+   "plates": [
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8"
+   ],
+   "states": {
+    "sun": 1,
+    "dawn": 3,
+    "noon": 0,
+    "left": 2
+   }
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -9,
+    8,
+    -4
+   ],
+   "pressed": [
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8"
+   ]
+  },
+  {
+   "target": "left",
+   "reach": [
+    -9,
+    8,
+    -4
+   ]
+  },
+  {
+   "target": "drift",
+   "reach": [
+    -5,
+    8,
+    -4
+   ]
+  },
+  {
+   "target": "dusk",
+   "reach": [
+    -3,
+    8,
+    -4
+   ]
+  },
+  {
+   "target": "hoist",
+   "reach": [
+    -5,
+    5,
+    -3
+   ]
+  },
+  {
+   "target": "noon",
+   "reach": [
+    -1,
+    3,
+    -5
+   ]
+  },
+  {
+   "target": "sun",
+   "reach": [
+    0,
+    3,
+    -2
+   ]
+  },
+  {
+   "target": "left",
+   "reach": [
+    3,
+    0,
+    -2
+   ]
+  },
+  {
+   "target": "dawn",
+   "reach": [
+    5,
+    0,
+    1
+   ]
+  },
+  {
+   "target": "dawn"
+  }
+ ],
+ "ending": {
+  "text": "Hana plants the last seed at the edge of the world. Tomorrow, a new path begins.",
+  "tree": [
+   -10,
+   8,
+   -4
+  ],
+  "spirits": [
+   [
+    7,
+    0,
+    4
+   ],
+   [
+    3,
+    0,
+    4
+   ],
+   [
+    0,
+    0,
+    2
+   ],
+   [
+    6,
+    3,
+    -2
+   ],
+   [
+    0,
+    3,
+    1
+   ],
+   [
+    -3,
+    3,
+    -3
+   ],
+   [
+    -4,
+    5,
+    -2
+   ],
+   [
+    -1,
+    8,
+    -4
+   ]
+  ]
+ }
+}

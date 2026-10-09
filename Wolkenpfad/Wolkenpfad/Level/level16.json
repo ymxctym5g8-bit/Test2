@@ -1,0 +1,1834 @@
+{
+ "name": "Chapter 16 · Echoes of the Past",
+ "theme": "echo",
+ "chapter": 16,
+ "start": [
+  7,
+  0,
+  4
+ ],
+ "goal": [
+  3,
+  5,
+  0
+ ],
+ "goalItem": "heart",
+ "groups": [
+  {
+   "id": "first",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    0,
+    2
+   ],
+   "step": 1
+  },
+  {
+   "id": "path1",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "memory",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "lantern",
+   "kind": "rotate",
+   "pivot": [
+    4,
+    3,
+    -7
+   ],
+   "step": 0
+  },
+  {
+   "id": "path2",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "path3",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "second",
+   "kind": "rotate",
+   "pivot": [
+    -4,
+    3,
+    -7
+   ],
+   "step": 2
+  },
+  {
+   "id": "path4",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "drift",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2
+  },
+  {
+   "id": "third",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    5,
+    -3
+   ],
+   "step": 0
+  },
+  {
+   "id": "path5",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    6,
+    0,
+    2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "first"
+  },
+  {
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "first"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    2
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "first"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "first"
+  },
+  {
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    0
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -10,
+    -2
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path1"
+  },
+  {
+   "p": [
+    3,
+    -10,
+    -3
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path1"
+  },
+  {
+   "p": [
+    3,
+    0,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -4
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -4
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "memory"
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -4
+   ],
+   "m": "ghost",
+   "walk": false,
+   "g": "memory"
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -4
+   ],
+   "m": "ghost",
+   "walk": false,
+   "g": "memory"
+  },
+  {
+   "p": [
+    1,
+    1,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    0,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    2,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    2,
+    -6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    1,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    3,
+    -7
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "lantern"
+  },
+  {
+   "p": [
+    4,
+    2,
+    -7
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "lantern"
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -7
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    1,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -7,
+    -4
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path2"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -7,
+    -5
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path3"
+  },
+  {
+   "p": [
+    -1,
+    -7,
+    -6
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path3"
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -7
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "second"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "second"
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -7
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "second"
+  },
+  {
+   "p": [
+    -4,
+    1,
+    -7
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "second"
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -9
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -9
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -9
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -9
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -8
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    5,
+    -8
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    6,
+    -8
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    5,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "ill": true
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    5,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    5,
+    -3
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    -5,
+    -3
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path4"
+  },
+  {
+   "p": [
+    -4,
+    -5,
+    -3
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path4"
+  },
+  {
+   "p": [
+    -2,
+    5,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -1
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "drift"
+  },
+  {
+   "p": [
+    0,
+    5,
+    -3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "third"
+  },
+  {
+   "p": [
+    1,
+    5,
+    -3
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "third"
+  },
+  {
+   "p": [
+    0,
+    4,
+    -3
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "third"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -3
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "third"
+  },
+  {
+   "p": [
+    0,
+    5,
+    -5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    4,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    5,
+    -6
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    4,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    5,
+    -1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    4,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    5,
+    0
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    4,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    5,
+    -3
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    4,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -5,
+    -2
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path5"
+  },
+  {
+   "p": [
+    2,
+    -5,
+    -1
+   ],
+   "m": "ghost",
+   "walk": true,
+   "g": "path5"
+  },
+  {
+   "p": [
+    2,
+    5,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    4,
+    0
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    3,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    5,
+    0
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    4,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    5,
+    1
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    4,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    3,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    5,
+    -1
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    4,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "crank",
+   "p": [
+    3,
+    -2,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "first",
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    1,
+    0,
+    -4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "memory",
+   "axis": "y"
+  },
+  {
+   "t": "projection",
+   "p": [
+    4,
+    3,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lantern"
+  },
+  {
+   "t": "crank",
+   "p": [
+    4,
+    2,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lantern",
+   "face": "+z"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -4,
+    1,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "second",
+   "face": "+x"
+  },
+  {
+   "t": "lantern",
+   "p": [
+    -8,
+    6,
+    -8
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -3,
+    5,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "drift",
+   "axis": "z"
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    3,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "third",
+   "face": "+z"
+  },
+  {
+   "t": "altar",
+   "p": [
+    3,
+    5,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "projection",
+   "p": [
+    6,
+    0,
+    3
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "projection",
+   "p": [
+    -6,
+    5,
+    -4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "projection",
+   "p": [
+    -6,
+    5,
+    -3
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "projection",
+   "p": [
+    0,
+    5,
+    -5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "kodama",
+   "p": [
+    3,
+    0,
+    5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 4
+  },
+  {
+   "t": "flowers",
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "notebook",
+   "p": [
+    -1,
+    3,
+    -4
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    2,
+    0,
+    -4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    2,
+    5,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "variant": 4
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    7,
+    0,
+    4
+   ],
+   "text": "At night the islands remember. Grandfather walks here as a gentle light."
+  },
+  {
+   "at": [
+    3,
+    0,
+    5
+   ],
+   "text": "A memory stone: his laugh, as warm as bread from the oven."
+  },
+  {
+   "at": [
+    3,
+    0,
+    -4
+   ],
+   "text": "The path appears the way a name comes back – all at once."
+  },
+  {
+   "at": [
+    -3,
+    3,
+    -4
+   ],
+   "text": "The attic, years ago. A small girl asleep among the maps."
+  },
+  {
+   "at": [
+    -7,
+    3,
+    -7
+   ],
+   "text": "This door led somewhere once. It still remembers where."
+  },
+  {
+   "at": [
+    -6,
+    5,
+    -4
+   ],
+   "text": "The lantern shows what was. Hana walks where it shines."
+  },
+  {
+   "at": [
+    0,
+    5,
+    0
+   ],
+   "text": "'Every wind I mended,' he says, 'I mended for you.'"
+  }
+ ],
+ "plates": [
+  {
+   "id": "m1",
+   "at": [
+    2,
+    0,
+    5
+   ]
+  },
+  {
+   "id": "m2",
+   "at": [
+    0,
+    0,
+    3
+   ]
+  },
+  {
+   "id": "m7",
+   "at": [
+    1,
+    1,
+    -3
+   ]
+  },
+  {
+   "id": "m3",
+   "at": [
+    1,
+    2,
+    -6
+   ]
+  },
+  {
+   "id": "m4",
+   "at": [
+    -3,
+    3,
+    -4
+   ]
+  },
+  {
+   "id": "m5",
+   "at": [
+    -4,
+    3,
+    -5
+   ]
+  },
+  {
+   "id": "m6",
+   "at": [
+    -5,
+    3,
+    -9
+   ]
+  },
+  {
+   "id": "m8",
+   "at": [
+    0,
+    5,
+    -6
+   ]
+  },
+  {
+   "id": "m9",
+   "at": [
+    0,
+    5,
+    0
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "path1",
+   "value": 10,
+   "plates": [
+    "m1",
+    "m2"
+   ]
+  },
+  {
+   "group": "path2",
+   "value": 10,
+   "states": {
+    "lantern": 1
+   }
+  },
+  {
+   "group": "path3",
+   "value": 10,
+   "states": {
+    "lantern": 3
+   }
+  },
+  {
+   "group": "path4",
+   "value": 10,
+   "states": {
+    "lantern": 2
+   }
+  },
+  {
+   "group": "path5",
+   "value": 10,
+   "plates": [
+    "m3",
+    "m4",
+    "m5",
+    "m6",
+    "m7",
+    "m8",
+    "m9"
+   ],
+   "states": {
+    "lantern": 1,
+    "second": 0
+   }
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    2,
+    5,
+    -3
+   ]
+  },
+  {
+   "target": "second",
+   "reach": [
+    2,
+    5,
+    -3
+   ],
+   "pressed": [
+    "m8",
+    "m9"
+   ]
+  },
+  {
+   "target": "lantern",
+   "reach": [
+    2,
+    5,
+    -3
+   ],
+   "pressed": [
+    "m8",
+    "m9"
+   ]
+  },
+  {
+   "target": "third",
+   "reach": [
+    -2,
+    5,
+    -3
+   ]
+  },
+  {
+   "target": "drift",
+   "reach": [
+    -6,
+    5,
+    -3
+   ]
+  },
+  {
+   "target": "lantern",
+   "reach": [
+    -6,
+    5,
+    -3
+   ]
+  },
+  {
+   "target": "second",
+   "reach": [
+    -2,
+    3,
+    -7
+   ]
+  },
+  {
+   "target": "lantern",
+   "reach": [
+    0,
+    3,
+    -4
+   ]
+  },
+  {
+   "target": "memory",
+   "reach": [
+    2,
+    0,
+    -4
+   ]
+  },
+  {
+   "target": "first"
+  }
+ ],
+ "ending": {
+  "text": "The memories settle like snow. Hana is not alone – she never was.",
+  "tree": [
+   3,
+   5,
+   -1
+  ],
+  "spirits": [
+   [
+    7,
+    0,
+    4
+   ],
+   [
+    3,
+    0,
+    5
+   ],
+   [
+    0,
+    0,
+    3
+   ],
+   [
+    1,
+    2,
+    -6
+   ],
+   [
+    -3,
+    3,
+    -3
+   ],
+   [
+    -4,
+    3,
+    -5
+   ],
+   [
+    -6,
+    5,
+    -4
+   ],
+   [
+    0,
+    5,
+    0
+   ]
+  ]
+ }
+}

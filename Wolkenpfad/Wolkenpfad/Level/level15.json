@@ -1,0 +1,2016 @@
+{
+ "name": "Chapter 15 · The Ruins of the First Storm",
+ "theme": "ruins",
+ "chapter": 15,
+ "start": [
+  7,
+  0,
+  5
+ ],
+ "goal": [
+  -10,
+  6,
+  -5
+ ],
+ "goalItem": "lamp",
+ "groups": [
+  {
+   "id": "sled",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    1
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "court",
+   "kind": "rotate",
+   "pivot": [
+    2,
+    0,
+    1
+   ],
+   "step": 3
+  },
+  {
+   "id": "obelisk",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "guardian",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  },
+  {
+   "id": "ring",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    3,
+    -5
+   ],
+   "step": 1
+  },
+  {
+   "id": "twin",
+   "kind": "rotate",
+   "pivot": [
+    -1,
+    3,
+    -5
+   ],
+   "step": 3,
+   "locked": true
+  },
+  {
+   "id": "column",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "altar",
+   "kind": "rotate",
+   "pivot": [
+    -7,
+    6,
+    -5
+   ],
+   "step": 1
+  },
+  {
+   "id": "seal",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    6,
+    0,
+    4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    4
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    5
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "sled"
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "stonedark",
+   "walk": false,
+   "g": "sled"
+  },
+  {
+   "p": [
+    2,
+    0,
+    1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "court"
+  },
+  {
+   "p": [
+    3,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "court"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "court"
+  },
+  {
+   "p": [
+    2,
+    -2,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "court"
+  },
+  {
+   "p": [
+    2,
+    -3,
+    1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "court"
+  },
+  {
+   "p": [
+    4,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    4
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    0
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    0
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "obelisk"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -2
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "obelisk"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -2
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "obelisk"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    -2
+   ],
+   "m": "stonedark",
+   "walk": false,
+   "g": "obelisk"
+  },
+  {
+   "p": [
+    4,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    1,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    2,
+    -2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    1,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    3,
+    -3
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    4,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false,
+   "g": "guardian"
+  },
+  {
+   "p": [
+    3,
+    3,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "ring"
+  },
+  {
+   "p": [
+    4,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "ring"
+  },
+  {
+   "p": [
+    3,
+    2,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "ring"
+  },
+  {
+   "p": [
+    3,
+    1,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "ring"
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "twin"
+  },
+  {
+   "p": [
+    0,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "twin"
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "twin"
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "twin"
+  },
+  {
+   "p": [
+    5,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -7
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -8
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "column"
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -5
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "column"
+  },
+  {
+   "p": [
+    -5,
+    1,
+    -5
+   ],
+   "m": "stonedark",
+   "walk": false,
+   "g": "column"
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    4,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "altar"
+  },
+  {
+   "p": [
+    -6,
+    6,
+    -5
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "altar"
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "altar"
+  },
+  {
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "altar"
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    6,
+    -5
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -9,
+    5,
+    -5
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    4,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    6,
+    -5
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -10,
+    5,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    6,
+    -4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -10,
+    5,
+    -4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    4,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    7,
+    -5
+   ],
+   "m": "stonedark",
+   "walk": false,
+   "g": "seal"
+  },
+  {
+   "p": [
+    7,
+    -1,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    1,
+    2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    2,
+    2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    1,
+    2
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -1,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    1,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    2,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    3,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    4,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    1,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    2,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    4,
+    -1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    -7
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    -7
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    1,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -1,
+    -7
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    0,
+    -7
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    1,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    2,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    5,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    6,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    7,
+    -7
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    -1,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    0,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    1,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    2,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    3,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    4,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    5,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -11,
+    6,
+    -3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    6,
+    -6
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    5,
+    -6
+   ],
+   "m": "stonedark",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "handle",
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "sled",
+   "axis": "z"
+  },
+  {
+   "t": "crank",
+   "p": [
+    2,
+    -3,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "court",
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "obelisk",
+   "axis": "y"
+  },
+  {
+   "t": "guardian",
+   "p": [
+    3,
+    4,
+    -3
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "g": "guardian"
+  },
+  {
+   "t": "crank",
+   "p": [
+    3,
+    1,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "ring",
+   "face": "+x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    -5,
+    3,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "column",
+   "axis": "y"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "altar",
+   "face": "+z"
+  },
+  {
+   "t": "altar",
+   "p": [
+    -10,
+    6,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    7,
+    2,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    0,
+    3,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -2,
+    1,
+    2
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    6,
+    4,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    0,
+    4,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -3,
+    5,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -8,
+    7,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -11,
+    6,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "gear",
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "gear",
+   "p": [
+    5,
+    3,
+    -5
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "guardian",
+   "p": [
+    -10,
+    6,
+    -4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    6,
+    0,
+    4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "mushroom",
+   "p": [
+    0,
+    0,
+    1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "vine",
+   "p": [
+    -1,
+    3,
+    -7
+   ],
+   "s": 1.0,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    7,
+    0,
+    5
+   ],
+   "text": "The first storm passed here long ago. The stones still remember it."
+  },
+  {
+   "at": [
+    2,
+    0,
+    4
+   ],
+   "text": "A pressure stone sinks, and somewhere a machine yawns."
+  },
+  {
+   "at": [
+    5,
+    2,
+    -2
+   ],
+   "text": "Moss grows over the old gears like a warm blanket."
+  },
+  {
+   "at": [
+    3,
+    3,
+    -3
+   ],
+   "text": "The guardian bows its head and lets Hana pass."
+  },
+  {
+   "at": [
+    1,
+    3,
+    -5
+   ],
+   "text": "Two rings, one heart: when one turns east, the other turns west."
+  },
+  {
+   "at": [
+    -9,
+    6,
+    -5
+   ],
+   "text": "The seal sleeps until the courtyard ring faces home and the twin rings rest."
+  },
+  {
+   "at": [
+    -7,
+    6,
+    -3
+   ],
+   "text": "On the storm altar, a lamp that never went out."
+  }
+ ],
+ "plates": [
+  {
+   "id": "w1",
+   "at": [
+    1,
+    0,
+    4
+   ]
+  },
+  {
+   "id": "w2",
+   "at": [
+    -1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "w3",
+   "at": [
+    5,
+    2,
+    -2
+   ]
+  },
+  {
+   "id": "w4",
+   "at": [
+    6,
+    3,
+    -5
+   ]
+  },
+  {
+   "id": "w5",
+   "at": [
+    -1,
+    3,
+    -8
+   ]
+  },
+  {
+   "id": "w6",
+   "at": [
+    -2,
+    3,
+    -3
+   ]
+  },
+  {
+   "id": "w7",
+   "at": [
+    -5,
+    5,
+    -6
+   ]
+  },
+  {
+   "id": "w8",
+   "at": [
+    -7,
+    6,
+    -3
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "guardian",
+   "value": 2,
+   "plates": [
+    "w1",
+    "w2"
+   ]
+  },
+  {
+   "group": "twin",
+   "value": 2,
+   "states": {
+    "ring": 0
+   }
+  },
+  {
+   "group": "twin",
+   "value": 3,
+   "states": {
+    "ring": 1
+   }
+  },
+  {
+   "group": "twin",
+   "value": 0,
+   "states": {
+    "ring": 2
+   }
+  },
+  {
+   "group": "twin",
+   "value": 1,
+   "states": {
+    "ring": 3
+   }
+  },
+  {
+   "group": "seal",
+   "value": 2,
+   "plates": [
+    "w1",
+    "w2",
+    "w3",
+    "w4",
+    "w5",
+    "w6",
+    "w7",
+    "w8"
+   ],
+   "states": {
+    "court": 3,
+    "ring": 2
+   }
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -9,
+    6,
+    -5
+   ]
+  },
+  {
+   "target": "altar",
+   "reach": [
+    -5,
+    3,
+    -5
+   ]
+  },
+  {
+   "target": "column",
+   "reach": [
+    -4,
+    3,
+    -5
+   ]
+  },
+  {
+   "target": "ring",
+   "reach": [
+    1,
+    3,
+    -5
+   ]
+  },
+  {
+   "target": "ring",
+   "reach": [
+    3,
+    3,
+    -3
+   ]
+  },
+  {
+   "target": "obelisk",
+   "reach": [
+    2,
+    0,
+    -2
+   ]
+  },
+  {
+   "target": "court",
+   "reach": [
+    4,
+    0,
+    1
+   ]
+  },
+  {
+   "target": "sled"
+  }
+ ],
+ "ending": {
+  "text": "The lamp of the first storm burns again, and the ruins hum like a beehive in spring.",
+  "tree": [
+   -10,
+   6,
+   -6
+  ],
+  "spirits": [
+   [
+    7,
+    0,
+    5
+   ],
+   [
+    2,
+    0,
+    4
+   ],
+   [
+    -1,
+    0,
+    1
+   ],
+   [
+    5,
+    2,
+    -2
+   ],
+   [
+    6,
+    3,
+    -5
+   ],
+   [
+    -2,
+    3,
+    -3
+   ],
+   [
+    -7,
+    6,
+    -3
+   ]
+  ]
+ }
+}
