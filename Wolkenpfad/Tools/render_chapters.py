@@ -255,8 +255,8 @@ def chapter(n, themes, title_font, story_font, label_font):
                 r = rnd.uniform(1, 3) * SS
                 d.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, int(200 * (1 - y / (CH * .6)))))
             if not th["lightning"]:
-                glow(img, (CW * .72, CH * .14), CW * .28, th["sun"], .5)
-                circle(d, (CW * .72, CH * .14), CW * .04, (252, 248, 230))
+                glow(img, (CW * .8, CH * .24), CW * .28, th["sun"], .5)
+                circle(d, (CW * .8, CH * .24), CW * .04, (252, 248, 230))
         else:
             glow(img, (CW * .72, CH * .16), CW * .45, th["sun"], .85)
         if th["lightning"]:
