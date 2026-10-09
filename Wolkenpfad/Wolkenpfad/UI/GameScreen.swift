@@ -107,7 +107,8 @@ struct GameScreen: View {
         .sheet(isPresented: $showChapters) {
             ChapterSelect(current: game.levelIndex, onSelect: { n in
                 showChapters = false
-                onSelect(n)
+                // erst das Fenster schließen lassen, dann die neue Spielwelt bauen
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { onSelect(n) }
             }, onStore: {
                 showChapters = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { showStore = true }

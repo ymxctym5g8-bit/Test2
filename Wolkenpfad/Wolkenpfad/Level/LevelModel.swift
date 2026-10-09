@@ -305,7 +305,7 @@ final class LevelLogic {
                 var v = initialState[g] ?? 0
                 for t in def.triggers ?? [] where t.group == g {
                     let platesOK = (t.plates ?? []).allSatisfy { pressed.contains($0) }
-                    let statesOK = (t.states ?? [:]).allSatisfy { st[$0.key] == $0.value }
+                    let statesOK = (t.states ?? [:]).allSatisfy { stateMatches($0.key, st[$0.key], $0.value) }
                     if platesOK && statesOK { v = t.value; break }
                 }
                 if st[g] != v { st[g] = v; changed = true }
@@ -313,6 +313,16 @@ final class LevelLogic {
             if !changed { break }
         }
         return st
+    }
+
+    /// Steht eine Gruppe in der verlangten Stellung? Frei drehbare Teile zählen ihre Vierteldrehungen
+    /// beim Ziehen weiter (−1, 4, 5 …) – für Auslöser zählt nur die Richtung, also modulo 4.
+    private func stateMatches(_ group: String, _ value: Int?, _ wanted: Int) -> Bool {
+        guard let value else { return false }
+        if let g = groupsByID[group], g.isRotator, !g.isBounded {
+            return ((value % 4) + 4) % 4 == ((wanted % 4) + 4) % 4
+        }
+        return value == wanted
     }
 
     /// Gesteuerte Gruppen, die gerade woanders stehen sollten (Gruppe → Zielstellung).

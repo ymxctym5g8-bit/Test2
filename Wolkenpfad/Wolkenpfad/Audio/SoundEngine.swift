@@ -123,6 +123,24 @@ final class SoundEngine {
         } catch {
             print("Audio-Engine: \(error)")
         }
+        // Anrufe, Siri, Kopfhörer oder ein anderer Lautsprecher halten die Engine an – danach wieder anlaufen
+        let center = NotificationCenter.default
+        center.addObserver(forName: .AVAudioEngineConfigurationChange, object: engine, queue: nil) { [weak self] _ in
+            self?.restartEngine()
+        }
+        center.addObserver(forName: AVAudioSession.interruptionNotification, object: nil, queue: nil) { [weak self] note in
+            guard let raw = note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
+                  AVAudioSession.InterruptionType(rawValue: raw) == .ended else { return }
+            self?.restartEngine()
+        }
+    }
+
+    private func restartEngine() {
+        setupQueue.async { [self] in
+            guard source != nil, !engine.isRunning else { return }
+            try? AVAudioSession.sharedInstance().setActive(true)
+            try? engine.start()
+        }
     }
 
     // MARK: - Musik
@@ -283,9 +301,12 @@ final class SoundEngine {
         }
 
         // Melodie (Standard: zweite Hälfte des 16-Takte-Bogens)
-        if bar >= s.melodyFrom {
+        if bar >= s.melodyFrom, !s.melody.isEmpty {
             var pos = 0
-            for (n, len) in s.melody[(bar - 8) % s.melody.count] {
+            // Takt im Melodiebogen; nie negativ, auch wenn die Melodie schon ab Takt 0 spielt
+            let count = s.melody.count
+            let melodyBar = ((bar - s.melodyFrom) % count + count) % count
+            for (n, len) in s.melody[melodyBar] {
                 if pos == step && n > 0 {
                     let dur = Double(len) * eighth
                     switch s.melodyTimbre {

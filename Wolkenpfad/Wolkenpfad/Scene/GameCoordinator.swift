@@ -6,11 +6,25 @@ import Combine
 final class FrameTicker: NSObject, SCNSceneRendererDelegate {
     weak var hana: SCNNode?
     weak var kiko: SCNNode?
-    var hint: SIMD3<Float>?
     weak var camera: SCNNode?
+    /// Werte, die der Haupt-Thread setzt und der Render-Thread liest – nur unter `lock`.
+    private let lock = NSLock()
+    private var _hint: SIMD3<Float>?
+    private var _cameraBase = SIMD3<Float>(repeating: 0)
+    private var _followRange: ClosedRange<Float> = 0...0
+    var hint: SIMD3<Float>? {
+        get { lock.lock(); defer { lock.unlock() }; return _hint }
+        set { lock.lock(); _hint = newValue; lock.unlock() }
+    }
     /// Mittelpunkt der Kamera (Offset 0) und erlaubter Bereich entlang der Bildschirm-Senkrechten.
-    var cameraBase = SIMD3<Float>(repeating: 0)
-    var followRange: ClosedRange<Float> = 0...0
+    var cameraBase: SIMD3<Float> {
+        get { lock.lock(); defer { lock.unlock() }; return _cameraBase }
+        set { lock.lock(); _cameraBase = newValue; lock.unlock() }
+    }
+    var followRange: ClosedRange<Float> {
+        get { lock.lock(); defer { lock.unlock() }; return _followRange }
+        set { lock.lock(); _followRange = newValue; lock.unlock() }
+    }
     private var camOffset: Float = 0
     private var camInitialized = false
     private var lastTime: TimeInterval = 0
@@ -22,6 +36,7 @@ final class FrameTicker: NSObject, SCNSceneRendererDelegate {
         let dt = Float(lastTime == 0 ? 1.0 / 60 : min(0.05, time - lastTime))
         lastTime = time
         let hp = hana.presentation.simdWorldPosition
+        let hint = self.hint, cameraBase = self.cameraBase
         let target = hint ?? (hp + SIMD3<Float>(-0.42, 0.68, 0.34))
         if !initialized {
             kikoPos = target
