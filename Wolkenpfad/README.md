@@ -56,7 +56,7 @@ Beim Start erscheint das Hauptmenü. Seine Kulisse zeigt den Look des Kapitels, 
 - **Begin the Journey / Continue:** startet das nächste offene Kapitel (Untertitel mit Kapitelnummer und Titel). Ist es noch nicht gekauft, öffnet sich der Shop.
 - **Chapters:** Prolog und drei Akte mit Fortschritt und Kaufstatus.
 - **Settings:** Musik und Klang, Haptik, Kauf wiederherstellen, *Start a New Journey* (Fortschritt löschen, mit Rückfrage) und *About*.
-- **Unlock the Full Journey · $2.00:** nur sichtbar, solange noch nicht gekauft.
+- **Unlock the Full Journey · $1.99:** nur sichtbar, solange noch nicht gekauft.
 - Darunter der Fortschritt („6 of 18 chapters“).
 
 Im Spiel kommt man über das Menü oben rechts oder am Kapitelende zurück ins Hauptmenü. Vor jedem Kapitel zeigt eine Kapitelkarte Akt, Nummer und Titel („Tap to begin“). Mockups: `Mockups/00_main_menu.jpg`, erzeugt mit `Tools/render_main_menu.py`.
@@ -65,14 +65,14 @@ Im Spiel kommt man über das Menü oben rechts oder am Kapitelende zurück ins H
 
 | Produkt-ID | Inhalt | Typ | Preis (Testkonfiguration) |
 |---|---|---|---|
-| `app.echoesofthesky.fulljourney` | *The Full Journey*: alle 15 Kapitel der Akte I–III | Non-Consumable, Familienfreigabe | 2,00 $ |
+| `app.echoesofthesky.fulljourney` | *The Full Journey*: alle 15 Kapitel der Akte I–III | Non-Consumable, Familienfreigabe | 1,99 $ |
 
 `App/Store.swift` nutzt StoreKit 2: Es lädt das Produkt, kauft, hört auf `Transaction.updates`, gleicht `currentEntitlements` ab und bietet *Restore Purchase* (`AppStore.sync`). Der Kauf wird zusätzlich lokal zwischengespeichert. So sind die Kapitel auch offline sofort offen.
 
 Für den Release:
 
 1. In App Store Connect die App mit der Bundle-ID `app.echoesofthesky` anlegen.
-2. Das Produkt `app.echoesofthesky.fulljourney` als *Non-Consumable* anlegen und den Preis auf 2,00 $ setzen. Seit 2023 sind auch glatte Preise wie 2,00 $ möglich. Alternativ 1,99 $.
+2. Das Produkt `app.echoesofthesky.fulljourney` als *Non-Consumable* anlegen und den Preis auf 1,99 $ setzen.
 3. Optional die Testkonfiguration im Schema abwählen (*Edit Scheme → Run → Options → StoreKit Configuration*).
 
 Freischaltung im Spiel: Der Prolog ist kostenlos. Innerhalb eines Akts öffnet jedes abgeschlossene Kapitel das nächste. Nach dem Kauf ist das erste Kapitel jedes Akts sofort spielbar.

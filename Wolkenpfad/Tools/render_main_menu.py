@@ -124,7 +124,7 @@ def menu(theme_name, chapter=("Chapter VII", "The Mill of Forgotten Letters"), d
     text_c(img, y - 8 * S, f"{done} of 18 chapters", font("LiberationSerif-Regular.ttf", 13), mix(ink, th["sky"][3], .3), None)
     y -= 14 * S + 23 * S
     capsule(img, W / 2, y, 292 * S, 46 * S, fill=((0, 0, 0, 90) if night else PAPER + (90,)), outline=GOLD + (220,))
-    text_c(img, y - 10 * S, "✦ Unlock the Full Journey · $2.00", font("LiberationSerif-Bold.ttf", 15), GOLD if night else (158, 107, 41), None)
+    text_c(img, y - 10 * S, "✦ Unlock the Full Journey · $1.99", font("LiberationSerif-Bold.ttf", 15), GOLD if night else (158, 107, 41), None)
     y -= 14 * S + 46 * S
     for dx, label in ((-76, "Chapters"), (76, "Settings")):
         capsule(img, W / 2 + dx * S, y, 140 * S, 46 * S, fill=((0, 0, 0, 77) if night else PAPER + (153,)), outline=ink + (64,))
