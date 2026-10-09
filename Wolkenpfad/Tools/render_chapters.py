@@ -12,6 +12,7 @@ from render_mockups import rgb, mix, mul, add, depth, circle, ball, glow, State,
 ROOT = os.path.join(HERE, "..")
 LEVELS = os.path.join(ROOT, "Wolkenpfad", "Level")
 OUT = os.path.join(ROOT, "Mockups", "chapters")
+EXTRA_BACKDROP = None   # optional fn(img, cam) painted behind the level (prototypes)
 
 
 # ---------------- Themes aus Swift lesen ----------------
@@ -269,7 +270,7 @@ def chapter(n, themes, title_font, story_font, label_font):
             glow(img, (CW * .2, CH * .15), CW * .3, (220, 230, 255), .4)
             d.line(pts, fill=(250, 250, 255), width=3 * SS)
     rm.SUN_HOOK = sun
-    rm.BACKDROP_HOOK = None
+    rm.BACKDROP_HOOK = EXTRA_BACKDROP
     rm.FG_CLOUDS = False
     rm.PARTICLE_HOOK = particles_for(th["particle"], n)
     rm.DECOR_HOOKS.clear(); rm.DECOR_HOOKS.update(HOOKS)
