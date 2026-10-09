@@ -324,10 +324,13 @@ final class SoundEngine {
         lock.unlock()
     }
 
+    /// Lautstärke der Glockenspiel-Effekte (Verbindung, Druckplatte, Hinweis, Finale) relativ zur Musik.
+    private let chimeLevel = 0.4
+
     func chime(_ degrees: [Int], spacing: Double = 0.12, amp: Double = 0.12) {
         lock.lock()
         for (i, d) in degrees.enumerated() {
-            voices.append(Voice(freq: SoundEngine.note(d), amp: amp, attack: 0.005, hold: 0, decay: 1.6, timbre: .bell,
+            voices.append(Voice(freq: SoundEngine.note(d), amp: amp * chimeLevel, attack: 0.008, hold: 0, decay: 1.6, timbre: .bell,
                                 delay: Int(Double(i) * spacing * sampleRate)))
         }
         lock.unlock()
@@ -343,12 +346,12 @@ final class SoundEngine {
     }
 
     func settle() {
-        add(Voice(freq: 73.4, amp: 0.12, attack: 0.005, hold: 0, decay: 0.35, timbre: .sine))
-        add(Voice(freq: 146.8, amp: 0.05, attack: 0.005, hold: 0, decay: 0.25, timbre: .bell))
+        add(Voice(freq: 73.4, amp: 0.08, attack: 0.005, hold: 0, decay: 0.35, timbre: .sine))
+        add(Voice(freq: 146.8, amp: 0.03, attack: 0.005, hold: 0, decay: 0.25, timbre: .bell))
     }
 
     func plate() {
-        add(Voice(freq: 61.7, amp: 0.14, attack: 0.01, hold: 0, decay: 0.8, timbre: .sine))
+        add(Voice(freq: 61.7, amp: 0.08, attack: 0.01, hold: 0, decay: 0.8, timbre: .sine))
         chime([2, 4, 7, 9], spacing: 0.09, amp: 0.08)
     }
 

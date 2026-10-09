@@ -445,8 +445,7 @@ extension Art {
                     UIColor(hex: 0xFFE07A, alpha: 0.9).setFill(); c.fill(CGRect(x: x + 10, y: y + 5, width: 5, height: 5))
                 }
                 windmill(760, 380, 1.4, col(UIColor(hex: 0x8E6A44), 0.3))
-            default: // cumulus: riesiger Wolkenturm, schwebende Inseln mit Wasserfällen
-                cumulus(640, 330, 520, 7, light, shadow)
+            default: // ferne schwebende Inseln mit Wasserfällen über sanften Hügeln
                 island(170, 280, 64, col(UIColor(hex: 0x76A256), 0.45), col(UIColor(hex: 0x98907E), 0.45), falls: true)
                 island(900, 340, 44, col(UIColor(hex: 0x76A256), 0.55), col(UIColor(hex: 0x98907E), 0.55), falls: true)
                 hill(430, 26, col(UIColor(hex: 0x86AE6E), 0.45), 1.1, 3)
