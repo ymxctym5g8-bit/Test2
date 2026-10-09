@@ -273,6 +273,18 @@ final class LevelLogic {
         return cellsFree(derived(st, pressed: pressed))
     }
 
+    /// Bleibt Hanas Block ein begehbares Feld, wenn `group` auf `value` steht? Gekoppelte Teile
+    /// (etwa Lichtbrücken an Spiegeln) dürfen ihr nicht den Boden wegziehen oder sie zudecken.
+    func keepsTile(_ block: Int, group: String, value: Int) -> Bool {
+        guard def.blocks.indices.contains(block), def.blocks[block].walk else { return false }
+        var st = state
+        st[group] = value
+        let full = derived(st, pressed: pressed)
+        let cell = worldCell(block, in: full).0
+        let above = IVec3(cell.x, cell.y + 1, cell.z)
+        return !def.blocks.indices.contains { worldCell($0, in: full).0 == above }
+    }
+
     private func cellsFree(_ st: [String: Int]) -> Bool {
         var cells = Set<IVec3>()
         for i in def.blocks.indices {

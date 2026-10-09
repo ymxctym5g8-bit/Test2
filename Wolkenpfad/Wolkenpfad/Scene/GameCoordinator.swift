@@ -643,10 +643,14 @@ final class GameCoordinator: NSObject, ObservableObject {
             target = Int(d.value.rounded()).clamped(d.allowed)
         }
         // Gekoppelte Teile fahren mit – die Endstellung braucht auch für sie Platz
-        if !logic.isSettleFree(group: d.group, value: target) {
+        // und Hanas Feld muss unter ihren Füßen bleiben
+        let settles = { (v: Int) in
+            self.logic.isSettleFree(group: d.group, value: v) && self.logic.keepsTile(self.currentTile, group: d.group, value: v)
+        }
+        if !settles(target) {
             let current = logic.value(of: d.group)
             target = Array(d.allowed).sorted { abs($0 - target) < abs($1 - target) }
-                .first { logic.isSettleFree(group: d.group, value: $0) } ?? current
+                .first { settles($0) } ?? current
         }
         mechanismBusy = true
         let oldEdges = logic.edges
