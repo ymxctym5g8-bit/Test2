@@ -56,8 +56,11 @@ final class GameCoordinator: NSObject, ObservableObject {
     @Published var menuOpen = false {
         didSet { scene.isPaused = menuOpen }
     }
-    @Published var soundOn = true {
-        didSet { audio.enabled = soundOn }
+    @Published var soundOn = GameSettings.sound {
+        didSet {
+            audio.enabled = soundOn
+            UserDefaults.standard.set(soundOn, forKey: GameSettings.soundKey)
+        }
     }
 
     let view: SCNView
@@ -130,6 +133,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         setupScene()
         setupView()
         audio.start()
+        audio.enabled = soundOn
         audio.playMusic(theme: theme.song)
         hintTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
             guard let self = self else {
@@ -432,7 +436,7 @@ final class GameCoordinator: NSObject, ObservableObject {
     private func press(_ id: String) {
         logic.press(id)
         audio.plate()
-        rigid.impactOccurred(intensity: 0.9)
+        if GameSettings.haptics { rigid.impactOccurred(intensity: 0.9) }
         if let p = world.plates[id] {
             p.node.removeAllActions()
             p.node.opacity = 1
@@ -596,7 +600,7 @@ final class GameCoordinator: NSObject, ObservableObject {
 
     private func detentFeedback() {
         audio.click()
-        haptic.impactOccurred(intensity: 0.6)
+        if GameSettings.haptics { haptic.impactOccurred(intensity: 0.6) }
     }
 
     private func mechanism(atScreen p: CGPoint) -> String? {
@@ -676,7 +680,7 @@ final class GameCoordinator: NSObject, ObservableObject {
         defer { applyTriggers() }
         guard changed else { return }
         audio.settle()
-        rigid.impactOccurred(intensity: 0.7)
+        if GameSettings.haptics { rigid.impactOccurred(intensity: 0.7) }
         let fresh = logic.edges.subtracting(oldEdges)
         guard !fresh.isEmpty else { return }
         var illusion = false

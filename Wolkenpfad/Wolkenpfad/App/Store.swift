@@ -1,71 +1,61 @@
 import Foundation
 import StoreKit
 
-/// In-App-Käufe mit StoreKit 2: drei Akte einzeln oder die ganze Reise auf einmal.
-/// Käufe sind einmalig (non-consumable) und über die Familienfreigabe teilbar.
+/// In-App-Kauf mit StoreKit 2: ein einmaliger Kauf (non-consumable) schaltet alle Kapitel
+/// nach dem Prolog frei. Über die Familienfreigabe teilbar.
 @MainActor
 final class Store: ObservableObject {
-    @Published private(set) var products: [String: Product] = [:]
-    @Published private(set) var owned: Set<String>
+    @Published private(set) var product: Product?
+    @Published private(set) var unlocked: Bool
     @Published private(set) var busy = false
     @Published var message: String?
 
-    private let cacheKey = "wolkenpfad.purchases"
+    private let cacheKey = "echoes.fullJourney"
     private var updates: Task<Void, Never>?
 
     init() {
-        // Zwischenspeicher, damit gekaufte Kapitel auch ohne Netz sofort offen sind;
+        // Zwischenspeicher, damit die Kapitel auch ohne Netz sofort offen sind;
         // beim Start wird er mit den echten Berechtigungen abgeglichen.
-        owned = Set(UserDefaults.standard.stringArray(forKey: cacheKey) ?? [])
+        unlocked = UserDefaults.standard.bool(forKey: cacheKey)
         updates = Task { [weak self] in
             for await result in Transaction.updates {
                 await self?.handle(result)
             }
         }
         Task {
-            await loadProducts()
+            await loadProduct()
             await refreshEntitlements()
         }
     }
 
     deinit { updates?.cancel() }
 
-    /// Ist das Kapitel gekauft (oder kostenlos)?
-    func owns(chapter n: Int) -> Bool {
-        guard let pid = Catalog.act(of: n).productID else { return true }
-        return owned.contains(pid) || owned.contains(Catalog.journeyID)
-    }
+    /// Ist das Kapitel spielbar (kostenlos oder gekauft)?
+    func owns(chapter n: Int) -> Bool { Catalog.act(of: n).free || unlocked }
 
-    func owns(product id: String) -> Bool {
-        owned.contains(id) || (id != Catalog.journeyID && owned.contains(Catalog.journeyID))
-    }
+    /// Lokalisierter Preis, sobald das Produkt geladen ist.
+    var price: String? { product?.displayPrice }
 
-    var ownsEverything: Bool { Catalog.acts.allSatisfy { $0.productID == nil || owns(product: $0.productID!) } }
-
-    func price(_ id: String) -> String? { products[id]?.displayPrice }
-
-    func loadProducts() async {
+    func loadProduct() async {
         do {
-            let list = try await Product.products(for: Catalog.productIDs)
-            products = Dictionary(uniqueKeysWithValues: list.map { ($0.id, $0) })
+            product = try await Product.products(for: Catalog.productIDs).first
         } catch {
             message = "The App Store can’t be reached right now. Please try again later."
         }
     }
 
     func refreshEntitlements() async {
-        var current = Set<String>()
+        var owned = false
         for await result in Transaction.currentEntitlements {
-            if case .verified(let t) = result, t.revocationDate == nil { current.insert(t.productID) }
+            if case .verified(let t) = result, t.productID == Catalog.fullJourneyID, t.revocationDate == nil { owned = true }
         }
-        owned = current
-        save()
+        setUnlocked(owned)
     }
 
-    func purchase(_ id: String) async {
-        if products[id] == nil { await loadProducts() }
-        guard let product = products[id] else {
-            message = "This item isn’t available right now. Please try again later."
+    func purchase() async {
+        if product == nil { await loadProduct() }
+        guard let product else {
+            message = "The journey isn’t available right now. Please try again later."
             return
         }
         busy = true
@@ -77,10 +67,9 @@ final class Store: ObservableObject {
                     message = "The purchase couldn’t be verified."
                     return
                 }
-                owned.insert(t.productID)
-                save()
+                setUnlocked(true)
                 await t.finish()
-                message = "Thank you! The new chapters are waiting for you."
+                message = "Thank you! Every chapter of the journey is now open."
             case .pending:
                 message = "Your purchase is waiting for approval."
             case .userCancelled:
@@ -98,15 +87,17 @@ final class Store: ObservableObject {
         defer { busy = false }
         try? await AppStore.sync()
         await refreshEntitlements()
-        message = owned.isEmpty ? "No previous purchases were found." : "Your purchases have been restored."
+        message = unlocked ? "Your purchase has been restored." : "No previous purchase was found."
     }
 
     private func handle(_ result: VerificationResult<Transaction>) async {
         guard case .verified(let t) = result else { return }
-        if t.revocationDate == nil { owned.insert(t.productID) } else { owned.remove(t.productID) }
-        save()
+        if t.productID == Catalog.fullJourneyID { setUnlocked(t.revocationDate == nil) }
         await t.finish()
     }
 
-    private func save() { UserDefaults.standard.set(Array(owned), forKey: cacheKey) }
+    private func setUnlocked(_ value: Bool) {
+        unlocked = value
+        UserDefaults.standard.set(value, forKey: cacheKey)
+    }
 }

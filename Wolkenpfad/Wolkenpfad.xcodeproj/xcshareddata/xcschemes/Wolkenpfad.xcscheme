@@ -49,7 +49,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../../Wolkenpfad.storekit">
+         identifier = "../../EchoesOfTheSky.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

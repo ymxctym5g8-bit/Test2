@@ -37,7 +37,7 @@ struct ChapterSelect: View {
     }
 
     @ViewBuilder private func actSection(_ act: ActInfo) -> some View {
-        let owned = act.productID.map { store.owns(product: $0) } ?? true
+        let owned = act.free || store.unlocked
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 2) {
@@ -52,14 +52,14 @@ struct ChapterSelect: View {
                 Spacer()
                 if !owned {
                     Button(action: onStore) {
-                        Label(store.price(act.productID ?? "") ?? "Unlock", systemImage: "lock.open")
+                        Label("Unlock", systemImage: "lock.open")
                             .font(.system(size: 14, weight: .semibold, design: .serif))
                             .foregroundColor(Ink.paper)
                             .padding(.horizontal, 14)
                             .frame(height: 34)
                             .background(Capsule().fill(Ink.accent.opacity(0.9)))
                     }
-                } else if act.productID == nil {
+                } else if act.free {
                     Text("Free").font(.system(size: 13, design: .serif)).foregroundColor(Ink.soft)
                 }
             }

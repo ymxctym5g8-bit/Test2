@@ -1,13 +1,15 @@
-# Wolkenpfad
+# Echoes of the Sky
 
-*A journey above the clouds.* Ein ruhiges Perspektiv-Rätselspiel für das iPhone, im Stil eines Studio-Ghibli-Films mit der unmöglichen Architektur von *Monument Valley*. Es gibt schwebende Inseln über einem Wolkenmeer, Pastellverläufe in Rosa, Türkis, Lavendel und Ocker, Escher-Geometrie, moosige Steine und kleine Naturgeister. Gegner und Zeitdruck gibt es nicht.
+*A journey above the clouds.* Bundle-ID `app.echoesofthesky`. Das Xcode-Projekt und der Quellordner heißen weiterhin `Wolkenpfad` (der frühere Arbeitstitel). Auf dem Homescreen und im Spiel heißt die App „Echoes of the Sky“.
 
-**Das Spiel ist komplett auf Englisch.** Es hat 18 Kapitel: einen kostenlosen Prolog (1–3) und drei Akte mit je fünf Kapiteln (4–18), die per In-App-Kauf freigeschaltet werden.
+Ein ruhiges Perspektiv-Rätselspiel für das iPhone, im Stil eines Studio-Ghibli-Films mit der unmöglichen Architektur von *Monument Valley*. Es gibt schwebende Inseln über einem Wolkenmeer, Pastellverläufe in Rosa, Türkis, Lavendel und Ocker, Escher-Geometrie, moosige Steine und kleine Naturgeister. Gegner und Zeitdruck gibt es nicht.
+
+**Das Spiel ist komplett auf Englisch.** Es hat 18 Kapitel: einen kostenlosen Prolog (1–3) und drei Akte mit je fünf Kapiteln (4–18). Ein einziger In-App-Kauf für 2 $ schaltet alle 15 Kapitel der Akte frei.
 
 ## Starten
 
 1. `Wolkenpfad.xcodeproj` in **Xcode 16 oder neuer** öffnen.
-2. Einen iPhone-Simulator wählen und ▶︎ drücken. Das geteilte Schema `Wolkenpfad` nutzt die StoreKit-Testkonfiguration `Wolkenpfad.storekit`. Käufe lassen sich deshalb im Simulator ohne App Store Connect testen.
+2. Einen iPhone-Simulator wählen und ▶︎ drücken. Das geteilte Schema `Wolkenpfad` nutzt die StoreKit-Testkonfiguration `EchoesOfTheSky.storekit`. Der Kauf lässt sich deshalb im Simulator ohne App Store Connect testen.
 3. Für ein echtes Gerät unter *Signing & Capabilities* das eigene Team eintragen.
 
 Voraussetzungen: iOS 17 oder neuer, iPhone, Hochformat. Das Spiel nutzt SwiftUI, SceneKit, StoreKit 2 und AVAudioEngine und braucht keine externen Abhängigkeiten. Grafik und Musik entstehen prozedural.
@@ -47,24 +49,33 @@ Jedes Kapitel hat einen eigenen Look: Himmelsverlauf, Licht, Wolkenfarben, Kulis
 
 Vorschaubilder aller Kapitel liegen in `Mockups/chapters/`. Die Übersicht ist `00_alle_kapitel.jpg`.
 
-## In-App-Käufe
+## Hauptmenü
 
-| Produkt-ID | Inhalt | Preis (Testkonfiguration) |
-|---|---|---|
-| `com.example.Wolkenpfad.act1` | Act I, Kapitel 4–8 | 2,99 $ |
-| `com.example.Wolkenpfad.act2` | Act II, Kapitel 9–13 | 2,99 $ |
-| `com.example.Wolkenpfad.act3` | Act III, Kapitel 14–18 | 2,99 $ |
-| `com.example.Wolkenpfad.journey` | Alle drei Akte (*The Complete Journey*) | 6,99 $ |
+Beim Start erscheint das Hauptmenü. Seine Kulisse zeigt den Look des Kapitels, in dem die Reise weitergeht: Himmelsverlauf, gemalte Ferne, ziehende Wolken, eine schwebende Insel mit Baum, Torbogen und Wasserfall, Kiko und Lichtteilchen. Dazu läuft die Musik dieses Kapitels.
 
-Alle Produkte sind *Non-Consumable* und unterstützen die Familienfreigabe. `App/Store.swift` nutzt StoreKit 2: Es lädt die Produkte, kauft, hört auf `Transaction.updates`, gleicht `currentEntitlements` ab und bietet *Restore Purchases* (`AppStore.sync`). Gekaufte Akte werden zusätzlich lokal zwischengespeichert. So sind sie auch offline sofort offen.
+- **Begin the Journey / Continue:** startet das nächste offene Kapitel (Untertitel mit Kapitelnummer und Titel). Ist es noch nicht gekauft, öffnet sich der Shop.
+- **Chapters:** Prolog und drei Akte mit Fortschritt und Kaufstatus.
+- **Settings:** Musik und Klang, Haptik, Kauf wiederherstellen, *Start a New Journey* (Fortschritt löschen, mit Rückfrage) und *About*.
+- **Unlock the Full Journey · $2.00:** nur sichtbar, solange noch nicht gekauft.
+- Darunter der Fortschritt („6 of 18 chapters“).
+
+Im Spiel kommt man über das Menü oben rechts oder am Kapitelende zurück ins Hauptmenü. Vor jedem Kapitel zeigt eine Kapitelkarte Akt, Nummer und Titel („Tap to begin“). Mockups: `Mockups/00_main_menu.jpg`, erzeugt mit `Tools/render_main_menu.py`.
+
+## In-App-Kauf
+
+| Produkt-ID | Inhalt | Typ | Preis (Testkonfiguration) |
+|---|---|---|---|
+| `app.echoesofthesky.fulljourney` | *The Full Journey*: alle 15 Kapitel der Akte I–III | Non-Consumable, Familienfreigabe | 2,00 $ |
+
+`App/Store.swift` nutzt StoreKit 2: Es lädt das Produkt, kauft, hört auf `Transaction.updates`, gleicht `currentEntitlements` ab und bietet *Restore Purchase* (`AppStore.sync`). Der Kauf wird zusätzlich lokal zwischengespeichert. So sind die Kapitel auch offline sofort offen.
 
 Für den Release:
 
-1. Bundle-ID und Produkt-IDs von `com.example.Wolkenpfad…` auf die eigenen ändern, in `App/Catalog.swift` und in `Wolkenpfad.storekit`.
-2. Die vier Produkte in App Store Connect als *Non-Consumable* anlegen.
+1. In App Store Connect die App mit der Bundle-ID `app.echoesofthesky` anlegen.
+2. Das Produkt `app.echoesofthesky.fulljourney` als *Non-Consumable* anlegen und den Preis auf 2,00 $ setzen. Seit 2023 sind auch glatte Preise wie 2,00 $ möglich. Alternativ 1,99 $.
 3. Optional die Testkonfiguration im Schema abwählen (*Edit Scheme → Run → Options → StoreKit Configuration*).
 
-Freischaltung im Spiel: Der Prolog ist kostenlos. Innerhalb eines Akts öffnet jedes abgeschlossene Kapitel das nächste. Das erste Kapitel eines gekauften Akts ist sofort spielbar. Am Ende eines Kapitels geht es mit *Continue* weiter oder, falls nötig, zum Shop. Die Kapitelauswahl zeigt Fortschritt und Kaufstatus.
+Freischaltung im Spiel: Der Prolog ist kostenlos. Innerhalb eines Akts öffnet jedes abgeschlossene Kapitel das nächste. Nach dem Kauf ist das erste Kapitel jedes Akts sofort spielbar.
 
 ## Steuerung
 
@@ -72,7 +83,7 @@ Freischaltung im Spiel: Der Prolog ist kostenlos. Innerhalb eines Akts öffnet j
 - **Ziehen** an Kurbeln, Griffen oder beweglichen Teilen: Die Welt bewegt sich und rastet mit Klick und Haptik ein. Steht Hana auf einem beweglichen Teil, fährt sie mit.
 - **Druckplatten** rasten beim Betreten ein und bewegen Teile, die man nicht anfassen kann.
 - **Gekoppelte Mechanismen** (Zustandstrigger): Manche Teile folgen der Stellung anderer, etwa Lichtbrücken den Spiegeln, die rechte Wippe der linken oder die Saiten den Harfenwirbeln.
-- Das **Menü** oben rechts bietet Hinweise, Klang an/aus, die Kapitelauswahl und einen Neustart.
+- Das **Menü** oben rechts bietet Hinweise, Klang an/aus, die Kapitelauswahl, einen Neustart und den Weg zurück ins Hauptmenü.
 
 ## Wie die unmöglichen Wege funktionieren
 
@@ -83,9 +94,9 @@ Die Kamera ist orthografisch und schaut genau entlang der Raumdiagonale (1, 1, 1
 ```
 Wolkenpfad/
 ├── App/
-│   ├── WolkenpfadApp.swift      App-Einstieg, Spielfortschritt
-│   ├── Catalog.swift            Prolog, drei Akte, Kapiteltitel, Produkt-IDs
-│   └── Store.swift              StoreKit 2: Produkte, Kauf, Wiederherstellen
+│   ├── WolkenpfadApp.swift      App-Einstieg, Hauptmenü ↔ Spiel, Fortschritt, Einstellungen
+│   ├── Catalog.swift            App-Name, Prolog, drei Akte, Kapiteltitel, Produkt-ID
+│   └── Store.swift              StoreKit 2: ein Kauf für alle Kapitel, Wiederherstellen
 ├── Level/
 │   ├── level1–18.json           Leveldaten: Blöcke, Mechanismen, Platten, Trigger, Hinweise, Texte, Finale
 │   └── LevelModel.swift         Gitterlogik, Ports, Illusionen, Trigger, Wegsuche
@@ -96,8 +107,8 @@ Wolkenpfad/
 │   ├── WorldBuilder.swift       Szene aus Leveldaten, Überwucherung, Atmosphäre
 │   └── GameCoordinator.swift    Eingabe, Laufen, Mechanismen, Trigger, Hinweise, Finale
 ├── Audio/SoundEngine.swift      generative Musik (eine Variante je Kapitel)
-├── UI/                          Titel, Erzähltexte, Menü, Kapitelauswahl, Shop
-└── Wolkenpfad.storekit          StoreKit-Testkonfiguration
+├── UI/                          Hauptmenü und Einstellungen, Kapitelkarte, Erzähltexte, Menü, Kapitelauswahl, Shop
+EchoesOfTheSky.storekit          StoreKit-Testkonfiguration
 Tools/                           Python-Werkzeuge zum Bauen und Prüfen von Levels
 ```
 

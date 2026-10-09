@@ -25,12 +25,15 @@ struct GameScreen: View {
     let onRestart: () -> Void
     let onSelect: (Int) -> Void
     let onCompleted: (Int) -> Void
+    let onMainMenu: () -> Void
 
-    init(levelIndex: Int, onRestart: @escaping () -> Void, onSelect: @escaping (Int) -> Void, onCompleted: @escaping (Int) -> Void) {
+    init(levelIndex: Int, onRestart: @escaping () -> Void, onSelect: @escaping (Int) -> Void,
+         onCompleted: @escaping (Int) -> Void, onMainMenu: @escaping () -> Void) {
         _game = StateObject(wrappedValue: GameCoordinator(levelIndex: levelIndex))
         self.onRestart = onRestart
         self.onSelect = onSelect
         self.onCompleted = onCompleted
+        self.onMainMenu = onMainMenu
     }
 
     private var playable: Bool { store.owns(chapter: game.levelIndex) && progress.reached(game.levelIndex) }
@@ -70,8 +73,8 @@ struct GameScreen: View {
                 }
 
                 if game.phase == .title {
-                    TitleOverlay(level: game.levelIndex, playable: playable,
-                                 onChapters: { showChapters = true }, onStore: { showStore = true }) {
+                    TitleOverlay(level: game.levelIndex, playable: playable, night: game.isNight,
+                                 onMainMenu: onMainMenu, onStore: { showStore = true }) {
                         withAnimation(.easeInOut(duration: 1.2)) { game.startGame() }
                     }
                     .transition(.opacity)
@@ -81,13 +84,15 @@ struct GameScreen: View {
                     MenuOverlay(soundOn: $game.soundOn,
                                 onResume: { game.menuOpen = false },
                                 onChapters: { showChapters = true },
-                                onRestart: onRestart)
+                                onRestart: onRestart,
+                                onMainMenu: onMainMenu)
                         .transition(.opacity)
                 }
 
                 if game.phase == .finished {
                     EndOverlay(level: game.levelIndex, onReplay: onRestart, onSelect: onSelect,
-                               onChapters: { showChapters = true }, onStore: { showStore = true })
+                               onChapters: { showChapters = true }, onStore: { showStore = true },
+                               onMainMenu: onMainMenu)
                         .transition(.opacity)
                 }
             }
@@ -139,84 +144,78 @@ struct StoryText: View {
     }
 }
 
+/// Kapitelkarte vor dem Spielen: Akt, Kapitel und Titel.
 struct TitleOverlay: View {
     let level: Int
     let playable: Bool
-    let onChapters: () -> Void
+    let night: Bool
+    let onMainMenu: () -> Void
     let onStore: () -> Void
     let onStart: () -> Void
     @State private var pulse = false
+    @State private var appear = false
 
     var body: some View {
         let chapter = Catalog.chapter(level), act = Catalog.act(of: level)
+        let ink = night ? Ink.paper : Ink.text
         ZStack {
-            LinearGradient(colors: [Ink.paper.opacity(0.8), Ink.paper.opacity(0.15), .clear, Ink.paper.opacity(0.45)],
+            LinearGradient(colors: [(night ? Color.black : Ink.paper).opacity(0.55), .clear, .clear, (night ? Color.black : Ink.paper).opacity(0.4)],
                            startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack(spacing: 12) {
-                Spacer().frame(height: 64)
-                Text("Wolkenpfad")
-                    .font(.system(size: 50, weight: .light, design: .serif))
-                    .foregroundColor(Ink.text)
-                    .shadow(color: .white, radius: 10)
-                Text("A journey above the clouds")
-                    .font(.system(size: 14, design: .serif))
-                    .italic()
-                    .foregroundColor(Ink.soft)
-                Rectangle().fill(Ink.accent.opacity(0.7)).frame(width: 46, height: 1.5).padding(.vertical, 4)
-                Text("\(act.title) · \(act.subtitle)")
-                    .font(.system(size: 13, design: .serif))
-                    .foregroundColor(Ink.soft)
-                Text("Chapter \(level)")
-                    .font(.system(size: 14, weight: .regular, design: .serif))
-                    .foregroundColor(Ink.soft)
-                Text(chapter.title)
-                    .font(.system(size: 22, weight: .regular, design: .serif))
-                    .italic()
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Ink.text)
-                    .padding(.horizontal, 30)
-                Spacer()
-                HStack(spacing: 14) {
-                    pill("Chapters", icon: "book", action: onChapters)
-                    pill("Journey", icon: "sparkles", action: onStore)
+                HStack {
+                    Button(action: onMainMenu) {
+                        Label("Menu", systemImage: "chevron.left")
+                            .font(.system(size: 15, design: .serif))
+                            .foregroundColor(ink)
+                            .padding(.horizontal, 14)
+                            .frame(height: 38)
+                            .background(Capsule().fill((night ? Color.black : Ink.paper).opacity(0.35)))
+                    }
+                    Spacer()
                 }
+                .padding(.horizontal, 18)
+                .padding(.top, 8)
+                Spacer().frame(height: 40)
+                Text("\(act.title.uppercased()) · \(act.subtitle)")
+                    .font(.system(size: 12, weight: .semibold, design: .serif))
+                    .tracking(2)
+                    .foregroundColor(night ? Ink.gold : Ink.accent)
+                Text("Chapter \(Catalog.roman(level))")
+                    .font(.system(size: 16, design: .serif))
+                    .foregroundColor(ink.opacity(0.75))
+                Text(chapter.title)
+                    .font(.system(size: 34, weight: .light, design: .serif))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(ink)
+                    .shadow(color: night ? .black.opacity(0.5) : .white, radius: 10)
+                    .padding(.horizontal, 30)
+                Rectangle().fill(Ink.accent.opacity(0.7)).frame(width: 46, height: 1.5).padding(.top, 4)
+                Spacer()
                 if playable {
                     Text("Tap to begin")
-                        .font(.system(size: 15, weight: .regular, design: .serif))
-                        .foregroundColor(Ink.text)
-                        .opacity(pulse ? 0.9 : 0.35)
-                        .padding(.top, 16)
-                        .padding(.bottom, 54)
+                        .font(.system(size: 16, design: .serif))
+                        .foregroundColor(ink)
+                        .opacity(pulse ? 0.95 : 0.35)
+                        .padding(.bottom, 60)
                 } else {
                     Button(action: onStore) {
-                        Label("Unlock \(act.title)", systemImage: "lock.open")
+                        Label("Unlock the full journey", systemImage: "lock.open")
                             .font(.system(size: 16, weight: .semibold, design: .serif))
                             .foregroundColor(Ink.paper)
-                            .frame(width: 230, height: 46)
+                            .frame(width: 260, height: 48)
                             .background(Capsule().fill(Ink.accent.opacity(0.9)))
                     }
-                    .padding(.top, 16)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 54)
                 }
             }
+            .opacity(appear ? 1 : 0)
         }
         .contentShape(Rectangle())
         .onTapGesture { if playable { onStart() } }
         .onAppear {
+            withAnimation(.easeOut(duration: 1.2)) { appear = true }
             withAnimation(.easeInOut(duration: 1.6).repeatForever()) { pulse = true }
-        }
-    }
-
-    private func pill(_ title: String, icon: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Label(title, systemImage: icon)
-                .font(.system(size: 15, design: .serif))
-                .foregroundColor(Ink.text)
-                .padding(.horizontal, 18)
-                .frame(height: 40)
-                .background(Capsule().fill(Ink.paper.opacity(0.75)))
-                .overlay(Capsule().stroke(Ink.text.opacity(0.2)))
         }
     }
 }
@@ -226,6 +225,7 @@ struct MenuOverlay: View {
     let onResume: () -> Void
     let onChapters: () -> Void
     let onRestart: () -> Void
+    let onMainMenu: () -> Void
 
     var body: some View {
         ZStack {
@@ -249,6 +249,7 @@ struct MenuOverlay: View {
                 }
                 menuButton("Chapters", icon: "book", action: onChapters)
                 menuButton("Restart chapter", icon: "arrow.counterclockwise", action: onRestart)
+                menuButton("Main menu", icon: "house", action: onMainMenu)
                 menuButton("Continue", icon: "play", action: onResume)
             }
         }
@@ -278,6 +279,7 @@ struct EndOverlay: View {
     let onSelect: (Int) -> Void
     let onChapters: () -> Void
     let onStore: () -> Void
+    let onMainMenu: () -> Void
     @EnvironmentObject private var store: Store
     @State private var appear = false
 
@@ -310,14 +312,23 @@ struct EndOverlay: View {
                 } else if nextOwned {
                     primary("Continue to Chapter \(next)", icon: "arrow.right") { onSelect(next) }
                 } else {
-                    primary("Unlock \(Catalog.act(of: next).title)", icon: "lock.open", action: onStore)
+                    primary("Unlock the full journey", icon: "lock.open", action: onStore)
                 }
-                Button(action: onReplay) {
-                    Label("Play again", systemImage: "arrow.counterclockwise")
-                        .font(.system(size: 16, design: .serif))
-                        .foregroundColor(Ink.text)
-                        .frame(width: 250, height: 44)
-                        .background(Capsule().stroke(Ink.text.opacity(0.35)))
+                HStack(spacing: 12) {
+                    Button(action: onReplay) {
+                        Label("Play again", systemImage: "arrow.counterclockwise")
+                            .font(.system(size: 15, design: .serif))
+                            .foregroundColor(Ink.text)
+                            .frame(width: 138, height: 44)
+                            .background(Capsule().stroke(Ink.text.opacity(0.35)))
+                    }
+                    Button(action: onMainMenu) {
+                        Label("Menu", systemImage: "house")
+                            .font(.system(size: 15, design: .serif))
+                            .foregroundColor(Ink.text)
+                            .frame(width: 110, height: 44)
+                            .background(Capsule().stroke(Ink.text.opacity(0.35)))
+                    }
                 }
             }
             .padding(26)
