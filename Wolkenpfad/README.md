@@ -1,92 +1,112 @@
 # Wolkenpfad
 
-Ein meditatives Perspektiv-Rätselspiel für das iPhone. Es kombiniert die unmögliche Architektur von *Monument Valley* mit der warmen, lebendigen Welt eines Studio-Ghibli-Films: schwebende Inseln über einem Wolkenmeer, runde Bäume, moosige Steinkanten, Blütenblätter im Wind und ein kleiner Waldgeist als Begleiter.
+*A journey above the clouds.* Ein ruhiges Perspektiv-Rätselspiel für das iPhone, im Stil eines Studio-Ghibli-Films mit der unmöglichen Architektur von *Monument Valley*. Es gibt schwebende Inseln über einem Wolkenmeer, Pastellverläufe in Rosa, Türkis, Lavendel und Ocker, Escher-Geometrie, moosige Steine und kleine Naturgeister. Gegner und Zeitdruck gibt es nicht.
+
+**Das Spiel ist komplett auf Englisch.** Es hat 18 Kapitel: einen kostenlosen Prolog (1–3) und drei Akte mit je fünf Kapiteln (4–18), die per In-App-Kauf freigeschaltet werden.
 
 ## Starten
 
 1. `Wolkenpfad.xcodeproj` in **Xcode 16 oder neuer** öffnen.
-2. Einen iPhone-Simulator wählen und ▶︎ drücken.
+2. Einen iPhone-Simulator wählen und ▶︎ drücken. Das geteilte Schema `Wolkenpfad` nutzt die StoreKit-Testkonfiguration `Wolkenpfad.storekit`. Käufe lassen sich deshalb im Simulator ohne App Store Connect testen.
 3. Für ein echtes Gerät unter *Signing & Capabilities* das eigene Team eintragen.
 
-Voraussetzungen: iOS 17 oder neuer, iPhone, Hochformat. Das Spiel nutzt SwiftUI, SceneKit und AVAudioEngine und braucht keine externen Abhängigkeiten. Grafik und Musik entstehen prozedural. Die einzige Bilddatei ist das App-Icon.
+Voraussetzungen: iOS 17 oder neuer, iPhone, Hochformat. Das Spiel nutzt SwiftUI, SceneKit, StoreKit 2 und AVAudioEngine und braucht keine externen Abhängigkeiten. Grafik und Musik entstehen prozedural.
 
-## Das erste Level
+## Geschichte
 
-Hana, ein Mädchen mit rotem Umhang und Strohhut, erwacht auf einer schwebenden Garteninsel. Sie soll den leuchtenden Samen zum Schrein über den Wolken bringen. Der Waldgeist **Kiko** schwebt neben ihr her. Wartest du eine Weile, fliegt er zum nächsten Rätsel und leuchtet dort auf.
+Hana ist eine junge Tüftlerin aus einem Dorf auf einer kleinen schwebenden Insel. **Kiko**, ein kleiner weißer Waldgeist, schwebt neben ihr her und zeigt den Weg, wenn man eine Weile wartet. Im Prolog bringt Hana drei Samen zurück zu den Schreinen. Danach findet sie die alte Windharfe und das vergilbte Notizbuch ihres Großvaters. Der Wind am Himmel wird schwächer: Windmühlen stehen still, Wolkenbrücken zerfallen. Hana macht sich auf, sie zu reparieren und die große Windharfe im Herzen der Wolken neu zu stimmen.
 
-So verläuft das Level:
+## Die 18 Kapitel
 
-1. **Garteninsel:** Teich, Wasserfall ins Wolkenmeer und Steinlaternen. Eine Treppe führt hinauf zur Terrasse.
-2. **Drehbrücke:** Mit der goldenen Kurbel drehst du die Holzbrücke, bis sie Terrasse und Turm verbindet. Hana darf dabei auf der Brücke stehen und fährt mit.
-3. **Aufzugssäule:** Ziehst du die türkise Säule nach oben, trägt sie Hana zur oberen Galerie.
-4. **Die unmögliche Verbindung:** Am Ende der Galerie lässt sich ein Bogenarm drehen. In der richtigen Stellung scheint er nahtlos in die Schrein-Insel überzugehen. In Wirklichkeit liegt diese zwei Ebenen höher und näher an der Kamera. Weil der Weg für das Auge zusammenhängt, kann Hana ihn gehen.
-5. **Finale:** Hana erreicht den Schrein. Der Samen steigt auf, ein riesiger Kirschbaum wächst, auf allen Wiesen öffnen sich Blumen, und die Waldgeister erwachen.
+Jedes Kapitel hat einen eigenen Look: Himmelsverlauf, Licht, Wolkenfarben, Kulisse, Teilchen (Blütenblätter, Pusteblumensamen, Sporen, Regen, Briefe, Schmetterlinge …), Materialpalette, Dekoration und eine Variante der Musik. Die Schwierigkeit steigt stetig. Der Wert *Züge* ist die Zahl der Mechanismus-Bedienungen auf dem kürzesten Lösungsweg. Der Prüfer ermittelt ihn automatisch.
 
-## Die Kapitel
+| # | Kapitel | Look | Mechanik | Züge |
+|---|---|---|---|---|
+| | **Prolog · The Forest Seeds** (kostenlos) | | | |
+| 1 | The Seed of the Forest | später Nachmittag, riesige Kumuluswolken | Kurbel, Aufzug, erste Illusion | 4 |
+| 2 | The Song of the River | Abendrot, Herbstahorn, Fluss | Floß, Druckplatte, Drehkreuz | 6 |
+| 3 | The Tower of Lanterns | Nacht, Laternen, Sterne | Drehturm, zwei Platten öffnen ein Tor | 8 |
+| | **Act I · The Call of the Sky** | | | |
+| 4 | The Hum in the Attic | goldener Staub im Dachboden | erster Zustandstrigger: Dachbalken öffnet die Luke | 10 |
+| 5 | The First Step into the Mist | Morgendunst, leuchtende Sporen | gleitende Wolkenbrücken, mitfahren | 11 |
+| 6 | The Valley of Whispering Grass | mannshohes Gras, Kodama | Schlafliedsteine lassen Kodama zur Seite treten | 12 |
+| 7 | The Mill of Forgotten Letters | Herbstocker, Windmühle, fliegende Briefe | Mühlstein hebt per Zustandstrigger den Kornschacht | 13 |
+| 8 | The Storm Is Coming | Gewitterhimmel, Regen, Blitze | Astbrücken um die hohle Eiche, zwei Illusionen | 14 |
+| | **Act II · The Search for the Light** | | | |
+| 9 | The Lake of Glass | spiegelnde Glasplatten, Rosa und Türkis | gleitende Glasscheiben, zwei Illusionen | 15 |
+| 10 | The Town of Bellflowers | violetter Abend, leuchtende Glockenblumen | drehende Blütenstiele, Platten | 16 |
+| 11 | The Sleeping Giant | moosiger Wolkenriese | Atem-Kurbel hebt zwei Thermiksäulen | 17 |
+| 12 | The Maze of Sunbeams | Sonnenuntergang, Lichtschächte | drei Spiegel, sechs Lichtbrücken, jede braucht ein anderes Spiegelpaar | 18 |
+| 13 | The Old Bridge-Builder | Werkstatt, Messing, Seile | gekoppelte Maschinen: Wippe, Zahnrad-Schwenkbrücke, Flaschenzug mit Gegengewicht | 19 |
+| | **Act III · The Heart of the Sky** | | | |
+| 14 | The Ascent to the Sky Garden | steiler Aufstieg, Schmetterlinge | gestapelte Aufzüge und Drehteile | 20 |
+| 15 | The Ruins of the First Storm | monolithische Säulen, schlafende Maschinen | Wächter, Obelisk, gegenläufig gekoppelte Steinringe | 21 |
+| 16 | Echoes of the Past | Nacht, Polarlicht, Erinnerungsprojektionen | Geisterwege per Platte und Laterne, eine erinnerte Tür als Illusion | 22 |
+| 17 | The Heart of the Clouds | Perlmutt in Rosa, Türkis, Lavendel | drei Harfenwirbel: Saiten aus Licht und ein Akkord öffnet das Herz | 24 |
+| 18 | A New Horizon | goldenes Licht, alles blüht, das Dorf erwacht | großes Finale mit allen Mechaniken und dem Akkord des ganzen Tages | 26 |
 
-Jedes Kapitel wird ein Stück schwieriger, umfangreicher und abwechslungsreicher. Es führt neue Mechaniken ein und kombiniert sie mit den bekannten:
+Vorschaubilder aller Kapitel liegen in `Mockups/chapters/`. Die Übersicht ist `00_alle_kapitel.jpg`.
 
-| | Kapitel I · Der Samen des Waldes | Kapitel II · Das Lied des Flusses | Kapitel III · Der Turm der Laternen |
-|---|---|---|---|
-| Stimmung | Tag, Kirschblüten | Abendrot, Herbstahorn | Nacht, Sterne, Laternenlicht |
-| Musik | Klavier, F-Dur, 76 BPM | Okarina und Klavier, d-Moll, 66 BPM | Spieluhr-Wiegenlied, a-Moll, 58 BPM |
-| Blöcke | 109 | 156 | 170 |
-| Lösungsweg | 24 Aktionen | 32 Aktionen | 47 Aktionen |
-| Mechanik-Bedienungen | 4 | 6 | 8 |
-| Neu | Kurbel, Aufzug, unmögliche Verbindung | Floß (mitfahren), Druckplatte, aufsteigende Treppe, Drehkreuz in beiden Stellungen, Schieber erzeugt Illusion | Drehbarer Turm mit Wendeltreppe, zwei Druckplatten öffnen gemeinsam ein Tor, Rückweg-Rätsel, Illusion entsteht erst nach erneuter Turmdrehung |
+## In-App-Käufe
 
-Der Fortschritt wird gespeichert. Im Titelbild wählst du freigeschaltete Kapitel, am Ende eines Kapitels geht es mit „Weiter zu Kapitel …“ zum nächsten.
+| Produkt-ID | Inhalt | Preis (Testkonfiguration) |
+|---|---|---|
+| `com.example.Wolkenpfad.act1` | Act I, Kapitel 4–8 | 2,99 $ |
+| `com.example.Wolkenpfad.act2` | Act II, Kapitel 9–13 | 2,99 $ |
+| `com.example.Wolkenpfad.act3` | Act III, Kapitel 14–18 | 2,99 $ |
+| `com.example.Wolkenpfad.journey` | Alle drei Akte (*The Complete Journey*) | 6,99 $ |
 
-## Zweite Welt: Neko no Machi 猫の町
+Alle Produkte sind *Non-Consumable* und unterstützen die Familienfreigabe. `App/Store.swift` nutzt StoreKit 2: Es lädt die Produkte, kauft, hört auf `Transaction.updates`, gleicht `currentEntitlements` ab und bietet *Restore Purchases* (`AppStore.sync`). Gekaufte Akte werden zusätzlich lokal zwischengespeichert. So sind sie auch offline sofort offen.
 
-Die zweite Welt greift Thema und Stil der ersten drei Kapitel von *Neko no Machi* auf. Die Wolkenpfad-Kapitel bleiben unverändert. Im Titelbild wählst du die Welt, und das erste Kapitel jeder Welt ist sofort offen.
+Für den Release:
 
-Gespielt wird die orange Tigerkatze Mochi. Ein Spatz zeigt ihr den Weg. Unterwegs gibt es Sushi zu sammeln (Zähler oben links), und am Ziel wartet ein goldenes Glöckchen statt des Samens. Im Finale kommen die Nachbarskatzen heraus. Die Optik ist flach, mit tiefblauem Himmel und weißen Kumuluswolken. Hinter jedem Level liegt eine eigene Kulisse.
+1. Bundle-ID und Produkt-IDs von `com.example.Wolkenpfad…` auf die eigenen ändern, in `App/Catalog.swift` und in `Wolkenpfad.storekit`.
+2. Die vier Produkte in App Store Connect als *Non-Consumable* anlegen.
+3. Optional die Testkonfiguration im Schema abwählen (*Edit Scheme → Run → Options → StoreKit Configuration*).
 
-| | Kapitel I · Die Kleinstadt | Kapitel II · Landschaft | Kapitel III · Berg Fuji |
-|---|---|---|---|
-| Welt | Ziegeldächer, Pflaster, Holzhäuser, Strommasten mit Spatzen, Wäscheleinen, Getränkeautomat, Postkasten, Lampions, Kirschbäume | Reisterrassen, Bauernhaus mit Strohdach, Kakibäume, Jizō-Statuen, Vogelscheuche, Heuhaufen, Bambus, Wasserrad, Libellen | Herbstsee mit gespiegeltem Fuji, rote Ahorne, Ginkgos, fünfstöckige Pagode (der Drehturm), Dango-Stand, Aussichtsturm, Kiefer auf Fels |
-| Musik | „Ziegeldächer im Wind“: D-Dur-Walzer im 3/4-Takt, Klavier | „Reisfelder am Morgen“: D-Pentatonik, Flöte über Koto, Taiko | „Der weiße Gipfel“: E-Pentatonik, aufsteigende Koto, Taiko |
-| Sushi | 6 | 7 | 7 |
-
-Die Rätsel nutzen die geprüften Geometrien von Kapitel I–III. Wege, Mechanismen und unmögliche Verbindungen sind also gleich und bleiben lösbar. Neu sind Materialien, Dekoration, Texte und das Sammelziel. `Tools/generate_neko_levels.py` erzeugt `level4–6.json` aus `level1–3.json`.
-
-## Musik
-
-`Audio/SoundEngine.swift` enthält einen generativen Sequenzer. Jedes Kapitel hat ein eigenes Stück mit Akkordfolge, Arpeggio-Figur, Bass, Klangfläche und einer auskomponierten Melodie. Die Melodie spielt nur in jedem zweiten 8-Takte-Bogen, damit die Musik ruhig im Hintergrund bleibt. Zu den Klangfarben gehören Klavier, Okarina mit Vibrato, Spieluhr, Bass und Streicherfläche. Beim Finale wird die Musik leiser, und die Abschlussmelodie erklingt.
+Freischaltung im Spiel: Der Prolog ist kostenlos. Innerhalb eines Akts öffnet jedes abgeschlossene Kapitel das nächste. Das erste Kapitel eines gekauften Akts ist sofort spielbar. Am Ende eines Kapitels geht es mit *Continue* weiter oder, falls nötig, zum Shop. Die Kapitelauswahl zeigt Fortschritt und Kaufstatus.
 
 ## Steuerung
 
 - **Tippen** auf einen Weg: Hana sucht sich den Weg dorthin.
-- **Ziehen** an Kurbeln, Griffen oder beweglichen (türkisen) Teilen: Die Welt bewegt sich und rastet mit Klick und Haptik ein.
-- **Druckplatten** rasten beim Betreten ein und bewegen Teile, die man nicht anfassen kann, etwa Tore oder Treppen.
-- Das **Menü** oben rechts bietet Hinweise, Klang an/aus und einen Neustart.
+- **Ziehen** an Kurbeln, Griffen oder beweglichen Teilen: Die Welt bewegt sich und rastet mit Klick und Haptik ein. Steht Hana auf einem beweglichen Teil, fährt sie mit.
+- **Druckplatten** rasten beim Betreten ein und bewegen Teile, die man nicht anfassen kann.
+- **Gekoppelte Mechanismen** (Zustandstrigger): Manche Teile folgen der Stellung anderer, etwa Lichtbrücken den Spiegeln, die rechte Wippe der linken oder die Saiten den Harfenwirbeln.
+- Das **Menü** oben rechts bietet Hinweise, Klang an/aus, die Kapitelauswahl und einen Neustart.
 
 ## Wie die unmöglichen Wege funktionieren
 
-Die Kamera ist orthografisch und schaut genau entlang der Raumdiagonale (1, 1, 1). Zwei Felder gelten als verbunden, wenn sich zwei Kantenmittelpunkte („Ports“) in der Projektion decken, also wenn sie sich nur um ein Vielfaches von (1, 1, 1) unterscheiden, und wenn ihre Austrittsrichtungen entgegengesetzt sind. Normale Nachbarn, Treppen und Penrose-artige Illusionen folgen alle aus dieser einen Regel (`Level/LevelModel.swift`). Nicht angrenzende Verbindungen gelten nur zwischen Feldern, die im Level mit `"ill": true` markiert sind. So entstehen bei kompakten Bauten wie dem drehbaren Turm keine zufälligen Abkürzungen. Geht Hana über eine Illusion, springt sie entlang der Blickachse. Auf dem Bildschirm sieht das wie ein ganz normaler Schritt aus.
+Die Kamera ist orthografisch und schaut genau entlang der Raumdiagonale (1, 1, 1). Zwei Felder gelten als verbunden, wenn sich zwei Kantenmittelpunkte („Ports“) in der Projektion decken, also wenn sie sich nur um ein Vielfaches von (1, 1, 1) unterscheiden, und wenn ihre Austrittsrichtungen entgegengesetzt sind. Normale Nachbarn, Treppen und Penrose-artige Illusionen folgen alle aus dieser einen Regel (`Level/LevelModel.swift`). Nicht angrenzende Verbindungen gelten nur zwischen Feldern, die im Level mit `"ill": true` markiert sind. Jede Illusion ist also gewollt.
 
 ## Projektaufbau
 
 ```
 Wolkenpfad/
-├── App/WolkenpfadApp.swift      App-Einstieg, Neustart über neue Session
+├── App/
+│   ├── WolkenpfadApp.swift      App-Einstieg, Spielfortschritt
+│   ├── Catalog.swift            Prolog, drei Akte, Kapiteltitel, Produkt-IDs
+│   └── Store.swift              StoreKit 2: Produkte, Kauf, Wiederherstellen
 ├── Level/
-│   ├── level1–6.json            Leveldaten (4–6 = Neko no Machi): Blöcke, Mechanismen, Platten, Hinweise, Finale, Texte
-│   └── LevelModel.swift         Gitterlogik, Ports, Illusionen, Wegsuche
+│   ├── level1–18.json           Leveldaten: Blöcke, Mechanismen, Platten, Trigger, Hinweise, Texte, Finale
+│   └── LevelModel.swift         Gitterlogik, Ports, Illusionen, Trigger, Wegsuche
 ├── Scene/
-│   ├── Art.swift                Palette, handgemalte Texturen, Himmel, Wolken
-│   ├── Props.swift              Bäume, Laternen, Torii, Kurbeln, Hana und Kiko
-│   ├── NekoProps.swift          Häuser, Masten, Pagode, Minka … Katze Mochi, Spatz, Sushi, Glöckchen
-│   ├── WorldBuilder.swift       Szene aus Leveldaten, Licht, Wolkenmeer, Partikel
-│   └── GameCoordinator.swift    Eingabe, Laufen, Mechanismen, Hinweise, Finale
-├── Audio/SoundEngine.swift      Prozeduraler Synthesizer (Klangfläche, Wind, Glocken)
-└── UI/GameScreen.swift          Titel, Erzähltexte, Menü, Kapitel-Abschluss
+│   ├── Themes.swift             18 Kapitel-Looks: Himmel, Licht, Wolken, Teilchen, Paletten, gemalte Kulissen
+│   ├── Art.swift                handgemalte Texturen, Wolken, Himmel
+│   ├── Props.swift, GhibliProps.swift, NekoProps.swift   Bäume, Mühlen, Glockenblumen, Riese, Harfe, Hana, Kiko …
+│   ├── WorldBuilder.swift       Szene aus Leveldaten, Überwucherung, Atmosphäre
+│   └── GameCoordinator.swift    Eingabe, Laufen, Mechanismen, Trigger, Hinweise, Finale
+├── Audio/SoundEngine.swift      generative Musik (eine Variante je Kapitel)
+├── UI/                          Titel, Erzähltexte, Menü, Kapitelauswahl, Shop
+└── Wolkenpfad.storekit          StoreKit-Testkonfiguration
 Tools/                           Python-Werkzeuge zum Bauen und Prüfen von Levels
 ```
 
-`Tools/generate_level1–3.py` erzeugen die Leveldaten. `Tools/verify_level.py` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Es prüft, ob das Level lösbar ist und ob Blöcke kollidieren, und listet jede unmögliche Verbindung auf. So entstehen keine unbeabsichtigten Abkürzungen. Außerdem prüft es die Hinweisregeln. `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_mockups.py` erzeugt die Mockups in `Mockups/`, `Tools/render_neko_mockups.py` die der Neko-Kapitel (`10_…`–`14_…`, Übersicht `00_neko_no_machi.png`). `Tools/render_style_variants.py` zeigt Kapitel III in sechs Stilrichtungen (`20_…`–`25_…`, Übersicht `00_stilvorschlaege_kapitel3.png`). Der Prüfer kontrolliert zusätzlich, dass jedes Sushi auf einem festen, erreichbaren Feld liegt.
+## Level-Werkzeuge
+
+- `Tools/generate_level1–3.py` erzeugen den Prolog, `Tools/levels/ch4–18.py` die Akte. Sie nutzen die kleine DSL `Tools/leveldsl.py` und die Bausteine in `Tools/levels/kit.py`. `Tools/levels/BRIEF.md` beschreibt die Regeln für neue Kapitel.
+- `python3 Tools/verify_level.py Wolkenpfad/Level/levelN.json --essential` durchsucht alle Mechanismus-Stellungen und Druckplatten-Zustände. Der Prüfer zeigt, ob das Level lösbar ist und wie viele Züge die kürzeste Lösung braucht. Er listet jede unmögliche Verbindung auf und prüft Kollisionen beim Drehen und Schieben. Mit `--essential` zeigt er außerdem, dass jeder Mechanismus wirklich gebraucht wird.
+- `Tools/preview_level.py` rendert eine schnelle isometrische Vorschau. `Tools/render_chapters.py` erzeugt die Kapitel-Vorschauen in `Mockups/chapters/` mit den Farben aus `Themes.swift`.
 
 ## Hinweis
 
-Das Projekt wurde in einer Linux-Umgebung ohne Xcode geschrieben. Die Spiellogik ist per Simulation geprüft, und der Swift-Code ist syntaktisch geprüft. Kompiliert wurde er hier aber nicht. Falls Xcode beim ersten Build etwas meldet, ist es voraussichtlich eine Kleinigkeit.
+Das Projekt wurde in einer Linux-Umgebung ohne Xcode geschrieben. Die Spiellogik aller 18 Kapitel ist per Simulation geprüft, und der Swift-Code ist syntaktisch geprüft. Kompiliert wurde er hier aber nicht. Falls Xcode beim ersten Build etwas meldet, ist es voraussichtlich eine Kleinigkeit.

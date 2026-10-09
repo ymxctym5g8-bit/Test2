@@ -1,0 +1,1707 @@
+{
+ "name": "Chapter 12 · The Maze of Sunbeams",
+ "theme": "sunbeam",
+ "chapter": 12,
+ "start": [
+  8,
+  0,
+  5
+ ],
+ "goal": [
+  -9,
+  3,
+  -12
+ ],
+ "goalItem": "prism",
+ "groups": [
+  {
+   "id": "ferry",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 1,
+   "min": 0,
+   "max": 1
+  },
+  {
+   "id": "m1",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    1,
+    4
+   ],
+   "step": 0
+  },
+  {
+   "id": "m2",
+   "kind": "rotate",
+   "pivot": [
+    -1,
+    1,
+    1
+   ],
+   "step": 0
+  },
+  {
+   "id": "m3",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    4,
+    -9
+   ],
+   "step": 0
+  },
+  {
+   "id": "lb1",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "lb2",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "dial",
+   "kind": "rotate",
+   "pivot": [
+    1,
+    0,
+    -1
+   ],
+   "step": 0
+  },
+  {
+   "id": "lb3",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "lift",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "lb4",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "lb5",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "lb6",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 10,
+   "locked": true
+  },
+  {
+   "id": "veil",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    8,
+    0,
+    6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    8,
+    -1,
+    6
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    -2,
+    6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    8,
+    0,
+    5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    8,
+    -1,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    6
+   ],
+   "m": "raft",
+   "walk": true,
+   "g": "ferry"
+  },
+  {
+   "p": [
+    6,
+    -1,
+    6
+   ],
+   "m": "wood",
+   "walk": false,
+   "g": "ferry"
+  },
+  {
+   "p": [
+    5,
+    0,
+    6
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    6
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    1,
+    4
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "m1"
+  },
+  {
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "m1"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    4
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    4
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    1,
+    1
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "m2"
+  },
+  {
+   "p": [
+    -1,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "m2"
+  },
+  {
+   "p": [
+    -1,
+    -3,
+    1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -9
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "m3"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -9
+   ],
+   "m": "stone",
+   "walk": false,
+   "g": "m3"
+  },
+  {
+   "p": [
+    -3,
+    0,
+    -9
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    1,
+    -9
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -9
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -10,
+    4
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb1"
+  },
+  {
+   "p": [
+    5,
+    -10,
+    3
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb1"
+  },
+  {
+   "p": [
+    5,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -10,
+    2
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb2"
+  },
+  {
+   "p": [
+    2,
+    -10,
+    2
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb2"
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "dial"
+  },
+  {
+   "p": [
+    2,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true,
+   "g": "dial"
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "dial"
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "dial"
+  },
+  {
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    -1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    -1
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -3
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -10,
+    -4
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb3"
+  },
+  {
+   "p": [
+    -1,
+    -10,
+    -4
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb3"
+  },
+  {
+   "p": [
+    -2,
+    0,
+    -4
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -4
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -3,
+    -2,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "lift"
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -5
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -5
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    -7,
+    -6
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb4"
+  },
+  {
+   "p": [
+    -5,
+    -7,
+    -7
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb4"
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -8
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -8
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    1,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    3,
+    -8
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    2,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    -7,
+    -9
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb5"
+  },
+  {
+   "p": [
+    -5,
+    -7,
+    -10
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb5"
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -11
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -11
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    1,
+    -11
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -11
+   ],
+   "m": "stone",
+   "walk": true
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -11
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -7,
+    -11
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb6"
+  },
+  {
+   "p": [
+    -8,
+    -7,
+    -11
+   ],
+   "m": "light",
+   "walk": true,
+   "g": "lb6"
+  },
+  {
+   "p": [
+    -9,
+    3,
+    -11
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -9,
+    2,
+    -11
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    1,
+    -11
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    3,
+    -12
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -9,
+    2,
+    -12
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    3,
+    -11
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -10,
+    2,
+    -11
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -10,
+    1,
+    -11
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -9,
+    4,
+    -12
+   ],
+   "m": "light",
+   "walk": false,
+   "g": "veil"
+  },
+  {
+   "p": [
+    7,
+    -2,
+    3
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -1,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    1,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    2,
+    3
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -2,
+    1
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    -1,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    0,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    1,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    2,
+    1
+   ],
+   "m": "stone",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "handle",
+   "p": [
+    6,
+    0,
+    6
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "ferry",
+   "axis": "x"
+  },
+  {
+   "t": "mirror",
+   "p": [
+    3,
+    1,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m1"
+  },
+  {
+   "t": "crank",
+   "p": [
+    3,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m1",
+   "face": "+z"
+  },
+  {
+   "t": "mirror",
+   "p": [
+    -1,
+    1,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m2"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -1,
+    0,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m2",
+   "face": "+z"
+  },
+  {
+   "t": "mirror",
+   "p": [
+    -3,
+    4,
+    -9
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m3"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -3,
+    3,
+    -9
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "m3",
+   "face": "+x"
+  },
+  {
+   "t": "crank",
+   "p": [
+    1,
+    -2,
+    -1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "dial",
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    -3,
+    0,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "lift",
+   "axis": "y"
+  },
+  {
+   "t": "altar",
+   "p": [
+    -9,
+    3,
+    -12
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    8,
+    0,
+    6
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    5,
+    0,
+    6
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    4,
+    0,
+    2
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    3,
+    0,
+    -1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    -2,
+    0,
+    -4
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    -4,
+    3,
+    -8
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "lightshaft",
+   "p": [
+    -6,
+    3,
+    -11
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    -10,
+    3,
+    -11
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "variant": 2
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -9,
+    3,
+    -11
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "lantern",
+   "p": [
+    1,
+    0,
+    -4
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -5,
+    3,
+    -5
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    7,
+    2,
+    3
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "pillar",
+   "p": [
+    -3,
+    2,
+    1
+   ],
+   "s": 0.8,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    8,
+    0,
+    5
+   ],
+   "text": "The sun hangs low and will not set until the maze is solved."
+  },
+  {
+   "at": [
+    5,
+    0,
+    2
+   ],
+   "text": "Light that is caught twice can carry a girl across the sky."
+  },
+  {
+   "at": [
+    1,
+    0,
+    1
+   ],
+   "text": "An old sundial. Its shadow points at two forgotten stones."
+  },
+  {
+   "at": [
+    -2,
+    0,
+    -4
+   ],
+   "text": "Each bridge remembers only the mirrors that made it."
+  },
+  {
+   "at": [
+    -5,
+    3,
+    -8
+   ],
+   "text": "The light bends, and bends again, like a river looking for the sea."
+  },
+  {
+   "at": [
+    -6,
+    3,
+    -11
+   ],
+   "text": "Beyond the last bridge, something glitters like a drop of dawn."
+  }
+ ],
+ "plates": [
+  {
+   "id": "h1",
+   "at": [
+    4,
+    0,
+    -1
+   ]
+  },
+  {
+   "id": "h2",
+   "at": [
+    -2,
+    0,
+    -1
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "lb1",
+   "value": 10,
+   "states": {
+    "m1": 1,
+    "m2": 1
+   }
+  },
+  {
+   "group": "lb2",
+   "value": 10,
+   "states": {
+    "m2": 2,
+    "m3": 1
+   }
+  },
+  {
+   "group": "lb3",
+   "value": 10,
+   "states": {
+    "m1": 3,
+    "m3": 3
+   }
+  },
+  {
+   "group": "lb4",
+   "value": 10,
+   "states": {
+    "m1": 0,
+    "m2": 3
+   }
+  },
+  {
+   "group": "lb5",
+   "value": 10,
+   "states": {
+    "m2": 0,
+    "m3": 2
+   }
+  },
+  {
+   "group": "lb6",
+   "value": 10,
+   "states": {
+    "m1": 2,
+    "m3": 0
+   }
+  },
+  {
+   "group": "veil",
+   "value": 2,
+   "plates": [
+    "h1",
+    "h2"
+   ]
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -6,
+    3,
+    -11
+   ],
+   "pressed": [
+    "h1",
+    "h2"
+   ]
+  },
+  {
+   "target": "m1",
+   "reach": [
+    -5,
+    3,
+    -11
+   ]
+  },
+  {
+   "target": "m2",
+   "reach": [
+    -5,
+    3,
+    -8
+   ]
+  },
+  {
+   "target": "m1",
+   "reach": [
+    -5,
+    3,
+    -5
+   ]
+  },
+  {
+   "target": "lift",
+   "reach": [
+    -2,
+    0,
+    -5
+   ]
+  },
+  {
+   "target": "m3",
+   "reach": [
+    1,
+    0,
+    -4
+   ],
+   "pressed": [
+    "h1",
+    "h2"
+   ]
+  },
+  {
+   "target": "dial",
+   "reach": [
+    1,
+    0,
+    1
+   ]
+  },
+  {
+   "target": "m2",
+   "reach": [
+    4,
+    0,
+    2
+   ]
+  },
+  {
+   "target": "m1",
+   "reach": [
+    5,
+    0,
+    5
+   ]
+  },
+  {
+   "target": "ferry"
+  }
+ ],
+ "ending": {
+  "text": "The sun finally sets, and the maze keeps a little of its light for the night.",
+  "tree": [
+   -10,
+   3,
+   -11
+  ],
+  "spirits": [
+   [
+    8,
+    0,
+    5
+   ],
+   [
+    5,
+    0,
+    2
+   ],
+   [
+    1,
+    0,
+    1
+   ],
+   [
+    4,
+    0,
+    -1
+   ],
+   [
+    -2,
+    0,
+    -4
+   ],
+   [
+    -5,
+    3,
+    -8
+   ],
+   [
+    -6,
+    3,
+    -11
+   ]
+  ]
+ }
+}

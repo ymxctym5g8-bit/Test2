@@ -1,0 +1,2107 @@
+{
+ "name": "Chapter 11 · The Sleeping Giant",
+ "theme": "giant",
+ "chapter": 11,
+ "start": [
+  7,
+  0,
+  5
+ ],
+ "goal": [
+  -4,
+  6,
+  -9
+ ],
+ "goalItem": "feather",
+ "groups": [
+  {
+   "id": "drift",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "knee",
+   "kind": "rotate",
+   "pivot": [
+    2,
+    0,
+    1
+   ],
+   "step": 1
+  },
+  {
+   "id": "breath",
+   "kind": "rotate",
+   "pivot": [
+    6,
+    -2,
+    -3
+   ],
+   "step": 3
+  },
+  {
+   "id": "thermal1",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "shoulder",
+   "kind": "rotate",
+   "pivot": [
+    0,
+    3,
+    -2
+   ],
+   "step": 3
+  },
+  {
+   "id": "thermal2",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "cloud",
+   "kind": "slide",
+   "axis": [
+    0,
+    0,
+    -1
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2
+  },
+  {
+   "id": "mist",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    6,
+    0,
+    4
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    0,
+    5
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    6,
+    -1,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    0,
+    5
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    7,
+    -1,
+    5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    7,
+    -2,
+    5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "m": "cloud",
+   "walk": true,
+   "g": "drift"
+  },
+  {
+   "p": [
+    2,
+    0,
+    1
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "knee"
+  },
+  {
+   "p": [
+    3,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true,
+   "g": "knee"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "knee"
+  },
+  {
+   "p": [
+    2,
+    -2,
+    1
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "knee"
+  },
+  {
+   "p": [
+    2,
+    -3,
+    1
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "knee"
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -3,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    0
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    6,
+    -2,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "breath"
+  },
+  {
+   "p": [
+    7,
+    -2,
+    -3
+   ],
+   "m": "moss",
+   "walk": false,
+   "g": "breath"
+  },
+  {
+   "p": [
+    6,
+    -3,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false,
+   "g": "breath"
+  },
+  {
+   "p": [
+    3,
+    0,
+    -2
+   ],
+   "m": "cloud",
+   "walk": true,
+   "g": "thermal1"
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -2
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "thermal1"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -2
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "thermal1"
+  },
+  {
+   "p": [
+    3,
+    -3,
+    -2
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "thermal1"
+  },
+  {
+   "p": [
+    4,
+    1,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    0,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    1,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    0,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    2,
+    -3
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    1,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    2,
+    -4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    1,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -2
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "shoulder"
+  },
+  {
+   "p": [
+    1,
+    3,
+    -2
+   ],
+   "m": "moss",
+   "walk": true,
+   "g": "shoulder"
+  },
+  {
+   "p": [
+    0,
+    2,
+    -2
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "shoulder"
+  },
+  {
+   "p": [
+    0,
+    1,
+    -2
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "shoulder"
+  },
+  {
+   "p": [
+    2,
+    3,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    2,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    0
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    1
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -2
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    0,
+    3,
+    -5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    0,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -5
+   ],
+   "m": "cloud",
+   "walk": true,
+   "g": "thermal2"
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -5
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "thermal2"
+  },
+  {
+   "p": [
+    -1,
+    1,
+    -5
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "thermal2"
+  },
+  {
+   "p": [
+    -1,
+    5,
+    -4
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    4,
+    -4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    6,
+    -5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    5,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    4,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -5
+   ],
+   "m": "moss",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -6
+   ],
+   "m": "cloud",
+   "walk": true,
+   "g": "cloud"
+  },
+  {
+   "p": [
+    -3,
+    6,
+    -9
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    5,
+    -9
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    4,
+    -9
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -9
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -9
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -8
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -8
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    4,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    7,
+    -9
+   ],
+   "m": "cloud",
+   "walk": false,
+   "g": "mist"
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -10
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -10
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -1,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    0,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    1,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    2,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -7
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -2,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -1,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    0,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    1,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    2,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -6
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    -1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    0,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    1,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    2,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    3,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    4,
+    -5
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -1,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    0,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    1,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    4,
+    -7
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -2,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -1,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    0,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    1,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    4,
+    -6
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    -1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    0,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    1,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -2,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -1,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    0,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    1,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -7
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -7
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -2,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -1,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    0,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    1,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -6
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -6
+   ],
+   "m": "moss",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    -1,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    0,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    1,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    4,
+    -5
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    5,
+    -5
+   ],
+   "m": "moss",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "handle",
+   "p": [
+    2,
+    0,
+    4
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "drift",
+   "axis": "x"
+  },
+  {
+   "t": "crank",
+   "p": [
+    2,
+    -3,
+    1
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "knee",
+   "face": "+z"
+  },
+  {
+   "t": "vent",
+   "p": [
+    5,
+    0,
+    1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "vent",
+   "p": [
+    -1,
+    0,
+    1
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    6,
+    -3,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "breath",
+   "face": "+z"
+  },
+  {
+   "t": "vent",
+   "p": [
+    7,
+    -2,
+    -3
+   ],
+   "s": 0.8,
+   "r": 0.0,
+   "g": "breath"
+  },
+  {
+   "t": "mushroom",
+   "p": [
+    3,
+    2,
+    -3
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "crank",
+   "p": [
+    0,
+    1,
+    -2
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "shoulder",
+   "face": "+x"
+  },
+  {
+   "t": "kodama",
+   "p": [
+    -2,
+    3,
+    -2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "handle",
+   "p": [
+    -3,
+    6,
+    -6
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "cloud",
+   "axis": "z"
+  },
+  {
+   "t": "altar",
+   "p": [
+    -4,
+    6,
+    -9
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "giantface",
+   "p": [
+    -6,
+    5,
+    -5
+   ],
+   "s": 2.2,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "tree",
+   "p": [
+    -8,
+    4,
+    -7
+   ],
+   "s": 1.1,
+   "r": 0.0,
+   "variant": 7
+  },
+  {
+   "t": "tree",
+   "p": [
+    -7,
+    4,
+    -7
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    -8,
+    4,
+    -5
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "tree",
+   "p": [
+    6,
+    0,
+    4
+   ],
+   "s": 0.9,
+   "r": 0.0,
+   "variant": 1
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    6,
+    0,
+    5
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "tallgrass",
+   "p": [
+    2,
+    0,
+    -1
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "cloudpuff",
+   "p": [
+    -4,
+    6,
+    -8
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "butterflies",
+   "p": [
+    -2,
+    6,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "rock",
+   "p": [
+    4,
+    1,
+    -2
+   ],
+   "s": 0.6,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    7,
+    0,
+    5
+   ],
+   "text": "The mountain breathes. Very slowly, it is asleep."
+  },
+  {
+   "at": [
+    2,
+    0,
+    3
+   ],
+   "text": "Moss on his knees, clouds in his beard. How long has he slept?"
+  },
+  {
+   "at": [
+    5,
+    0,
+    0
+   ],
+   "text": "The breath stone warms under Hana's feet."
+  },
+  {
+   "at": [
+    5,
+    1,
+    -2
+   ],
+   "text": "Every breath of the giant lifts the warm air a little higher."
+  },
+  {
+   "at": [
+    0,
+    3,
+    1
+   ],
+   "text": "From his shoulder you can see the whole sky."
+  },
+  {
+   "at": [
+    -2,
+    6,
+    -5
+   ],
+   "text": "Hush. Don't wake him. Not yet."
+  }
+ ],
+ "plates": [
+  {
+   "id": "s1",
+   "at": [
+    5,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "s2",
+   "at": [
+    -1,
+    0,
+    2
+   ]
+  },
+  {
+   "id": "s3",
+   "at": [
+    5,
+    1,
+    -2
+   ]
+  },
+  {
+   "id": "s6",
+   "at": [
+    3,
+    2,
+    -4
+   ]
+  },
+  {
+   "id": "s4",
+   "at": [
+    0,
+    3,
+    1
+   ]
+  },
+  {
+   "id": "s5",
+   "at": [
+    -3,
+    3,
+    -2
+   ]
+  },
+  {
+   "id": "s7",
+   "at": [
+    -1,
+    5,
+    -4
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "thermal1",
+   "value": 1,
+   "plates": [
+    "s1",
+    "s2"
+   ],
+   "states": {
+    "breath": 1
+   }
+  },
+  {
+   "group": "thermal1",
+   "value": 2,
+   "plates": [
+    "s1",
+    "s2"
+   ],
+   "states": {
+    "breath": 2
+   }
+  },
+  {
+   "group": "thermal1",
+   "value": 3,
+   "plates": [
+    "s1",
+    "s2"
+   ],
+   "states": {
+    "breath": 3
+   }
+  },
+  {
+   "group": "thermal2",
+   "value": 1,
+   "plates": [
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "states": {
+    "breath": 1
+   }
+  },
+  {
+   "group": "thermal2",
+   "value": 2,
+   "plates": [
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "states": {
+    "breath": 2
+   }
+  },
+  {
+   "group": "thermal2",
+   "value": 3,
+   "plates": [
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ],
+   "states": {
+    "breath": 3
+   }
+  },
+  {
+   "group": "mist",
+   "value": 2,
+   "plates": [
+    "s7"
+   ]
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -4,
+    6,
+    -8
+   ],
+   "pressed": [
+    "s7"
+   ]
+  },
+  {
+   "target": "cloud",
+   "reach": [
+    -2,
+    6,
+    -5
+   ],
+   "pressed": [
+    "s7"
+   ]
+  },
+  {
+   "target": "breath",
+   "reach": [
+    -1,
+    3,
+    -5
+   ],
+   "pressed": [
+    "s3",
+    "s4",
+    "s5",
+    "s6"
+   ]
+  },
+  {
+   "target": "shoulder",
+   "reach": [
+    2,
+    3,
+    -2
+   ]
+  },
+  {
+   "target": "breath",
+   "reach": [
+    3,
+    0,
+    -2
+   ],
+   "pressed": [
+    "s1",
+    "s2"
+   ]
+  },
+  {
+   "target": "knee",
+   "reach": [
+    2,
+    0,
+    3
+   ]
+  },
+  {
+   "target": "drift"
+  }
+ ],
+ "ending": {
+  "text": "The giant smiles in his sleep, and a warm wind rises over the islands.",
+  "tree": [
+   -4,
+   6,
+   -10
+  ],
+  "spirits": [
+   [
+    7,
+    0,
+    5
+   ],
+   [
+    2,
+    0,
+    3
+   ],
+   [
+    5,
+    0,
+    0
+   ],
+   [
+    5,
+    1,
+    -2
+   ],
+   [
+    0,
+    3,
+    1
+   ],
+   [
+    -3,
+    3,
+    -2
+   ],
+   [
+    -2,
+    6,
+    -5
+   ]
+  ]
+ }
+}

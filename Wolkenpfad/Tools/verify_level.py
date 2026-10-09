@@ -164,72 +164,96 @@ if build(init_state) is None: problems.append("initial state has overlapping blo
 elif start not in build(init_state)[1]: problems.append("start block is covered")
 
 # ---------------- search
-def apply_plate(free_key, pressed, tile):
-    if tile in plate_tiles and plate_tiles[tile] not in pressed:
-        return pressed | {plate_tiles[tile]}
-    return pressed
+# States are packed into one integer (free-group values id, pressed-plate mask, tile) to keep the
+# search fast and small; derived states and their walk graphs are cached per (values, plates).
+PIDS = list(plates)
+PBIT = {pid: 1 << i for i, pid in enumerate(PIDS)}
+TILE_BIT = {tile: PBIT[pid] for tile, pid in plate_tiles.items()}
+M = 1 << len(PIDS)
+NT = len(BL)
+DRAG = [(free.index(g), g, gstates(groups[g])) for g in draggable]
+kids = {init_free: 0}; klist = [init_free]
+fullc = {}
 
-def full(free_key, pressed): return derive(dict(zip(free, free_key)), pressed)
+def kid_of(k):
+    i = kids.get(k)
+    if i is None: i = kids[k] = len(klist); klist.append(k)
+    return i
+
+def full_c(kid, mask):
+    key = kid * M + mask
+    v = fullc.get(key)
+    if v is None:
+        st = derive(dict(zip(free, klist[kid])), frozenset(pid for pid in PIDS if mask & PBIT[pid]))
+        v = fullc[key] = (st, build(st))
+    return v
 
 def solve(frozen=None):
     """BFS; frozen = group that may not be moved (essential-mechanism check)."""
-    s0 = (init_free, frozenset(), start)
-    q = deque([s0]); prev = {s0: None}; found = None
+    s0 = start
+    q = deque([s0]); prev = {s0: -1}; found = None
     while q:
-        k, pr, t = q.popleft()
+        key = q.popleft()
+        t = key % NT; rest = key // NT; mask = rest % M; kid = rest // M
         if t == goal and found is None:
-            found = (k, pr, t)
+            found = key
             if frozen is not None: return found, prev
             continue
-        st = full(k, pr)
-        r = build(st)
-        nxt = []
+        st, r = full_c(kid, mask)
+        base = (kid * M) * NT
         for b, _ in r[0][t]:
-            pr2 = apply_plate(k, pr, b)
-            st2 = full(k, pr2)
-            r2 = build(st2)
-            if r2 is None: problems.append(f"collision after plate in state {st2}"); continue
-            if b not in r2[1]: continue
-            nxt.append(((k, pr2, b), ("walk", BL[b]["p"])))
-        for g in draggable:
+            m2 = mask | TILE_BIT.get(b, 0)
+            if m2 != mask:
+                st2, r2 = full_c(kid, m2)
+                if r2 is None: problems.append(f"collision after plate in state {st2}"); continue
+                if b not in r2[1]: continue
+            n = (kid * M + m2) * NT + b
+            if n not in prev: prev[n] = key * 1024 + 1023; q.append(n)
+        k = klist[kid]
+        for di, (gi, g, vals) in enumerate(DRAG):
             if g == frozen: continue
-            gi = free.index(g)
-            for s in gstates(groups[g]):
-                if s == k[gi]: continue
-                k2 = list(k); k2[gi] = s; k2 = tuple(k2)
-                st2 = full(k2, pr); r2 = build(st2)
+            cur = k[gi]
+            for sv in vals:
+                if sv == cur: continue
+                kid2 = kid_of(k[:gi] + (sv,) + k[gi + 1:])
+                st2, r2 = full_c(kid2, mask)
                 if r2 is None or t not in r2[1]: continue
-                lo, hi = sorted((k[gi], s)); ok = True
+                n = (kid2 * M + mask) * NT + t
+                if n in prev: continue
+                lo, hi = sorted((cur, sv)); ok = True
                 for m in range(lo, hi + 1):   # sweep: other groups keep their old values while dragging
                     mid = dict(st); mid[g] = m
                     if build(mid) is None: ok = False; break
-                if ok: nxt.append(((k2, pr, t), (g, s)))
-        for n, act in nxt:
-            if n not in prev: prev[n] = ((k, pr, t), act); q.append(n)
+                if ok: prev[n] = key * 1024 + di * 32 + (sv + 8); q.append(n)
     return found, prev
 
 found, prev = solve()
 ill = set()
-for (k, pr, t) in prev:
-    adj, tiles = build(full(k, pr))
-    for a, lst in adj.items():
+for st, r in fullc.values():
+    if r is None: continue
+    for a, lst in r[0].items():
         for b, tt in lst:
             if tt: ill.add((min(a, b), max(a, b), tt))
 if not QUIET:
     for a, b, tt in sorted(ill): print("ILLUSION", BL[a]["p"], "<->", BL[b]["p"], "t=", tt)
 for p in sorted(set(problems)): print("PROBLEM", p)
-if not found:
+if found is None:
     print("NOT SOLVABLE"); sys.exit(1)
 steps = []; cur = found
-while prev[cur]: cur, act = prev[cur][0], prev[cur][1]; steps.append(act)
+while prev[cur] != -1:
+    code = prev[cur] % 1024; par = prev[cur] // 1024
+    if code == 1023: steps.append(("walk", BL[cur % NT]["p"]))
+    else: steps.append((DRAG[code // 32][1], code % 32 - 8))
+    cur = par
 steps.reverse()
 mech = [s for s in steps if s[0] != "walk"]
 print(f"SOLVABLE: {len(steps)} actions, {len(mech)} mechanism moves, {len(prev)} states, "
       f"{len(gids)} groups ({len(draggable)} draggable, {len(derived)} triggered), {len(plates)} plates, {len(ill)} illusions")
 if ESSENTIAL:
     for g in draggable:
+        prev = None
         f2, _ = solve(frozen=g)
-        print(f"  without {g}: {'still solvable' if f2 else 'unsolvable (essential)'}")
+        print(f"  without {g}: {'still solvable' if f2 is not None else 'unsolvable (essential)'}")
 if not QUIET:
     for a in steps:
         if a[0] == "walk": print("   walk", a[1], "* PLATE" if tuple(a[1]) in plates.values() else "")

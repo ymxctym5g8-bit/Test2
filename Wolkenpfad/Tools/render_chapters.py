@@ -297,7 +297,11 @@ def chapter(n, themes, title_font, story_font, label_font):
     ink = (255, 247, 235) if night else rm.INK
     act = "Prologue" if n <= 3 else "Act " + ["I", "II", "III"][(n - 4) // 5]
     text_c(img, 210 * SS, act.upper(), label_font, ink, not night)
-    text_c(img, 300 * SS, lv["name"].split("·")[-1].strip(), title_font, ink, not night)
+    title = lv["name"].split("·")[-1].strip()
+    tf, size = title_font, 100
+    while ImageDraw.Draw(img).textbbox((0, 0), title, font=tf)[2] > CW * .88 and size > 50:
+        size -= 6; tf = ImageFont.truetype(FONT_DIR + "liberation/LiberationSerif-Regular.ttf", size * SS)
+    text_c(img, 300 * SS, title, tf, ink, not night)
     first = next((t["text"] for t in lv.get("texts", []) if t["at"] == lv["start"]), None)
     if first:
         words, lines, cur = first.split(), [], ""
@@ -305,7 +309,7 @@ def chapter(n, themes, title_font, story_font, label_font):
             if len(cur) + len(w) > 30: lines.append(cur); cur = w
             else: cur = (cur + " " + w).strip()
         lines.append(cur)
-        text_c(img, CH * .8, "\n".join(lines), story_font, ink, not night)
+        text_c(img, CH * .8, "\n".join(lines), story_font, ink, not night, spacing=26)
     out = img.resize((rm.W // 2, rm.H // 2), Image.LANCZOS).convert("RGB")
     path = os.path.join(OUT, f"ch{n:02d}.jpg")
     out.save(path, quality=88)

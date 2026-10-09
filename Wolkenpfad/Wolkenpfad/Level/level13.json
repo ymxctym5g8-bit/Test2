@@ -1,0 +1,1525 @@
+{
+ "name": "Chapter 13 · The Old Bridge-Builder",
+ "theme": "bridgeworks",
+ "chapter": 13,
+ "start": [
+  5,
+  0,
+  4
+ ],
+ "goal": [
+  -8,
+  6,
+  -8
+ ],
+ "goalItem": "gear",
+ "groups": [
+  {
+   "id": "cart",
+   "kind": "slide",
+   "axis": [
+    1,
+    0,
+    0
+   ],
+   "value": 1,
+   "min": 0,
+   "max": 1
+  },
+  {
+   "id": "table",
+   "kind": "rotate",
+   "pivot": [
+    1,
+    0,
+    0
+   ],
+   "step": 1
+  },
+  {
+   "id": "left",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "right",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 3,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "gear",
+   "kind": "rotate",
+   "pivot": [
+    3,
+    2,
+    -6
+   ],
+   "step": 2
+  },
+  {
+   "id": "swing",
+   "kind": "rotate",
+   "pivot": [
+    -3,
+    3,
+    -3
+   ],
+   "step": 2,
+   "locked": true
+  },
+  {
+   "id": "hoist",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3
+  },
+  {
+   "id": "counter",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 3,
+   "locked": true
+  },
+  {
+   "id": "crane",
+   "kind": "rotate",
+   "pivot": [
+    -7,
+    6,
+    -5
+   ],
+   "step": 0
+  },
+  {
+   "id": "shutter",
+   "kind": "slide",
+   "axis": [
+    0,
+    1,
+    0
+   ],
+   "value": 0,
+   "min": 0,
+   "max": 2,
+   "locked": true
+  }
+ ],
+ "blocks": [
+  {
+   "p": [
+    4,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    4
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    4
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    5,
+    -1,
+    4
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -2,
+    4
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "m": "raft",
+   "walk": true,
+   "g": "cart"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "cart"
+  },
+  {
+   "p": [
+    1,
+    0,
+    0
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "table"
+  },
+  {
+   "p": [
+    2,
+    0,
+    0
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "table"
+  },
+  {
+   "p": [
+    1,
+    -1,
+    0
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "table"
+  },
+  {
+   "p": [
+    1,
+    -2,
+    0
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "table"
+  },
+  {
+   "p": [
+    1,
+    0,
+    2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    0
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    0,
+    -1
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    -1,
+    -1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    -2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    0,
+    0
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    -1,
+    0
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    -2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    0
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    0,
+    1
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -2,
+    -1,
+    1
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    -2,
+    -2,
+    1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -2
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -2
+   ],
+   "m": "rock",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    -2,
+    -2
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    1,
+    0,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    1,
+    -1,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    2,
+    0,
+    -3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "left"
+  },
+  {
+   "p": [
+    2,
+    -1,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "left"
+  },
+  {
+   "p": [
+    2,
+    -2,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "left"
+  },
+  {
+   "p": [
+    0,
+    0,
+    -3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "right"
+  },
+  {
+   "p": [
+    0,
+    -1,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "right"
+  },
+  {
+   "p": [
+    0,
+    -2,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "right"
+  },
+  {
+   "p": [
+    3,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    3,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    4,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    4,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -1,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -1,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    2,
+    -6
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "gear"
+  },
+  {
+   "p": [
+    3,
+    1,
+    -6
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "gear"
+  },
+  {
+   "p": [
+    3,
+    -2,
+    -6
+   ],
+   "m": "stonedark",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    -1,
+    -6
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    3,
+    0,
+    -6
+   ],
+   "m": "stone",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "swing"
+  },
+  {
+   "p": [
+    -2,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "swing"
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "swing"
+  },
+  {
+   "p": [
+    -3,
+    1,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "swing"
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -5
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -6
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -6
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    -1
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    -1
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -3,
+    3,
+    0
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -3,
+    2,
+    0
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -5,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -6,
+    3,
+    -3
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -6,
+    2,
+    -3
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    3,
+    -3
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -7,
+    2,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -7,
+    1,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "hoist"
+  },
+  {
+   "p": [
+    -5,
+    4,
+    -3
+   ],
+   "m": "brass",
+   "walk": false,
+   "g": "counter"
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -5
+   ],
+   "m": "tealtop",
+   "walk": true,
+   "g": "crane"
+  },
+  {
+   "p": [
+    -6,
+    6,
+    -5
+   ],
+   "m": "wood",
+   "walk": true,
+   "g": "crane"
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -5
+   ],
+   "m": "teal",
+   "walk": false,
+   "g": "crane"
+  },
+  {
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "m": "tealdark",
+   "walk": false,
+   "g": "crane"
+  },
+  {
+   "p": [
+    -5,
+    6,
+    -5
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -5,
+    5,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -4,
+    6,
+    -5
+   ],
+   "m": "wood",
+   "walk": true
+  },
+  {
+   "p": [
+    -4,
+    5,
+    -5
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -7
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -7
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -7,
+    6,
+    -8
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -7,
+    5,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    6,
+    -8
+   ],
+   "m": "grass",
+   "walk": true
+  },
+  {
+   "p": [
+    -8,
+    5,
+    -8
+   ],
+   "m": "rockdark",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    7,
+    -8
+   ],
+   "m": "gate",
+   "walk": false,
+   "g": "shutter"
+  },
+  {
+   "p": [
+    -8,
+    6,
+    -7
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    -8,
+    5,
+    -7
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "m": "wood",
+   "walk": false
+  },
+  {
+   "p": [
+    5,
+    -1,
+    3
+   ],
+   "m": "rock",
+   "walk": false
+  }
+ ],
+ "decor": [
+  {
+   "t": "handle",
+   "p": [
+    2,
+    0,
+    3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "cart",
+   "axis": "x"
+  },
+  {
+   "t": "crank",
+   "p": [
+    1,
+    -2,
+    0
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "table",
+   "face": "+z"
+  },
+  {
+   "t": "handle",
+   "p": [
+    2,
+    0,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "left",
+   "axis": "y"
+  },
+  {
+   "t": "gear",
+   "p": [
+    3,
+    2,
+    -6
+   ],
+   "s": 1.3,
+   "r": 0.0,
+   "g": "gear",
+   "face": "+z"
+  },
+  {
+   "t": "crank",
+   "p": [
+    3,
+    1,
+    -6
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "gear",
+   "face": "+x"
+  },
+  {
+   "t": "handle",
+   "p": [
+    -7,
+    3,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "hoist",
+   "axis": "y"
+  },
+  {
+   "t": "crank",
+   "p": [
+    -7,
+    4,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "g": "crane",
+   "face": "+x"
+  },
+  {
+   "t": "altar",
+   "p": [
+    -8,
+    6,
+    -8
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "oldwoman",
+   "p": [
+    -5,
+    6,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0
+  },
+  {
+   "t": "scaffold",
+   "p": [
+    5,
+    0,
+    3
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "chest",
+   "p": [
+    4,
+    0,
+    0
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "gear",
+   "p": [
+    -2,
+    0,
+    0
+   ],
+   "s": 0.7,
+   "r": 0.0,
+   "face": "+z"
+  },
+  {
+   "t": "lantern",
+   "p": [
+    1,
+    0,
+    -2
+   ],
+   "s": 0.8,
+   "r": 0.0
+  },
+  {
+   "t": "letters",
+   "p": [
+    3,
+    3,
+    -3
+   ],
+   "s": 0.7,
+   "r": 0.0
+  },
+  {
+   "t": "rope",
+   "p": [
+    -1,
+    3,
+    -3
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "to": [
+    -6,
+    3,
+    -3
+   ]
+  },
+  {
+   "t": "pennant",
+   "p": [
+    -4,
+    6,
+    -5
+   ],
+   "s": 1.0,
+   "r": 0.0,
+   "to": [
+    -7,
+    6,
+    -7
+   ]
+  },
+  {
+   "t": "scaffold",
+   "p": [
+    -6,
+    3,
+    -3
+   ],
+   "s": 0.9,
+   "r": 0.0
+  },
+  {
+   "t": "flowers",
+   "p": [
+    -7,
+    6,
+    -8
+   ],
+   "s": 0.8,
+   "r": 0.0
+  }
+ ],
+ "texts": [
+  {
+   "at": [
+    5,
+    0,
+    4
+   ],
+   "text": "Hammers ring somewhere above. Someone is still mending the sky."
+  },
+  {
+   "at": [
+    1,
+    0,
+    3
+   ],
+   "text": "Every machine here is married to another. None moves alone."
+  },
+  {
+   "at": [
+    4,
+    3,
+    -3
+   ],
+   "text": "A shelf of tools, each one labelled in Grandfather's hand."
+  },
+  {
+   "at": [
+    -1,
+    3,
+    -3
+   ],
+   "text": "The great gear turns the swing bridge, slow as an old song."
+  },
+  {
+   "at": [
+    -6,
+    3,
+    -3
+   ],
+   "text": "The hoist's counterweight only rests when the hoist is high."
+  },
+  {
+   "at": [
+    -4,
+    6,
+    -5
+   ],
+   "text": "'Your grandfather built half of these,' the old woman laughs."
+  }
+ ],
+ "plates": [
+  {
+   "id": "r1",
+   "at": [
+    4,
+    0,
+    -1
+   ]
+  },
+  {
+   "id": "r2",
+   "at": [
+    -2,
+    0,
+    1
+   ]
+  },
+  {
+   "id": "r3",
+   "at": [
+    4,
+    3,
+    -3
+   ]
+  },
+  {
+   "id": "r4",
+   "at": [
+    -3,
+    3,
+    -6
+   ]
+  },
+  {
+   "id": "r5",
+   "at": [
+    -3,
+    3,
+    0
+   ]
+  },
+  {
+   "id": "r6",
+   "at": [
+    -4,
+    6,
+    -5
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "group": "right",
+   "value": 3,
+   "states": {
+    "left": 0
+   }
+  },
+  {
+   "group": "right",
+   "value": 2,
+   "states": {
+    "left": 1
+   }
+  },
+  {
+   "group": "right",
+   "value": 1,
+   "states": {
+    "left": 2
+   }
+  },
+  {
+   "group": "right",
+   "value": 0,
+   "states": {
+    "left": 3
+   }
+  },
+  {
+   "group": "swing",
+   "value": 0,
+   "states": {
+    "gear": 0
+   }
+  },
+  {
+   "group": "swing",
+   "value": 1,
+   "states": {
+    "gear": 1
+   }
+  },
+  {
+   "group": "swing",
+   "value": 2,
+   "states": {
+    "gear": 2
+   }
+  },
+  {
+   "group": "swing",
+   "value": 3,
+   "states": {
+    "gear": 3
+   }
+  },
+  {
+   "group": "counter",
+   "value": 3,
+   "states": {
+    "hoist": 3
+   }
+  },
+  {
+   "group": "shutter",
+   "value": 2,
+   "plates": [
+    "r1",
+    "r2",
+    "r3",
+    "r4",
+    "r5",
+    "r6"
+   ]
+  }
+ ],
+ "hints": [
+  {
+   "target": "goal",
+   "reach": [
+    -7,
+    6,
+    -7
+   ],
+   "pressed": [
+    "r1",
+    "r2",
+    "r3",
+    "r4",
+    "r5",
+    "r6"
+   ]
+  },
+  {
+   "target": "crane",
+   "reach": [
+    -7,
+    3,
+    -3
+   ]
+  },
+  {
+   "target": "hoist",
+   "reach": [
+    -6,
+    3,
+    -3
+   ]
+  },
+  {
+   "target": "hoist",
+   "reach": [
+    -3,
+    3,
+    -3
+   ]
+  },
+  {
+   "target": "gear",
+   "reach": [
+    -1,
+    3,
+    -3
+   ]
+  },
+  {
+   "target": "left",
+   "reach": [
+    1,
+    0,
+    -3
+   ]
+  },
+  {
+   "target": "table",
+   "reach": [
+    1,
+    0,
+    2
+   ]
+  },
+  {
+   "target": "cart"
+  }
+ ],
+ "ending": {
+  "text": "'Now the bridges will remember you too,' says the old bridge-builder, and hands Hana a brass gear.",
+  "tree": [
+   -8,
+   6,
+   -7
+  ],
+  "spirits": [
+   [
+    5,
+    0,
+    4
+   ],
+   [
+    1,
+    0,
+    3
+   ],
+   [
+    4,
+    0,
+    -1
+   ],
+   [
+    -2,
+    0,
+    1
+   ],
+   [
+    4,
+    3,
+    -3
+   ],
+   [
+    -3,
+    3,
+    0
+   ],
+   [
+    -4,
+    6,
+    -5
+   ]
+  ]
+ }
+}
